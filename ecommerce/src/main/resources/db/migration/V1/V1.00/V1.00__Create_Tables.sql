@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS USERS(
 
-    id SERIAL PRIMARY KEY,
-    username varchar(50)
+    id SERIAL PRIMARY KEY NOT NULL,
+    username varchar(50) NOT NULL
 
 );
