@@ -1,6 +1,8 @@
 package com.ecommerce.repositories;
 
+import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
+import com.ecommerce.util.CustomPasswordEncoder;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepositoryImplementation implements UserRepository {
@@ -39,53 +40,110 @@ public class UserRepositoryImplementation implements UserRepository {
 
     }
 
+
+    /*
+    @id is the user id from User table
+     */
     @Override
-    public <S extends User> S save(S entity) {
-        return null;
+    public void updateUserPassword(Long id, String password) {
+        Session session = sessionFactory.getCurrentSession();
+        CustomPasswordEncoder customPasswordEncoder = new CustomPasswordEncoder();
+        String cryptedPassword = customPasswordEncoder.encode(password);
+        Query query = session.createQuery("UPDATE Password SET password =: cryptedPassword WHERE id=:id");
+        query.setParameter("cryptedPassword",cryptedPassword);
+        query.setParameter("id",id);
+        query.executeUpdate();
     }
 
     @Override
-    public Optional<User> findById(Long aLong) {
-        return Optional.empty();
+    @Transactional
+    public User getUser(Long id){
+        Session session=sessionFactory.getCurrentSession();
+        User user=session.get(User.class,id);
+        if(user==null) {
+            throw new NotFoundException();
+        }
+        return user;
     }
 
     @Override
-    public boolean existsById(Long aLong) {
-        return false;
+    @Transactional
+    public List<User> getUsers(){
+        Session session=sessionFactory.getCurrentSession();
+        Query<User> query=session.createQuery("from User");
+        return query.list();
     }
 
     @Override
+    @Transactional
+    public User save(User user){
+        Session session=sessionFactory.getCurrentSession();
+        session.saveOrUpdate(user);
+        return user;
+    }
+
+    @Override
+    @Transactional
+    public User findById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("FROM User WHERE id=:id");
+        query.setParameter("id",id);
+        return query.getSingleResult();
+    }
+
+    @Override
+    @Transactional
+    public boolean existsById(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("FROM User WHERE id=:id");
+        query.setParameter("id",id);
+        User user = query.getSingleResult();
+        return user!=null;
+    }
+
+    @Override
+    @Transactional
     public Iterable<User> findAll() {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("FROM User");
+        return query.getResultList();
     }
 
     @Override
-    public Iterable<User> findAllById(Iterable<Long> longs) {
-        return null;
-    }
-
-    @Override
+    @Transactional
     public long count() {
-        return 0;
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("FROM User");
+        return query.getResultList().size();
     }
 
     @Override
-    public void deleteById(Long aLong) {
+    @Transactional
+    public void deleteById(Long id) {
 
+        Session session = sessionFactory.getCurrentSession();
+        Query<User> query = session.createQuery("DELETE FROM User WHERE id=:id");
+        query.setParameter("id",id);
+        query.executeUpdate();
     }
 
     @Override
-    public void delete(User entity) {
+    @Transactional
+    public void delete(User user) {
 
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM User WHERE id=:id");
+        Long id =  user.getId();
+        query.setParameter("id",id);
+        query.executeUpdate();
     }
 
     @Override
-    public void deleteAll(Iterable<? extends User> entities) {
-
-    }
-
-    @Override
+    @Transactional
     public void deleteAll() {
 
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery("DELETE FROM User");
+        query.executeUpdate();
     }
 }

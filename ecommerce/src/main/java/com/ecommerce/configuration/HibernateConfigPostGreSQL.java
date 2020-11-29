@@ -17,15 +17,15 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@Profile("h2")
-public class HibernateConfigH2 {
+@Profile("postgresql")
+public class HibernateConfigPostGreSQL {
 
     private Environment environment;
     private DataSource dataSource;
 
     // It will automatically read database properties from application.properties and create DataSource object
     @Autowired
-    public HibernateConfigH2(Environment environment, DataSource dataSource){
+    public HibernateConfigPostGreSQL(Environment environment, DataSource dataSource){
 
         this.environment = environment;
         this.dataSource = dataSource;
@@ -43,7 +43,7 @@ public class HibernateConfigH2 {
 
     private Properties hibernateProperties() {                  // configure hibernate properties
         Properties properties = new Properties();
-        properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.put("hibernate.show_sql", false);
         properties.put("hibernate.format_sql", false);
         properties.put("hibernate.hbm2ddl.auto", "update");
