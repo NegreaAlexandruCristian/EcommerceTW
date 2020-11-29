@@ -1,11 +1,14 @@
 package com.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
+@JsonIgnoreProperties(value= {"reviews"})
 public class User implements Serializable {
 
     @Id
@@ -17,9 +20,9 @@ public class User implements Serializable {
     @JoinColumn(name = "id")
     private Password password;
 
-//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "id")
-//    private UserInformation userInformation;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private UserInformation userInformation;
 
     @Column(name = "username")
     private String username;
@@ -62,22 +65,22 @@ public class User implements Serializable {
         this.password = password;
     }
 
-//    public UserInformation getUserInformation() {
-//        return userInformation;
-//    }
-//
-//    public void setUserInformation(UserInformation userInformation) {
-//        this.userInformation = userInformation;
-//    }
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
+    }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", password=" + password +
-               // ", userInformation=" + userInformation +
+                ", userInformation=" + userInformation +
                 ", username='" + username + '\'' +
-                ", reviews=" + reviews +
                 '}';
     }
+
 }

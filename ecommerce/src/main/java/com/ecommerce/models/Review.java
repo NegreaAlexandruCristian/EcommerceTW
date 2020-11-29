@@ -26,7 +26,7 @@ public class Review implements Serializable {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "reviews")
     private User user;
 
     public Review(){
@@ -80,6 +80,4 @@ public class Review implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-
-
 }
