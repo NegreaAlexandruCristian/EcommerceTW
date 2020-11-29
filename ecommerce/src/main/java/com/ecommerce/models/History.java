@@ -2,12 +2,13 @@ package com.ecommerce.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "history")
-public class History {
+public class History implements Serializable {
 
     @Id
     @Column(name = "id")

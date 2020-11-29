@@ -1,10 +1,11 @@
 package com.ecommerce.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user_credit_cards")
-public class UserCreditCard {
+public class UserCreditCard implements Serializable {
 
     @Id
     @Column(name = "id")

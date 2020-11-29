@@ -1,11 +1,12 @@
 package com.ecommerce.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "user_wishlist")
-public class UserWishlist {
+public class UserWishlist implements Serializable {
 
     @Id
     @Column(name = "id")
