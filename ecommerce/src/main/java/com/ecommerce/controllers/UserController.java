@@ -45,7 +45,6 @@ public class UserController {
         user.setPassword(password);
         user.setUserInformation(userInformation);
         User createdUser = userService.save(user);
-        System.out.println(createdUser);
 
         return new ResponseEntity<>(createdUser, HttpStatus.OK);
     }

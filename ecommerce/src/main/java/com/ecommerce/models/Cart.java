@@ -1,6 +1,12 @@
 package com.ecommerce.models;
 
+import com.sun.istack.NotNull;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,13 +16,17 @@ public class Cart implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Value("1")
+    @NotBlank(message = "Should at least be one")
     @Column(name = "quantity")
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "cartList")
     private User user;
 
     @ManyToMany

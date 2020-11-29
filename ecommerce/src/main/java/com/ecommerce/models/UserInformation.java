@@ -1,6 +1,10 @@
 package com.ecommerce.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 @Entity
@@ -12,16 +16,26 @@ public class UserInformation implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @Column(name = "first_name")
+    @NotBlank(message = "Please enter your first name!")
     private String firstName;
 
+    @NotNull
     @Column(name = "last_name")
+    @NotBlank(message = "Please enter your last name!")
     private String lastName;
 
-    @Column(name = "email")
+    @Email
+    @NotNull
+    @Column(name = "email", unique = true)
+    @NotBlank(message="Please enter your email!")
     private String email;
 
-    @Column(name = "phone")
+    @NotNull
+    @Column(name = "phone", unique = true)
+    @NotBlank(message="Please enter your phone number!")
+    @Pattern(regexp = "^(\\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\\s|\\.|\\-)?([0-9]{3}(\\s|\\.|\\-|)){2}$")
     private String phone;
 
     public UserInformation() {

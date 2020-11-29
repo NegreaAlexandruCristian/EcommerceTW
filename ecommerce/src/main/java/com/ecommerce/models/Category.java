@@ -1,18 +1,29 @@
 package com.ecommerce.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
 public class Category implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name", unique = true)
+    @Pattern(regexp = "^[a-zA-Z]*$")
     private String name;
+
+    @OneToMany(mappedBy = "category")
+    private List<Product> productsCategoryList;
+
 
     public Category() {
     }

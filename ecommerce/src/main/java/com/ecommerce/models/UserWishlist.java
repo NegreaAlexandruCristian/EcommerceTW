@@ -10,14 +10,14 @@ public class UserWishlist implements Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userWishlists")
     private User user;
 
     @ManyToMany
-    @JoinColumn(name = "product_id")
     @JoinTable(name = "product_wishlist",
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))

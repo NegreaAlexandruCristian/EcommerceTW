@@ -2,17 +2,20 @@ package com.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "USERS")
-@JsonIgnoreProperties(value= {"reviews"})
+@JsonIgnoreProperties(value= {"reviews,historyList"})
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
@@ -24,11 +27,28 @@ public class User implements Serializable {
     @JoinColumn(name = "id")
     private UserInformation userInformation;
 
-    @Column(name = "username")
+    @NotNull
+    @Column(name = "username", unique = true)
+    @NotBlank(message = "Please enter your username!")
     private String username;
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "userHistory")
+    private List<History> historyList;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserCreditCard> userCreditCards;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserAddress> userAddresses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Cart> cartList;
+
+    @OneToMany(mappedBy = "user")
+    private List<UserWishlist> userWishlists;
 
     public User() {
     }
@@ -73,6 +93,38 @@ public class User implements Serializable {
         this.userInformation = userInformation;
     }
 
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
+    }
+
+    public List<UserCreditCard> getUserCreditCards() {
+        return userCreditCards;
+    }
+
+    public void setUserCreditCards(List<UserCreditCard> userCreditCards) {
+        this.userCreditCards = userCreditCards;
+    }
+
+    public List<UserAddress> getUserAddresses() {
+        return userAddresses;
+    }
+
+    public void setUserAddresses(List<UserAddress> userAddresses) {
+        this.userAddresses = userAddresses;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -80,6 +132,11 @@ public class User implements Serializable {
                 ", password=" + password +
                 ", userInformation=" + userInformation +
                 ", username='" + username + '\'' +
+                ", reviews=" + reviews +
+                ", historyList=" + historyList +
+                ", userCreditCards=" + userCreditCards +
+                ", userAddresses=" + userAddresses +
+                ", cartList=" + cartList +
                 '}';
     }
 

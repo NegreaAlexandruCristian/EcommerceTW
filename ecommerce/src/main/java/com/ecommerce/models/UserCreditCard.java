@@ -1,6 +1,13 @@
 package com.ecommerce.models;
 
+import com.sun.istack.NotNull;
+import org.hibernate.validator.constraints.CreditCardNumber;
+
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -9,27 +16,40 @@ public class UserCreditCard implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @CreditCardNumber(message = "Not a valid credit card number")
     @Column(name = "card_number")
     private String cardNumber;
 
+    @NotNull
+    @Pattern(regexp = "^[a-zA-Z\\s]*$")
     @Column(name = "card_holder")
     private String cardHolder;
 
+    @NotNull
+    @Min(1)
+    @Max(12)
     @Column(name = "expiration_month")
-    private int expirationMonth;
+    private Integer expirationMonth;
 
+    @NotNull
+    @Min(2020)
+    @Max(2030)
     @Column(name = "expiration_year")
-    private int expirationYear;
+    private Integer expirationYear;
 
+    @NotNull
+    @Min(100)
+    @Max(999)
     @Column(name = "cvv")
-    private int cvv;
+    private Integer cvv;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user_id;
+    @JoinColumn(name = "userCreditCards")
+    private User user;
 
     public UserCreditCard() {
     }
@@ -82,12 +102,12 @@ public class UserCreditCard implements Serializable {
         this.cvv = cvv;
     }
 
-    public User getUser_id() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
+    public void setUser(User user) {
+        this.user = user;
     }
 
 

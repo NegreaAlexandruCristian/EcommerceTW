@@ -1,6 +1,9 @@
 package com.ecommerce.models;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -11,21 +14,26 @@ import java.util.List;
 public class History implements Serializable {
 
     @Id
-    @Column(name = "id")
     @NotNull
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "buy_date")
     private LocalDate buyDate;
 
     @Column(name = "quantity")
+    @NotNull
+    @Value("1")
     private int quantity;
 
+    @NotNull
     @Column(name = "total_price")
     private double totalPrice;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "historyList")
     private User userHistory;
 
     @ManyToMany(fetch = FetchType.LAZY)

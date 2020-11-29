@@ -1,5 +1,6 @@
 package com.ecommerce.repositories;
 
+import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.util.CustomPasswordEncoder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Repository
@@ -63,7 +65,12 @@ public class UserRepositoryImplementation implements UserRepository {
     @Transactional
     public User save(User user){
         Session session=sessionFactory.getCurrentSession();
-        session.saveOrUpdate(user);
+        try {
+            session.saveOrUpdate(user);
+
+        } catch (ConstraintViolationException e){
+            throw new ConstraintViolationExceptionCustom();
+        }
         return user;
     }
 

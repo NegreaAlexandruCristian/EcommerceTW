@@ -1,6 +1,10 @@
 package com.ecommerce.models;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,30 +13,37 @@ import java.util.List;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
+    @NotNull
     private String name;
 
+    @NotNull
     @Column(name = "price")
     private double price;
 
+    @Value("1")
+    @NotNull
     @Column(name = "quantity")
     private int quantity;
 
+    @Value("0")
+    @NotNull
     @Column(name = "sale")
     private int sale;
 
+    @NotNull
     @Column(name = "photo")
     private String photo;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "productsCategoryList")
     private Category category;
 
-    @OneToOne(mappedBy = "product")
-    private Review review;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviewList;
 
     @ManyToMany
     @JoinTable(name = "product_wishlist",
@@ -111,12 +122,12 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public Review getReview() {
-        return review;
+    public List<Review> getReviewList() {
+        return reviewList;
     }
 
-    public void setReview(Review review) {
-        this.review = review;
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
     }
 
     public List<UserWishlist> getUserWishlist() {

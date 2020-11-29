@@ -15,6 +15,10 @@ public class ConversionUserPasswordUtility {
         user.setId(null);
         user.setUsername(customUser.getUsername());
         user.setReviews(new ArrayList<>());
+        user.setCartList(new ArrayList<>());
+        user.setHistoryList(new ArrayList<>());
+        user.setUserAddresses(new ArrayList<>());
+        user.setUserCreditCards(new ArrayList<>());
         return user;
     }
 

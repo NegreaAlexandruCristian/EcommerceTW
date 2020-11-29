@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class ExceptionHandlers {
     @ExceptionHandler(NotFoundException.class)
@@ -19,5 +21,10 @@ public class ExceptionHandlers {
     @ExceptionHandler(ExistentException.class)
     public ResponseEntity existentException(ExistentException e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.PRECONDITION_FAILED);
+    }
+
+    @ExceptionHandler(ConstraintViolationExceptionCustom.class)
+    public ResponseEntity constraintViolationExceptionCustom(RuntimeException e){
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

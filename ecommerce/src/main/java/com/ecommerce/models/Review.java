@@ -1,6 +1,9 @@
 package com.ecommerce.models;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -9,25 +12,28 @@ import java.time.LocalDate;
 public class Review implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Value("0")
     @Column(name = "review")
-    private int review = 0;
+    private int review;
 
     @Column(name = "comment")
     private String comment;
 
+    @NotNull
     @Column(name = "review_date")
     private LocalDate review_date;
-
-    @OneToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "reviews")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "reviewList")
+    private Product product;
 
     public Review(){
 

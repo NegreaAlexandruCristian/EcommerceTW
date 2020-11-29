@@ -1,6 +1,8 @@
 package com.ecommerce.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -13,9 +15,12 @@ public class Password implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     @Column(name = "password")
+    @NotBlank(message = "Please enter a password")
     private String password;
 
+    @NotNull
     @Column(name = "old_password")
     private String oldPassword;
 
