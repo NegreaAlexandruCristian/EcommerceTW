@@ -8,9 +8,8 @@ import java.io.Serializable;
 public class UserInformation implements Serializable {
 
     @Id
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user_id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,14 +24,6 @@ public class UserInformation implements Serializable {
     private String phone;
 
     public UserInformation() {
-    }
-
-    public User getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
     }
 
     public String getFirstName() {
@@ -67,18 +58,22 @@ public class UserInformation implements Serializable {
         this.phone = phone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Long getId() {
+        return id;
+    }
 
-        UserInformation that = (UserInformation) o;
-
-        return user_id != null ? user_id.equals(that.user_id) : that.user_id == null;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
-    public int hashCode() {
-        return user_id != null ? user_id.hashCode() : 0;
+    public String toString() {
+        return "UserInformation{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

@@ -13,6 +13,14 @@ public class User implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id")
+    private Password password;
+
+//    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "id")
+//    private UserInformation userInformation;
+
     @Column(name = "username")
     private String username;
 
@@ -44,5 +52,32 @@ public class User implements Serializable {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+
+//    public UserInformation getUserInformation() {
+//        return userInformation;
+//    }
+//
+//    public void setUserInformation(UserInformation userInformation) {
+//        this.userInformation = userInformation;
+//    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", password=" + password +
+               // ", userInformation=" + userInformation +
+                ", username='" + username + '\'' +
+                ", reviews=" + reviews +
+                '}';
     }
 }

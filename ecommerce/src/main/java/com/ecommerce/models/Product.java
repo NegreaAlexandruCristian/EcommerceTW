@@ -126,4 +126,20 @@ public class Product implements Serializable {
     public void setUserWishlist(List<UserWishlist> userWishlist) {
         this.userWishlist = userWishlist;
     }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
+    }
+
+    public void setCartList(List<Cart> cartList) {
+        this.cartList = cartList;
+    }
 }

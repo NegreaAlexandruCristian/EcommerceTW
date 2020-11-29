@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class UserRepositoryImplementation implements UserRepository {
 
-    final private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public UserRepositoryImplementation(SessionFactory sessionFactory){

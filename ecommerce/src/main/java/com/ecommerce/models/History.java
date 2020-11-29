@@ -34,4 +34,54 @@ public class History implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> productsHistory;
 
+    public History() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getBuyDate() {
+        return buyDate;
+    }
+
+    public void setBuyDate(LocalDate buyDate) {
+        this.buyDate = buyDate;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public User getUserHistory() {
+        return userHistory;
+    }
+
+    public void setUserHistory(User userHistory) {
+        this.userHistory = userHistory;
+    }
+
+    public List<Product> getProductsHistory() {
+        return productsHistory;
+    }
+
+    public void setProductsHistory(List<Product> productsHistory) {
+        this.productsHistory = productsHistory;
+    }
 }

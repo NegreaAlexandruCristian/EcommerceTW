@@ -7,10 +7,10 @@ import java.io.Serializable;
 @Table(name = "PASSWORDS")
 public class Password implements Serializable {
 
+
     @Id
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user_id;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "password")
     private String password;
@@ -19,14 +19,6 @@ public class Password implements Serializable {
     private String oldPassword;
 
     public Password() {
-    }
-
-    public User getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(User user_id) {
-        this.user_id = user_id;
     }
 
     public String getPassword() {
@@ -45,18 +37,20 @@ public class Password implements Serializable {
         this.oldPassword = oldPassword;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public Long getId() {
+        return id;
+    }
 
-        Password password = (Password) o;
-
-        return user_id != null ? user_id.equals(password.user_id) : password.user_id == null;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
-    public int hashCode() {
-        return user_id != null ? user_id.hashCode() : 0;
+    public String toString() {
+        return "Password{" +
+                "id=" + id +
+                ", password='" + password + '\'' +
+                ", oldPassword='" + oldPassword + '\'' +
+                '}';
     }
 }
