@@ -1,5 +1,8 @@
 package com.ecommerce.models;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -8,7 +11,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PASSWORDS")
 public class Password implements Serializable {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

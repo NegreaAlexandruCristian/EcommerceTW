@@ -1,5 +1,6 @@
 package com.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;

@@ -6,6 +6,7 @@ import com.ecommerce.models.User;
 import com.ecommerce.models.UserInformation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ConversionUserPasswordUtility {
 
@@ -14,12 +15,17 @@ public class ConversionUserPasswordUtility {
         User user = new User();
         user.setId(null);
         user.setUsername(customUser.getUsername());
-        user.setReviews(new ArrayList<>());
-        user.setCartList(new ArrayList<>());
-        user.setHistoryList(new ArrayList<>());
-        user.setUserAddresses(new ArrayList<>());
-        user.setUserCreditCards(new ArrayList<>());
+        init(user);
         return user;
+    }
+
+    private static void init(User user){
+        user.setReviews(new HashSet<>());
+        user.setCartList(new HashSet<>());
+        user.setHistoryList(new HashSet<>());
+        user.setUserAddresses(new HashSet<>());
+        user.setUserCreditCards(new HashSet<>());
+        user.setUserWishlists(new HashSet<>());
     }
 
     public static UserInformation CustomUserToUserInformation(CustomUser customUser, User user){

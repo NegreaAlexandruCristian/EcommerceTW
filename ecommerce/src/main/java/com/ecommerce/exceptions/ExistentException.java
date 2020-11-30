@@ -1,6 +1,6 @@
 package com.ecommerce.exceptions;
 
-public class ExistentException extends Throwable{
+public class ExistentException extends RuntimeException{
     private String message;
     public ExistentException(){
 

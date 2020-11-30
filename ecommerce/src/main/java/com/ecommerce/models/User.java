@@ -8,16 +8,38 @@ import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
-@JsonIgnoreProperties(value= {"reviews,historyList"})
+@JsonIgnoreProperties({"reviews,historyList"})
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @NotNull
+    @Column(name = "username", unique = true)
+    @NotBlank(message = "Please enter your username!")
+    private String username;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Review> reviews;
+
+    @OneToMany(mappedBy = "userHistory", fetch = FetchType.LAZY)
+    private Set<History> historyList;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserCreditCard> userCreditCards;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserAddress> userAddresses;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Cart> cartList;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
@@ -27,54 +49,14 @@ public class User implements Serializable {
     @JoinColumn(name = "id")
     private UserInformation userInformation;
 
-    @NotNull
-    @Column(name = "username", unique = true)
-    @NotBlank(message = "Please enter your username!")
-    private String username;
-
-    @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
-
-    @OneToMany(mappedBy = "userHistory")
-    private List<History> historyList;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserCreditCard> userCreditCards;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserAddress> userAddresses;
-
-    @OneToMany(mappedBy = "user")
-    private List<Cart> cartList;
-
-    @OneToMany(mappedBy = "user")
-    private List<UserWishlist> userWishlists;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<UserWishlist> userWishlists;
 
     public User() {
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 
     public Password getPassword() {
@@ -93,44 +75,84 @@ public class User implements Serializable {
         this.userInformation = userInformation;
     }
 
-    public List<History> getHistoryList() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public Set<History> getHistoryList() {
         return historyList;
     }
 
-    public void setHistoryList(List<History> historyList) {
+    public void setHistoryList(Set<History> historyList) {
         this.historyList = historyList;
     }
 
-    public List<UserCreditCard> getUserCreditCards() {
+    public Set<UserCreditCard> getUserCreditCards() {
         return userCreditCards;
     }
 
-    public void setUserCreditCards(List<UserCreditCard> userCreditCards) {
+    public void setUserCreditCards(Set<UserCreditCard> userCreditCards) {
         this.userCreditCards = userCreditCards;
     }
 
-    public List<UserAddress> getUserAddresses() {
+    public Set<UserAddress> getUserAddresses() {
         return userAddresses;
     }
 
-    public void setUserAddresses(List<UserAddress> userAddresses) {
+    public void setUserAddresses(Set<UserAddress> userAddresses) {
         this.userAddresses = userAddresses;
     }
 
-    public List<Cart> getCartList() {
+    public Set<Cart> getCartList() {
         return cartList;
     }
 
-    public void setCartList(List<Cart> cartList) {
+    public void setCartList(Set<Cart> cartList) {
         this.cartList = cartList;
+    }
+
+    public Set<UserWishlist> getUserWishlists() {
+        return userWishlists;
+    }
+
+    public void setUserWishlists(Set<UserWishlist> userWishlists) {
+        this.userWishlists = userWishlists;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", password=" + password +
-                ", userInformation=" + userInformation +
                 ", username='" + username + '\'' +
                 ", reviews=" + reviews +
                 ", historyList=" + historyList +
