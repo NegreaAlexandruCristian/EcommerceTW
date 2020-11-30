@@ -25,6 +25,9 @@ public class User implements Serializable {
     @NotBlank(message = "Please enter your username!")
     private String username;
 
+    @Column(name = "role")
+    private String role;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_review")
     private List<Review> reviews;
@@ -87,6 +90,14 @@ public class User implements Serializable {
 
     public void setHistoryList(Set<History> historyList) {
         this.historyList = historyList;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public List<UserCreditCard> getUserCreditCards() {

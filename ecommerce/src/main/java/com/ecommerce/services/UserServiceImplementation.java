@@ -42,6 +42,11 @@ public class UserServiceImplementation implements UserService{
     }
 
     @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     public int count() {
         return userRepository.count();
     }

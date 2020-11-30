@@ -12,6 +12,7 @@ public interface UserService {
     Boolean existsById(Long id);
     User save(User user);
     List<User> findAll();
+    User findByUsername(String username);
     int count();
     void deleteById(Long id);
     void delete(User user);

@@ -33,6 +33,12 @@ public class ProductController {
     }
 
     //ok
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Boolean> checkProductById(@PathVariable Long id) {
+        return new ResponseEntity<>(productService.checkIfExists(id), HttpStatus.FOUND);
+    }
+
+    //ok
     @GetMapping("/count")
     public int countProducts() {
         return productService.count();

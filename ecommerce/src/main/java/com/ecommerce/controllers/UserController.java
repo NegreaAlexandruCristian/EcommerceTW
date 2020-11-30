@@ -9,9 +9,12 @@ import com.ecommerce.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -24,6 +27,14 @@ public class UserController {
     public UserController(UserService userService, UserUtils userUtils) {
         this.userUtils = userUtils;
         this.userService = userService;
+    }
+
+    private static List<String> getAuthorityList(Authentication authentication) {
+        return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+    }
+
+    public  static boolean hasAuthority(Authentication authentication, String authorityName) {
+        return getAuthorityList(authentication).contains(authorityName);
     }
 
     //ok
