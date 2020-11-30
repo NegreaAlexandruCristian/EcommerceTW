@@ -58,4 +58,9 @@ public class UserServiceImplementation implements UserService{
     public void updatePassword(Password password) {
         userRepository.updateUserPassword(password);
     }
+
+    @Override
+    public void updateUserInformation(UserInformation userInformation) {
+        userRepository.updateUserInformation(userInformation);
+    }
 }

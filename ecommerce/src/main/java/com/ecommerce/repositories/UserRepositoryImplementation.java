@@ -5,11 +5,12 @@ import com.ecommerce.exceptions.ExistentException;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
+import com.ecommerce.models.UserInformation;
 import com.ecommerce.util.CustomPasswordEncoder;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     private final SessionFactory sessionFactory;
     private final CustomPasswordEncoder customPasswordEncoder = new CustomPasswordEncoder();
-
 
     @Autowired
     public UserRepositoryImplementation(SessionFactory sessionFactory){
@@ -61,6 +61,22 @@ public class UserRepositoryImplementation implements UserRepository {
         currentPassword.setOldPassword(currentPassword.getPassword());
         currentPassword.setPassword(cryptedPassword);
         session.update(currentPassword);
+    }
+
+    @Override
+    @Transactional
+    public void updateUserInformation(UserInformation userInformation) {
+        Session session = sessionFactory.getCurrentSession();
+        UserInformation userInfo = session.get(UserInformation.class, userInformation.getId());
+        updateUserInfo(userInfo, userInformation);
+        session.update(userInfo);
+    }
+
+    private void updateUserInfo(UserInformation currentUserInformation, UserInformation userInformation) {
+        currentUserInformation.setEmail(userInformation.getEmail());
+        currentUserInformation.setFirstName(userInformation.getFirstName());
+        currentUserInformation.setLastName(userInformation.getLastName());
+        currentUserInformation.setPhone(userInformation.getPhone());
     }
 
     private boolean verifyPasswords(Password currentPassword, Password password) {

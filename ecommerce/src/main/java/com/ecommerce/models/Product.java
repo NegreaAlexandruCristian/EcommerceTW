@@ -1,15 +1,16 @@
 package com.ecommerce.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "products")
+@JsonIgnoreProperties({"reviewList, userWishlist, histories, cartList"})
 public class Product implements Serializable {
 
     @Id
@@ -39,10 +40,11 @@ public class Product implements Serializable {
     private String photo;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "productsCategoryList")
+    @JoinColumn(name = "product_category")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_review")
     private List<Review> reviewList;
 
     @ManyToMany
@@ -152,5 +154,22 @@ public class Product implements Serializable {
 
     public void setCartList(List<Cart> cartList) {
         this.cartList = cartList;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", sale=" + sale +
+                ", photo='" + photo + '\'' +
+                ", category=" + category +
+                ", reviewList=" + reviewList +
+                ", userWishlist=" + userWishlist +
+                ", histories=" + histories +
+                ", cartList=" + cartList +
+                '}';
     }
 }
