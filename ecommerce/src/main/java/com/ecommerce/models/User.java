@@ -32,8 +32,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "userHistory", fetch = FetchType.LAZY)
     private Set<History> historyList;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<UserCreditCard> userCreditCards;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "users_id")
+    private List<UserCreditCard> userCreditCards;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<UserAddress> userAddresses;
@@ -55,24 +56,12 @@ public class User implements Serializable {
     public User() {
     }
 
+    public void addCreditCard(UserCreditCard userCreditCard){
+        this.userCreditCards.add(userCreditCard);
+    }
+
     public Long getId() {
         return id;
-    }
-
-    public Password getPassword() {
-        return password;
-    }
-
-    public void setPassword(Password password) {
-        this.password = password;
-    }
-
-    public UserInformation getUserInformation() {
-        return userInformation;
-    }
-
-    public void setUserInformation(UserInformation userInformation) {
-        this.userInformation = userInformation;
     }
 
     public void setId(Long id) {
@@ -103,11 +92,11 @@ public class User implements Serializable {
         this.historyList = historyList;
     }
 
-    public Set<UserCreditCard> getUserCreditCards() {
+    public List<UserCreditCard> getUserCreditCards() {
         return userCreditCards;
     }
 
-    public void setUserCreditCards(Set<UserCreditCard> userCreditCards) {
+    public void setUserCreditCards(List<UserCreditCard> userCreditCards) {
         this.userCreditCards = userCreditCards;
     }
 
@@ -125,6 +114,22 @@ public class User implements Serializable {
 
     public void setCartList(Set<Cart> cartList) {
         this.cartList = cartList;
+    }
+
+    public Password getPassword() {
+        return password;
+    }
+
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
+    public void setUserInformation(UserInformation userInformation) {
+        this.userInformation = userInformation;
     }
 
     public Set<UserWishlist> getUserWishlists() {

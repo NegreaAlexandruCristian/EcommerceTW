@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -21,12 +20,12 @@ public class UserCreditCard implements Serializable {
 
     @NotNull
     @CreditCardNumber(message = "Not a valid credit card number")
-    @Column(name = "card_number")
+    @Column(name = "card_number", unique = true)
     private String cardNumber;
 
     @NotNull
     @Pattern(regexp = "^[a-zA-Z\\s]*$")
-    @Column(name = "card_holder")
+    @Column(name = "card_holder", unique = true)
     private String cardHolder;
 
     @NotNull
@@ -46,10 +45,6 @@ public class UserCreditCard implements Serializable {
     @Max(999)
     @Column(name = "cvv")
     private Integer cvv;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userCreditCards")
-    private User user;
 
     public UserCreditCard() {
     }
@@ -78,37 +73,60 @@ public class UserCreditCard implements Serializable {
         this.cardHolder = cardHolder;
     }
 
-    public int getExpirationMonth() {
+    public Integer getExpirationMonth() {
         return expirationMonth;
     }
 
-    public void setExpirationMonth(int expirationMonth) {
+    public void setExpirationMonth(Integer expirationMonth) {
         this.expirationMonth = expirationMonth;
     }
 
-    public int getExpirationYear() {
+    public Integer getExpirationYear() {
         return expirationYear;
     }
 
-    public void setExpirationYear(int expirationYear) {
+    public void setExpirationYear(Integer expirationYear) {
         this.expirationYear = expirationYear;
     }
 
-    public int getCvv() {
+    public Integer getCvv() {
         return cvv;
     }
 
-    public void setCvv(int cvv) {
+    public void setCvv(Integer cvv) {
         this.cvv = cvv;
     }
 
-    public User getUser() {
-        return user;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserCreditCard that = (UserCreditCard) o;
+
+        if (cardNumber != null ? !cardNumber.equals(that.cardNumber) : that.cardNumber != null) return false;
+        if (cardHolder != null ? !cardHolder.equals(that.cardHolder) : that.cardHolder != null) return false;
+        if (expirationMonth != null ? !expirationMonth.equals(that.expirationMonth) : that.expirationMonth != null)
+            return false;
+        if (expirationYear != null ? !expirationYear.equals(that.expirationYear) : that.expirationYear != null)
+            return false;
+        return cvv != null ? cvv.equals(that.cvv) : that.cvv == null;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
-
+    @Override
+    public String toString() {
+        return "UserCreditCard{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", cardHolder='" + cardHolder + '\'' +
+                ", expirationMonth=" + expirationMonth +
+                ", expirationYear=" + expirationYear +
+                ", cvv=" + cvv +
+                '}';
+    }
 }
