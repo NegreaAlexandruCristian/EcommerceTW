@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
-import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -31,7 +30,6 @@ public class UserRepositoryImplementation implements UserRepository {
     }
 
     @Override
-    @Transactional
     public User findByUsername(String username) {
         Session session=sessionFactory.getCurrentSession();
         Query<User> query=session.createQuery("from User WHERE username=:user");
@@ -47,7 +45,6 @@ public class UserRepositoryImplementation implements UserRepository {
     @id is the user id from User table
      */
     @Override
-    @Transactional
     public void updateUserPassword(Password password) {
         Session session = sessionFactory.getCurrentSession();
         Password currentPassword = session.get(Password.class, password.getId());
@@ -64,7 +61,6 @@ public class UserRepositoryImplementation implements UserRepository {
     }
 
     @Override
-    @Transactional
     public void updateUserInformation(UserInformation userInformation) {
         Session session = sessionFactory.getCurrentSession();
         UserInformation userInfo = session.get(UserInformation.class, userInformation.getId());
@@ -86,7 +82,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     //ok
     @Override
-    @Transactional
     public User save(User user){
         Session session=sessionFactory.getCurrentSession();
         try {
@@ -99,7 +94,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     //ok
     @Override
-    @Transactional
     public User findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
@@ -121,7 +115,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     //nice
     @Override
-    @Transactional
     public boolean existsById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query<User> query = session.createQuery("FROM User WHERE id=:id");
@@ -136,7 +129,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     //ok
     @Override
-    @Transactional
     public List<User> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<User> query = session.createQuery("FROM User");
@@ -145,7 +137,6 @@ public class UserRepositoryImplementation implements UserRepository {
 
     //ok
     @Override
-    @Transactional
     public int count() {
         Session session = sessionFactory.getCurrentSession();
         Query<User> query = session.createQuery("FROM User");
@@ -153,7 +144,6 @@ public class UserRepositoryImplementation implements UserRepository {
     }
 
     @Override
-    @Transactional
     public void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, id);
@@ -161,7 +151,6 @@ public class UserRepositoryImplementation implements UserRepository {
     }
 
     @Override
-    @Transactional
     public void delete(User user) {
         Session session = sessionFactory.getCurrentSession();
         user = session.get(User.class, user.getId());

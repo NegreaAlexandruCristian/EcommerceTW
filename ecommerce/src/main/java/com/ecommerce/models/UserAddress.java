@@ -1,7 +1,5 @@
 package com.ecommerce.models;
 
-import org.springframework.data.repository.query.Param;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -33,10 +31,6 @@ public class UserAddress implements Serializable {
     @Column(name = "address")
     @NotBlank(message = "An address should be inserted")
     private String address;
-
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "userAddresses")
-    private User user;
 
     public UserAddress() {
     }
@@ -72,14 +66,5 @@ public class UserAddress implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
 
 }

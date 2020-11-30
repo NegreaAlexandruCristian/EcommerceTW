@@ -26,14 +26,14 @@ public class UserCreditCardController {
 
     //ok
     @PostMapping("/save/{id}")
-    public ResponseEntity<UserCreditCard> saveCreditCard(@RequestBody UserCreditCard userCreditCard,
+    public ResponseEntity<HttpStatus> saveCreditCard(@RequestBody UserCreditCard userCreditCard,
                                                          @PathVariable("id") Long id){
         userCreditCard.setId(null);
         User user = userService.findById(id);
         user.addCreditCard(userCreditCard);
         userService.save(user);
 
-        return new ResponseEntity<>(userCreditCard, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //ok

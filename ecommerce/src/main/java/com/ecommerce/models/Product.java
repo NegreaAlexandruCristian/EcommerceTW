@@ -172,4 +172,9 @@ public class Product implements Serializable {
                 ", cartList=" + cartList +
                 '}';
     }
+
+    public void addReview(Review review) {
+
+        reviewList.add(review);
+    }
 }
