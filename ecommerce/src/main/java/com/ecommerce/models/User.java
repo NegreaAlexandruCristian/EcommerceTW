@@ -2,12 +2,10 @@ package com.ecommerce.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,7 +24,8 @@ public class User implements Serializable {
     @NotBlank(message = "Please enter your username!")
     private String username;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_review")
     private Set<Review> reviews;
 
     @OneToMany(mappedBy = "userHistory", fetch = FetchType.LAZY)

@@ -1,6 +1,5 @@
 package com.ecommerce.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
@@ -27,14 +26,6 @@ public class Review implements Serializable {
     @NotNull
     @Column(name = "review_date")
     private LocalDate review_date;
-
-    @ManyToOne
-    @JoinColumn(name = "reviews")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "reviewList")
-    private Product product;
 
     public Review(){
 
@@ -70,21 +61,5 @@ public class Review implements Serializable {
 
     public void setReview_date(LocalDate review_date) {
         this.review_date = review_date;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }
