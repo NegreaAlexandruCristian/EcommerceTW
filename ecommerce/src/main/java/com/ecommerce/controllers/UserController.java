@@ -29,15 +29,13 @@ public class UserController {
     //ok
     @GetMapping("/{id}/user")
     public ResponseEntity<User> getUserById(@PathVariable("id") Long id) {
-        User user = userService.findById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     //ok
     @PostMapping("/user")
     public ResponseEntity<User> saveUser(@RequestBody CustomUser customUser) {
-        User createdUser = userService.save(userUtils.createCompleteUser(customUser));
-        return new ResponseEntity<>(createdUser, HttpStatus.OK);
+        return new ResponseEntity<>(userService.save(userUtils.createCompleteUser(customUser)), HttpStatus.OK);
     }
 
     //ok

@@ -26,8 +26,8 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
     }
 
     @Override
-    public UserCreditCard save(UserCreditCard userCreditCard) {
-        return crediCardRepository.save(userCreditCard);
+    public void save(UserCreditCard userCreditCard, Long id) {
+        crediCardRepository.save(userCreditCard, id);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
     }
 
     @Override
-    public void delete(UserCreditCard userCreditCard) {
-        crediCardRepository.delete(userCreditCard);
+    public void delete(Long idUser, Long id) {
+        crediCardRepository.delete(idUser, id);
     }
 
     @Override

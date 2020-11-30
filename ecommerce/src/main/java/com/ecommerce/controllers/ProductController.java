@@ -23,8 +23,7 @@ public class ProductController {
     //ok
     @PostMapping("/insert")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        Product savedProduct = productService.save(product);
-        return new ResponseEntity<>(savedProduct, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productService.save(product), HttpStatus.ACCEPTED);
     }
 
     //ok

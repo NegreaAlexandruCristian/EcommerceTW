@@ -28,11 +28,7 @@ public class UserCreditCardController {
     @PostMapping("/save/{id}")
     public ResponseEntity<HttpStatus> saveCreditCard(@RequestBody UserCreditCard userCreditCard,
                                                          @PathVariable("id") Long id){
-        userCreditCard.setId(null);
-        User user = userService.findById(id);
-        user.addCreditCard(userCreditCard);
-        userService.save(user);
-
+        userCreditCardService.save(userCreditCard, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -41,30 +37,28 @@ public class UserCreditCardController {
     public ResponseEntity<UserCreditCard> getCreditCard(@PathVariable("idUser") Long idUser,
                                                          @PathVariable("id") Long id){
 
-        return new ResponseEntity<UserCreditCard>(userCreditCardService.findUsersCreditCard(idUser,id), HttpStatus.OK);
+        if(userCreditCardService.existsById(id)){
+
+            return new ResponseEntity<>(userCreditCardService.findUsersCreditCard(idUser,id), HttpStatus.OK);
+        } else {
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     //ok
     @GetMapping("/{idUser}")
     public ResponseEntity<List<UserCreditCard>> getUserCreditCards(@PathVariable("idUser") Long idUser){
 
-        return new ResponseEntity<List<UserCreditCard>>(userService.findById(idUser).getUserCreditCards(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findById(idUser).getUserCreditCards(), HttpStatus.OK);
     }
 
     //ok
     @DeleteMapping("/delete/{idUser}/{id}")
     public ResponseEntity<HttpStatus> deleteCreditCard(@PathVariable("idUser") Long idUser,
-                                                       @PathVariable("id") int id){
+                                                       @PathVariable("id") Long id){
 
-        User user = userService.findById(idUser);
-        List<UserCreditCard> list = user.getUserCreditCards();
-        UserCreditCard userCreditCard = list.get(id-1);
-        userCreditCardService.delete(userCreditCard);
-
-        list.remove(id-1);
-        user.setUserCreditCards(list);
-        userService.save(user);
-
+        userCreditCardService.delete(idUser, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

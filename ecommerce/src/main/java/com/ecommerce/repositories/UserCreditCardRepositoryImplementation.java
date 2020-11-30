@@ -25,15 +25,18 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     }
 
     @Override
-    public UserCreditCard save(UserCreditCard creditCard) {
+    public void save(UserCreditCard creditCard, Long id) {
         Session session=sessionFactory.getCurrentSession();
         try {
-            session.saveOrUpdate(creditCard);
+
+            creditCard.setId(null);
+            User user = session.get(User.class, id);
+            user.addCreditCard(creditCard);
+            session.saveOrUpdate(user);
 
         } catch (ConstraintViolationException e){
             throw new ConstraintViolationExceptionCustom();
         }
-        return creditCard;
     }
 
     @Override
@@ -81,12 +84,18 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     }
 
     @Override
-    public void delete(UserCreditCard userCreditCard) {
+    public void delete(Long idUser, Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("DELETE FROM UserCreditCard WHERE id=:id");
-        Long id =  userCreditCard.getId();
-        query.setParameter("id",id);
+
+        User user = session.get(User.class, idUser);
+        UserCreditCard userCreditCard = session.get(UserCreditCard.class, id);
+        List<UserCreditCard> list = user.getUserCreditCards();
+        list.remove(userCreditCard);
+        Query query = session.createQuery("DELETE FROM UserCreditCard WHERE id=:id");
+        query.setParameter("id", id);
         query.executeUpdate();
+        user.setUserCreditCards(list);
+        session.saveOrUpdate(user);
 
     }
 

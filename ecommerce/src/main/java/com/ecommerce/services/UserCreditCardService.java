@@ -7,11 +7,11 @@ import java.util.List;
 public interface UserCreditCardService {
 
     UserCreditCard findById(Long id);
-    UserCreditCard save(UserCreditCard userCreditCard);
+    void save(UserCreditCard userCreditCard, Long id);
     boolean existsById(Long id);
     List<UserCreditCard> findAll();
     int count();
     void deleteById(Long id);
-    void delete(UserCreditCard userCreditCard);
+    void delete(Long idUser, Long id);
     UserCreditCard findUsersCreditCard(Long idUser, Long id);
 }
