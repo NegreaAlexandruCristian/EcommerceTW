@@ -1,8 +1,5 @@
 package com.ecommerce.models;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -22,7 +19,6 @@ public class Password implements Serializable {
     @NotBlank(message = "Please enter a password")
     private String password;
 
-    @NotNull
     @Column(name = "old_password")
     private String oldPassword;
 

@@ -8,17 +8,19 @@ public class CustomUser {
     private String lastName;
     private String email;
     private String phone;
+    private String role;
 
     public CustomUser() {
     }
 
-    public CustomUser(String username, String password, String firstName, String lastName, String email, String phone) {
+    public CustomUser(String username, String password, String firstName, String lastName, String email, String phone, String role) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -67,5 +69,13 @@ public class CustomUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

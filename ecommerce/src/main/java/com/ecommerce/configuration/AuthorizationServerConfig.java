@@ -88,7 +88,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .accessTokenValiditySeconds(expiration)
                 .refreshTokenValiditySeconds(refreshTokenExpiration)
                 .scopes("read", "write")
-                .authorizedGrantTypes("password", "refresh_token");
+                .authorizedGrantTypes("password", "refresh_token")
+                .resourceIds(resourceId);
     }
 
     @Bean

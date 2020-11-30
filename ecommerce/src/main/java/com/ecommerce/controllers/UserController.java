@@ -5,6 +5,7 @@ import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserInformation;
 import com.ecommerce.services.UserService;
+import com.ecommerce.util.CustomPasswordEncoder;
 import com.ecommerce.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,20 @@ public class UserController {
     public UserController(UserService userService, UserUtils userUtils) {
         this.userUtils = userUtils;
         this.userService = userService;
+        User admin = new User();
+        admin.setUsername("admin");
+        CustomPasswordEncoder enc = new CustomPasswordEncoder();
+        Password password = new Password();
+        password.setPassword(enc.encode("admin123"));
+        UserInformation userInformation = new UserInformation();
+        userInformation.setPhone("0770122133");
+        userInformation.setEmail("admin@gmail.com");
+        userInformation.setFirstName("admin");
+        userInformation.setLastName("admin");
+        admin.setUserInformation(userInformation);
+        admin.setPassword(password);
+        admin.setRole("ADMIN");
+        this.userService.save(admin);
     }
 
     private static List<String> getAuthorityList(Authentication authentication) {
@@ -95,5 +110,5 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //TODO History, reviews, cart, creditcard later by A gay
+    //TODO History, reviews, cart, creditcard later
 }
