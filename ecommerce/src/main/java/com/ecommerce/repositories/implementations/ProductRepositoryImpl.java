@@ -1,7 +1,9 @@
 package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
+import com.ecommerce.exceptions.NotAllowedException;
 import com.ecommerce.exceptions.NotFoundException;
+import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
 import com.ecommerce.repositories.specifications.ProductRepository;
 import org.hibernate.Hibernate;
@@ -27,7 +29,17 @@ public class ProductRepositoryImpl implements ProductRepository {
     public Product save(Product product) {
         try{
             Session session = sessionFactory.getCurrentSession();
-            session.saveOrUpdate(product);
+            Query<Category> query = session.createQuery("FROM Category WHERE name =: name");
+            query.setParameter("name", product.getCategory().getName());
+            Category category = query.getSingleResult();
+
+            if(category != null) {
+                product.setCategory(category);
+                session.saveOrUpdate(product);
+            } else {
+                throw new NotAllowedException();
+            }
+
             return product;
         } catch (ConstraintViolationException e) {
             throw new ConstraintViolationExceptionCustom();

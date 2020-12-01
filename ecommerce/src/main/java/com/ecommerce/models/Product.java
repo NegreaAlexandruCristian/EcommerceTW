@@ -21,6 +21,10 @@ public class Product implements Serializable {
     @NotNull
     private String name;
 
+    @Column(name = "description")
+    @NotNull
+    private String description;
+
     @NotNull
     @Column(name = "price")
     private double price;
@@ -39,8 +43,9 @@ public class Product implements Serializable {
     @Column(name = "photo")
     private String photo;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_category")
+    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {})
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -76,6 +81,14 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {

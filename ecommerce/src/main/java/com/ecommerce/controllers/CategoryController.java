@@ -17,6 +17,11 @@ public class CategoryController {
     public CategoryController(ConsultCategoryService consultCategoryService, AddCategoryService addCategoryService) {
         this.consultCategoryService = consultCategoryService;
         this.addCategoryService = addCategoryService;
+
+        // Insert categories just for test
+        addCategoryService.addCategory("Electrocasnice");
+        addCategoryService.addCategory("Fashion");
+        addCategoryService.addCategory("Bacanie");
     }
 
     @PostMapping("/{categoryName}")
