@@ -40,8 +40,8 @@ public class User implements Serializable {
     private List<UserCreditCard> userCreditCards;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
-    private Set<UserAddress> userAddresses;
+    @JoinColumn(name = "user_id")
+    private List<UserAddress> userAddresses;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
@@ -105,11 +105,11 @@ public class User implements Serializable {
         this.userCreditCards = userCreditCards;
     }
 
-    public Set<UserAddress> getUserAddresses() {
+    public List<UserAddress> getUserAddresses() {
         return userAddresses;
     }
 
-    public void setUserAddresses(Set<UserAddress> userAddresses) {
+    public void setUserAddresses(List<UserAddress> userAddresses) {
         this.userAddresses = userAddresses;
     }
 
