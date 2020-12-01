@@ -1,8 +1,9 @@
-package com.ecommerce.repositories;
+package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Product;
+import com.ecommerce.repositories.specifications.ProductRepository;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

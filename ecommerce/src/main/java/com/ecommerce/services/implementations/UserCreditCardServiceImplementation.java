@@ -1,7 +1,8 @@
-package com.ecommerce.services;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.models.UserCreditCard;
-import com.ecommerce.repositories.UserCreditCardRepository;
+import com.ecommerce.repositories.specifications.UserCreditCardRepository;
+import com.ecommerce.services.specifications.UserCreditCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserCreditCardServiceImplementation implements UserCreditCardService{
+public class UserCreditCardServiceImplementation implements UserCreditCardService {
 
     private final UserCreditCardRepository crediCardRepository;
 

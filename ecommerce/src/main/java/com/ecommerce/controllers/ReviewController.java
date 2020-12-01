@@ -1,9 +1,9 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.models.Review;
-import com.ecommerce.services.ProductService;
-import com.ecommerce.services.ReviewService;
-import com.ecommerce.services.UserService;
+import com.ecommerce.services.specifications.ProductService;
+import com.ecommerce.services.specifications.ReviewService;
+import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

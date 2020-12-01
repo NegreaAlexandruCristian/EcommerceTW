@@ -1,10 +1,10 @@
-package com.ecommerce.services;
+package com.ecommerce.repositories.specifications;
 
 import com.ecommerce.models.UserAddress;
 
 import java.util.List;
 
-public interface UserAddressService{
+public interface UserAddressRepository {
 
     UserAddress findUsersAddresses(Long idUser, Long id);
     void save(UserAddress userAddress, Long id);

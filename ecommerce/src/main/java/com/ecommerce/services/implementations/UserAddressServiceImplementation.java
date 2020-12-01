@@ -1,7 +1,8 @@
-package com.ecommerce.services;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.models.UserAddress;
-import com.ecommerce.repositories.UserAddressRepository;
+import com.ecommerce.repositories.specifications.UserAddressRepository;
+import com.ecommerce.services.specifications.UserAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserAddressServiceImplementation implements UserAddressService{
+public class UserAddressServiceImplementation implements UserAddressService {
 
     private UserAddressRepository userAddressRepository;
 

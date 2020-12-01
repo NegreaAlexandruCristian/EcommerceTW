@@ -4,7 +4,7 @@ import com.ecommerce.models.CustomUser;
 import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserInformation;
-import com.ecommerce.services.UserService;
+import com.ecommerce.services.specifications.UserService;
 import com.ecommerce.util.CustomPasswordEncoder;
 import com.ecommerce.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;

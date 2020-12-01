@@ -1,9 +1,8 @@
 package com.ecommerce.controllers;
 
-import com.ecommerce.models.User;
 import com.ecommerce.models.UserCreditCard;
-import com.ecommerce.services.UserCreditCardService;
-import com.ecommerce.services.UserService;
+import com.ecommerce.services.specifications.UserCreditCardService;
+import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

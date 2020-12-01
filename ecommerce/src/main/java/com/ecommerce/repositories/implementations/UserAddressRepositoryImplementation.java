@@ -1,6 +1,7 @@
-package com.ecommerce.repositories;
+package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.models.UserAddress;
+import com.ecommerce.repositories.specifications.UserAddressRepository;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Repository
 
-public class UserAddressRepositoryImplementation implements UserAddressRepository{
+public class UserAddressRepositoryImplementation implements UserAddressRepository {
 
     private final SessionFactory sessionFactory;
 

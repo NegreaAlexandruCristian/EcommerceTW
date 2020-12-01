@@ -17,7 +17,7 @@ public class UserUtils {
         UserInformation userInformation = ConversionUserPasswordUtility.CustomUserToUserInformation(customUser, user);
         user.setPassword(password);
         user.setUserInformation(userInformation);
-        user.setRole("USER");
+        user.setRole(customUser.getRole());
         return user;
     }
 }

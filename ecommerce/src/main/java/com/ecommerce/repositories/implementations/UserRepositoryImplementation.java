@@ -1,4 +1,4 @@
-package com.ecommerce.repositories;
+package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
 import com.ecommerce.exceptions.ExistentException;
@@ -6,6 +6,7 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserInformation;
+import com.ecommerce.repositories.specifications.UserRepository;
 import com.ecommerce.util.CustomPasswordEncoder;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -41,9 +42,6 @@ public class UserRepositoryImplementation implements UserRepository {
         return users.get(0);
     }
 
-    /*
-    @id is the user id from User table
-     */
     @Override
     public void updateUserPassword(Password password) {
         Session session = sessionFactory.getCurrentSession();

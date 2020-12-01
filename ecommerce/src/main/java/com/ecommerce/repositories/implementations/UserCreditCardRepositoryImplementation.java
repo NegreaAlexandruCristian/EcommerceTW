@@ -1,9 +1,10 @@
-package com.ecommerce.repositories;
+package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserCreditCard;
+import com.ecommerce.repositories.specifications.UserCreditCardRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,7 +16,7 @@ import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Repository
-public class UserCreditCardRepositoryImplementation implements UserCreditCardRepository{
+public class UserCreditCardRepositoryImplementation implements UserCreditCardRepository {
 
     private final SessionFactory sessionFactory;
 

@@ -1,7 +1,8 @@
-package com.ecommerce.services;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.models.Review;
-import com.ecommerce.repositories.ReviewRepository;
+import com.ecommerce.repositories.specifications.ReviewRepository;
+import com.ecommerce.services.specifications.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

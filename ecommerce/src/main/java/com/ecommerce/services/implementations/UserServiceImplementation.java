@@ -1,9 +1,10 @@
-package com.ecommerce.services;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserInformation;
-import com.ecommerce.repositories.UserRepository;
+import com.ecommerce.repositories.specifications.UserRepository;
+import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImplementation implements UserService{
+public class UserServiceImplementation implements UserService {
 
     private final UserRepository userRepository;
 

@@ -1,7 +1,7 @@
 package com.ecommerce.util.auth;
 
 import com.ecommerce.models.User;
-import com.ecommerce.services.UserService;
+import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

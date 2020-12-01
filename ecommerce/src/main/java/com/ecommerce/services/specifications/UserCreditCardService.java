@@ -1,4 +1,4 @@
-package com.ecommerce.services;
+package com.ecommerce.services.specifications;
 
 import com.ecommerce.models.UserCreditCard;
 
