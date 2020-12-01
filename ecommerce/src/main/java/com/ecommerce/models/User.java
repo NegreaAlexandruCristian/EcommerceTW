@@ -43,9 +43,6 @@ public class User implements Serializable {
     @JoinColumn(name = "users_id")
     private Set<UserAddress> userAddresses;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Cart> cartList;
-
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private Password password;
@@ -116,14 +113,6 @@ public class User implements Serializable {
         this.userAddresses = userAddresses;
     }
 
-    public Set<Cart> getCartList() {
-        return cartList;
-    }
-
-    public void setCartList(Set<Cart> cartList) {
-        this.cartList = cartList;
-    }
-
     public Password getPassword() {
         return password;
     }
@@ -171,7 +160,6 @@ public class User implements Serializable {
                 ", historyList=" + historyList +
                 ", userCreditCards=" + userCreditCards +
                 ", userAddresses=" + userAddresses +
-                ", cartList=" + cartList +
                 '}';
     }
 
@@ -181,7 +169,6 @@ public class User implements Serializable {
     }
 
     public void addReview(Review review) {
-
         reviews.add(review);
     }
 }

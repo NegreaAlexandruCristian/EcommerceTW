@@ -59,12 +59,6 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "history_id"))
     private List<History> histories;
 
-    @ManyToMany
-    @JoinTable(name = "product_cart",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "cart_id"))
-    private List<Cart> cartList;
-
     public Product() {
     }
 
@@ -148,14 +142,6 @@ public class Product implements Serializable {
         this.histories = histories;
     }
 
-    public List<Cart> getCartList() {
-        return cartList;
-    }
-
-    public void setCartList(List<Cart> cartList) {
-        this.cartList = cartList;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -169,7 +155,6 @@ public class Product implements Serializable {
                 ", reviewList=" + reviewList +
                 ", userWishlist=" + userWishlist +
                 ", histories=" + histories +
-                ", cartList=" + cartList +
                 '}';
     }
 

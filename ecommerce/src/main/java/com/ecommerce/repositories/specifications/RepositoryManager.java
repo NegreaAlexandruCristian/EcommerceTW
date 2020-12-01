@@ -1,6 +1,5 @@
 package com.ecommerce.repositories.specifications;
 
-
 import java.util.List;
 
 public interface RepositoryManager<T, ID>{

@@ -26,6 +26,7 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public Review findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
@@ -34,6 +35,7 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
         return query.getSingleResult();
     }
 
+    @Override
     public boolean existsById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review WHERE id=:id");
@@ -46,16 +48,19 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
         return true;
     }
 
+    @Override
     public List<Review> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review");
         return query.list();    }
 
+    @Override
     public int count() {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review");
         return query.list().size();    }
 
+    @Override
     public void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("DELETE FROM Review WHERE id=:id");
@@ -63,6 +68,7 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
         query.executeUpdate();
     }
 
+    @Override
     public void delete(Review review) {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("DELETE FROM Review WHERE id=:id");

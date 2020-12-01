@@ -37,7 +37,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     private void init(Product product){
         Hibernate.initialize(product.getReviewList());
         Hibernate.initialize(product.getHistories());
-        Hibernate.initialize(product.getCartList());
         Hibernate.initialize(product.getUserWishlist());
     }
 
@@ -65,7 +64,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         Query<Product> query = session.createQuery("FROM Product");
         List<Product> products = query.list();
         products.forEach((product -> {
-            product.setCartList(new ArrayList<>());
             product.setReviewList(new ArrayList<>());
             product.setHistories(new ArrayList<>());
             product.setUserWishlist(new ArrayList<>());
