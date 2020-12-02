@@ -56,8 +56,7 @@ public class CartRepositoryImplementation implements CartRepository {
 
     public void deleteCartItem(Long userId, Long productId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<CartItems> query = session.createQuery("DELETE FROM CartItems WHERE userId =: id AND productId =: pid");
-        query.setParameter("id", userId).setParameter("pid", productId);
-        query.executeUpdate();
+        CartItems cartItem = session.get(CartItems.class, new CartCompositePK(userId, productId));
+        session.delete(cartItem);
     }
 }

@@ -12,7 +12,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -30,51 +29,44 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
     public Review findById(Long id) {
 
         Session session = sessionFactory.getCurrentSession();
-        Query<Review> query = session.createQuery("FROM Review WHERE id=:id");
-        query.setParameter("id",id);
-        return query.getSingleResult();
+        Review review = session.get(Review.class, id);
+        if (review == null) {
+            throw new NotFoundException();
+        }
+        return review;
     }
 
     @Override
     public boolean existsById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Review> query = session.createQuery("FROM Review WHERE id=:id");
-        query.setParameter("id",id);
-        try{
-            query.getSingleResult();
-        }catch (NoResultException e){
-            throw new NotFoundException();
-        }
-        return true;
+        Review review = session.get(Review.class, id);
+        return review != null;
     }
 
     @Override
     public List<Review> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review");
-        return query.list();    }
+        return query.list();
+    }
 
     @Override
     public int count() {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review");
-        return query.list().size();    }
+        return query.list().size();
+    }
 
     @Override
     public void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<Review> query = session.createQuery("DELETE FROM Review WHERE id=:id");
-        query.setParameter("id",id);
-        query.executeUpdate();
+        Review review = session.get(Review.class, id);
+        session.delete(review);
     }
 
     @Override
     public void delete(Review review) {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Review> query = session.createQuery("DELETE FROM Review WHERE id=:id");
-        Long id =  review.getId();
-        query.setParameter("id",id);
-        query.executeUpdate();
+        deleteById(review.getId());
     }
 
     @Override

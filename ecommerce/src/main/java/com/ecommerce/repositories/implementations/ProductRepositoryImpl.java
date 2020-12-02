@@ -1,7 +1,5 @@
 package com.ecommerce.repositories.implementations;
 
-import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
-import com.ecommerce.exceptions.NotAllowedException;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
@@ -12,7 +10,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
-import javax.validation.ConstraintViolationException;
+import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,23 +25,22 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product save(Product product) {
+
+        Session session = sessionFactory.getCurrentSession();
+        Query<Category> query = session.createQuery("FROM Category WHERE name =: name");
+        query.setParameter("name", product.getCategory().getName());
+        Category category;
+
         try{
-            Session session = sessionFactory.getCurrentSession();
-            Query<Category> query = session.createQuery("FROM Category WHERE name =: name");
-            query.setParameter("name", product.getCategory().getName());
-            Category category = query.getSingleResult();
-
-            if(category != null) {
-                product.setCategory(category);
-                session.saveOrUpdate(product);
-            } else {
-                throw new NotAllowedException();
-            }
-
-            return product;
-        } catch (ConstraintViolationException e) {
-            throw new ConstraintViolationExceptionCustom();
+            category = query.getSingleResult();
+        }catch (NoResultException r){
+            throw new NotFoundException();
         }
+
+        product.setCategory(category);
+        session.saveOrUpdate(product);
+
+        return product;
     }
 
     private void init(Product product){

@@ -36,7 +36,7 @@ public class User implements Serializable {
     private Set<History> historyList;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "users_id")
+    @JoinColumn(name = "user_id")
     private List<UserCreditCard> userCreditCards;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -1,6 +1,5 @@
 package com.ecommerce.repositories.implementations;
 
-import com.ecommerce.exceptions.ConstraintViolationExceptionCustom;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserCreditCard;
@@ -11,8 +10,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
-import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Repository
@@ -28,37 +25,27 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     @Override
     public void save(UserCreditCard creditCard, Long id) {
         Session session=sessionFactory.getCurrentSession();
-        try {
-
-            creditCard.setId(null);
-            User user = session.get(User.class, id);
-            user.addCreditCard(creditCard);
-            session.saveOrUpdate(user);
-
-        } catch (ConstraintViolationException e){
-            throw new ConstraintViolationExceptionCustom();
-        }
+        creditCard.setId(null);
+        User user = session.get(User.class, id);
+        user.addCreditCard(creditCard);
+        session.saveOrUpdate(user);
     }
 
     @Override
     public UserCreditCard findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("FROM UserCreditCard WHERE id=:id");
-        query.setParameter("id",id);
-        return query.getSingleResult();
+        UserCreditCard creditCard = session.get(UserCreditCard.class, id);
+        if (creditCard == null) {
+            throw new NotFoundException();
+        }
+        return creditCard;
     }
 
     @Override
     public boolean existsById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("FROM UserCreditCard WHERE id=:id");
-        query.setParameter("id",id);
-        try{
-            query.getSingleResult();
-        }catch (NoResultException e){
-            throw new NotFoundException();
-        }
-        return true;
+        UserCreditCard creditCard = session.get(UserCreditCard.class, id);
+        return creditCard != null;
     }
 
     @Override
@@ -78,10 +65,8 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     @Override
     public void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("DELETE FROM UserCreditCard WHERE id=:id");
-        query.setParameter("id",id);
-        query.executeUpdate();
-
+        UserCreditCard creditCard = session.get(UserCreditCard.class, id);
+        session.delete(creditCard);
     }
 
     @Override
