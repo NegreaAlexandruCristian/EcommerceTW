@@ -32,9 +32,6 @@ public class User implements Serializable {
     @JoinColumn(name = "user_review")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "userHistory", fetch = FetchType.LAZY)
-    private Set<History> historyList;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<UserCreditCard> userCreditCards;
@@ -79,14 +76,6 @@ public class User implements Serializable {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
-    }
-
-    public Set<History> getHistoryList() {
-        return historyList;
-    }
-
-    public void setHistoryList(Set<History> historyList) {
-        this.historyList = historyList;
     }
 
     public String getRole() {
@@ -169,7 +158,6 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", reviews=" + reviews +
-                ", historyList=" + historyList +
                 ", userCreditCards=" + userCreditCards +
                 ", userAddresses=" + userAddresses +
                 '}';

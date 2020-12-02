@@ -21,7 +21,6 @@ public class ConversionUserPasswordUtility {
 
     private static void init(User user){
         user.setReviews(new ArrayList<>());
-        user.setHistoryList(new HashSet<>());
         user.setUserAddresses(new ArrayList<>());
         user.setUserCreditCards(new ArrayList<>());
         user.setUserWishlists(new HashSet<>());

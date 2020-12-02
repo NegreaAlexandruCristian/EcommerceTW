@@ -2,11 +2,12 @@ package com.ecommerce.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "history_items")
 @IdClass(CompositePK.class)
-public class CartItems implements Serializable {
+public class HistoryItems implements Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -18,6 +19,9 @@ public class CartItems implements Serializable {
 
     @Column(name = "quantity")
     private Long quantity;
+
+    @Column(name = "purchase_date")
+    private LocalDate purchaseDate;
 
     public Long getUserId() {
         return userId;
@@ -43,9 +47,17 @@ public class CartItems implements Serializable {
         this.quantity = quantity;
     }
 
+    public LocalDate getPurchaseDate() {
+        return purchaseDate;
+    }
+
+    public void setPurchaseDate(LocalDate purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
     @Override
     public String toString() {
-        return "CartItems{" +
+        return "HistoryItems{" +
                 "userId=" + userId +
                 ", productId=" + productId +
                 ", quantity=" + quantity +

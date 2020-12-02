@@ -1,7 +1,7 @@
 package com.ecommerce.repositories.implementations;
 
-import com.ecommerce.models.CartCompositePK;
 import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CompositePK;
 import com.ecommerce.repositories.specifications.CartRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +19,7 @@ public class CartRepositoryImplementation implements CartRepository {
         this.sessionFactory = sessionFactory;
     }
 
+    @Override
     public List<CartItems> findCartItemsByUserId(Long userId) {
         Session session = sessionFactory.getCurrentSession();
         Query<CartItems> query = session.createQuery("FROM CartItems WHERE userId =: id");
@@ -26,6 +27,7 @@ public class CartRepositoryImplementation implements CartRepository {
         return query.list();
     }
 
+    @Override
     public CartItems addProductToCart(Long userId, Long productId) {
         Session session = sessionFactory.getCurrentSession();
         CartItems cartItem = new CartItems();
@@ -34,7 +36,7 @@ public class CartRepositoryImplementation implements CartRepository {
         cartItem.setProductId(productId);
         cartItem.setQuantity(1L);
 
-        CartItems maybeCartItem = session.get(CartItems.class, new CartCompositePK(userId, productId));
+        CartItems maybeCartItem = session.get(CartItems.class, new CompositePK(userId, productId));
         if(maybeCartItem == null) {
             session.save(cartItem);
         } else {
@@ -47,6 +49,7 @@ public class CartRepositoryImplementation implements CartRepository {
         return cartItem;
     }
 
+    @Override
     public void deleteCartItems(Long userId) {
         Session session = sessionFactory.getCurrentSession();
         Query<CartItems> query = session.createQuery("DELETE FROM CartItems WHERE userId =: id");
@@ -54,9 +57,10 @@ public class CartRepositoryImplementation implements CartRepository {
         query.executeUpdate();
     }
 
+    @Override
     public void deleteCartItem(Long userId, Long productId) {
         Session session = sessionFactory.getCurrentSession();
-        CartItems cartItem = session.get(CartItems.class, new CartCompositePK(userId, productId));
+        CartItems cartItem = session.get(CartItems.class, new CompositePK(userId, productId));
         session.delete(cartItem);
     }
 }
