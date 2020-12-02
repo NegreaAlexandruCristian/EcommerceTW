@@ -10,4 +10,5 @@ public interface HistoryService {
     void addProductToHistory(CartItems cartItems);
     void deleteHistoryForUser(Long userId);
     void deleteHistoryItem(Long userId, Long productId);
+    HistoryItems findById(Long userId, Long productId);
 }

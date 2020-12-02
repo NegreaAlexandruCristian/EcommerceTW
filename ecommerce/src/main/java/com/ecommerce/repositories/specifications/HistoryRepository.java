@@ -10,4 +10,6 @@ public interface HistoryRepository {
     void addProductToHistory(CartItems cartItems);
     void deleteHistoryForUser(Long userId);
     void deleteHistoryItem(Long userId, Long productId);
+    //TODO should return a product
+    HistoryItems findById(Long userId, Long productId);
 }

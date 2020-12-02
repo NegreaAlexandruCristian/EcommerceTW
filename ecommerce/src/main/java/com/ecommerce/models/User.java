@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -47,9 +46,6 @@ public class User implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id")
     private UserInformation userInformation;
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<UserWishlist> userWishlists;
 
     public User() {
     }
@@ -128,14 +124,6 @@ public class User implements Serializable {
 
     public void setUserInformation(UserInformation userInformation) {
         this.userInformation = userInformation;
-    }
-
-    public Set<UserWishlist> getUserWishlists() {
-        return userWishlists;
-    }
-
-    public void setUserWishlists(Set<UserWishlist> userWishlists) {
-        this.userWishlists = userWishlists;
     }
 
     @Override

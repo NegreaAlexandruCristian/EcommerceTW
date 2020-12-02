@@ -45,7 +45,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     private void init(Product product){
         Hibernate.initialize(product.getReviewList());
-        Hibernate.initialize(product.getUserWishlist());
     }
 
     @Override
@@ -73,7 +72,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         List<Product> products = query.list();
         products.forEach((product -> {
             product.setReviewList(new ArrayList<>());
-            product.setUserWishlist(new ArrayList<>());
         }));
         return products;
     }

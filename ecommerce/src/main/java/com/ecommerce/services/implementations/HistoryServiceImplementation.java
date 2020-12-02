@@ -40,4 +40,9 @@ public class HistoryServiceImplementation implements HistoryService {
     public void deleteHistoryItem(Long userId, Long productId) {
         historyRepository.deleteHistoryItem(userId, productId);
     }
+
+    @Override
+    public HistoryItems findById(Long userId, Long productId) {
+        return historyRepository.findById(userId, productId);
+    }
 }

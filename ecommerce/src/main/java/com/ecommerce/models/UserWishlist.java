@@ -2,51 +2,41 @@ package com.ecommerce.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "user_wishlist")
+@IdClass(CompositePK.class)
 public class UserWishlist implements Serializable {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "userWishlists")
-    private User user;
+    @Id
+    @Column(name = "product_id")
+    private Long productId;
 
-    @ManyToMany
-    @JoinTable(name = "product_wishlist",
-            joinColumns = @JoinColumn(name = "wishlist_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> product;
-
-    public UserWishlist() {
+    public Long getUserId() {
+        return userId;
     }
 
-    public Long getId() {
-        return id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public User getUser() {
-        return user;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Product> product) {
-        this.product = product;
+    @Override
+    public String toString() {
+        return "CartItems{" +
+                "userId=" + userId +
+                ", productId=" + productId +
+                '}';
     }
 }
