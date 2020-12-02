@@ -1,7 +1,11 @@
 package com.ecommerce.repositories.implementations;
 
+import com.ecommerce.exceptions.NotFoundException;
+import com.ecommerce.models.User;
 import com.ecommerce.models.UserAddress;
 import com.ecommerce.repositories.specifications.UserAddressRepository;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,42 +24,59 @@ public class UserAddressRepositoryImplementation implements UserAddressRepositor
     }
 
     @Override
-    public UserAddress findUsersAddresses(Long idUser, Long id) {
-        return null;
+    public List<UserAddress> findUserAddresses(Long idUser) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, idUser);
+        Hibernate.initialize(user.getUserAddresses());
+        return user.getUserAddresses();
     }
 
     @Override
-    public void save(UserAddress userAddress, Long id) {
-
+    public UserAddress findById(Long addressId) {
+        Session session = sessionFactory.getCurrentSession();
+        UserAddress userAddress = session.get(UserAddress.class, addressId);
+        if (userAddress == null) {
+            throw new NotFoundException();
+        }
+        return userAddress;
     }
 
     @Override
-    public UserAddress findById(Long id) {
-        return null;
+    public UserAddress save(UserAddress userAddress, Long userId) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, userId);
+        Hibernate.initialize(user.getUserAddresses());
+        userAddress.setId(null);
+        user.addUserAddress(userAddress);
+        session.saveOrUpdate(userAddress);
+        return userAddress;
     }
 
     @Override
-    public boolean existsById(Long id) {
-        return false;
+    public void deleteById(Long userId, Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, userId);
+        UserAddress userAddress = session.get(UserAddress.class, id);
+        if (user == null || userAddress == null) {
+            throw new NotFoundException();
+        }
+        Hibernate.initialize(user.getUserAddresses());
+        if (!user.getUserAddresses().contains(userAddress)) {
+            throw new NotFoundException();
+        }
+        user.removeAddress(userAddress);
+        session.delete(userAddress);
     }
 
     @Override
-    public List<UserAddress> findAll() {
-        return null;
-    }
-
-    @Override
-    public int count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
-    public void delete(Long idUser, Long id) {
-
+    public void deleteAddressesForUser(Long idUser) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, idUser);
+        if (user == null) {
+            throw new NotFoundException();
+        }
+        Hibernate.initialize(user.getUserAddresses());
+        user.getUserAddresses().forEach((session::delete));
+        user.clearAddresses();
     }
 }

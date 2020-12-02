@@ -6,12 +6,9 @@ import java.util.List;
 
 public interface UserAddressRepository {
 
-    UserAddress findUsersAddresses(Long idUser, Long id);
-    void save(UserAddress userAddress, Long id);
-    UserAddress findById(Long id);
-    boolean existsById(Long id);
-    List<UserAddress> findAll();
-    int count();
-    void deleteById(Long id);
-    void delete(Long idUser, Long id);
+    List<UserAddress> findUserAddresses(Long idUser);
+    UserAddress findById(Long addressId);
+    UserAddress save(UserAddress userAddress, Long userId);
+    void deleteById(Long userId ,Long id);
+    void deleteAddressesForUser(Long idUser);
 }

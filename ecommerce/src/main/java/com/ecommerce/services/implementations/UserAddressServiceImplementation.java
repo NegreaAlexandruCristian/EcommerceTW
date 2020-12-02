@@ -21,42 +21,28 @@ public class UserAddressServiceImplementation implements UserAddressService {
     }
 
     @Override
-    public UserAddress findUsersAddresses(Long idUser, Long id) {
-        return userAddressRepository.findUsersAddresses(idUser, id);
+    public List<UserAddress> findUserAddresses(Long idUser) {
+        return userAddressRepository.findUserAddresses(idUser);
     }
 
     @Override
-    public void save(UserAddress userAddress, Long id) {
-        userAddressRepository.save(userAddress, id);
+    public UserAddress findById(Long addressId) {
+        return userAddressRepository.findById(addressId);
     }
 
     @Override
-    public UserAddress findById(Long id) {
-        return userAddressRepository.findById(id);
+    public UserAddress save(UserAddress userAddress, Long id) {
+        return userAddressRepository.save(userAddress, id);
+    }
+
+
+    @Override
+    public void deleteById(Long userId, Long id) {
+        userAddressRepository.deleteById(userId,id);
     }
 
     @Override
-    public boolean existsById(Long id) {
-        return userAddressRepository.existsById(id);
-    }
-
-    @Override
-    public List<UserAddress> findAll() {
-        return userAddressRepository.findAll();
-    }
-
-    @Override
-    public int count() {
-        return userAddressRepository.count();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        userAddressRepository.deleteById(id);
-    }
-
-    @Override
-    public void delete(Long idUser, Long id) {
-        userAddressRepository.delete(idUser, id);
+    public void deleteAddressesForUser(Long idUser) {
+        userAddressRepository.deleteAddressesForUser(idUser);
     }
 }

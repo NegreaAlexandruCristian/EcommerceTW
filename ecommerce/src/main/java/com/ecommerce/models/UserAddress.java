@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user_address")
@@ -67,4 +68,18 @@ public class UserAddress implements Serializable {
         this.address = address;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserAddress)) return false;
+        UserAddress that = (UserAddress) o;
+        return Objects.equals(country, that.country) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, city, address);
+    }
 }

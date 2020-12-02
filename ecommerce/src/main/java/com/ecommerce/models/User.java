@@ -113,6 +113,18 @@ public class User implements Serializable {
         this.userAddresses = userAddresses;
     }
 
+    public void addUserAddress(UserAddress userAddress) {
+        this.userAddresses.add(userAddress);
+    }
+
+    public void removeAddress(UserAddress address) {
+        this.userAddresses.remove(address);
+    }
+
+    public void clearAddresses() {
+        this.userAddresses.clear();
+    }
+
     public Password getPassword() {
         return password;
     }
