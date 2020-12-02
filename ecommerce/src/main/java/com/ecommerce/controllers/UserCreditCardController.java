@@ -2,7 +2,6 @@ package com.ecommerce.controllers;
 
 import com.ecommerce.models.UserCreditCard;
 import com.ecommerce.services.specifications.UserCreditCardService;
-import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +13,10 @@ import java.util.List;
 @RequestMapping("/creditcard")
 public class UserCreditCardController {
 
-    private final UserService userService;
     private final UserCreditCardService userCreditCardService;
 
     @Autowired
-    public UserCreditCardController(UserService userService, UserCreditCardService userCreditCardService){
-        this.userService = userService;
+    public UserCreditCardController(UserCreditCardService userCreditCardService){
         this.userCreditCardService = userCreditCardService;
     }
 
@@ -32,24 +29,15 @@ public class UserCreditCardController {
     }
 
     //ok
-    @GetMapping("/{idUser}/{id}")
-    public ResponseEntity<UserCreditCard> getCreditCard(@PathVariable("idUser") Long idUser,
-                                                         @PathVariable("id") Long id){
-
-        if(userCreditCardService.existsById(id)){
-
-            return new ResponseEntity<>(userCreditCardService.findUsersCreditCard(idUser,id), HttpStatus.OK);
-        } else {
-
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    //ok
     @GetMapping("/{idUser}")
     public ResponseEntity<List<UserCreditCard>> getUserCreditCards(@PathVariable("idUser") Long idUser){
 
-        return new ResponseEntity<>(userService.findById(idUser).getUserCreditCards(), HttpStatus.OK);
+        return new ResponseEntity<>(userCreditCardService.findUserCreditCards(idUser), HttpStatus.OK);
+    }
+
+    @GetMapping("/card/{id}")
+    public ResponseEntity<UserCreditCard> getCurrentCreditCard(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(userCreditCardService.findById(id), HttpStatus.OK);
     }
 
     //ok
@@ -60,6 +48,4 @@ public class UserCreditCardController {
         userCreditCardService.delete(idUser, id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
 }

@@ -6,7 +6,6 @@ import com.ecommerce.models.UserCreditCard;
 import com.ecommerce.repositories.specifications.UserCreditCardRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -49,20 +48,6 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     }
 
     @Override
-    public List<UserCreditCard> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("FROM UserCreditCard");
-        return query.list();
-    }
-
-    @Override
-    public int count() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<UserCreditCard> query = session.createQuery("FROM UserCreditCard");
-        return query.list().size();
-    }
-
-    @Override
     public void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         UserCreditCard creditCard = session.get(UserCreditCard.class, id);
@@ -72,31 +57,18 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     @Override
     public void delete(Long idUser, Long id) {
         Session session = sessionFactory.getCurrentSession();
-
         User user = session.get(User.class, idUser);
         UserCreditCard userCreditCard = session.get(UserCreditCard.class, id);
         List<UserCreditCard> list = user.getUserCreditCards();
         list.remove(userCreditCard);
-        Query query = session.createQuery("DELETE FROM UserCreditCard WHERE id=:id");
-        query.setParameter("id", id);
-        query.executeUpdate();
-        user.setUserCreditCards(list);
+        deleteById(id);
         session.saveOrUpdate(user);
-
     }
 
     @Override
-    public UserCreditCard findUsersCreditCard(Long idUser, Long id) {
+    public List<UserCreditCard> findUserCreditCards(Long userId) {
         Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, idUser);
-        UserCreditCard userCreditCard = session.get(UserCreditCard.class, id);
-        List<UserCreditCard> userCreditCards = user.getUserCreditCards();
-
-        if(userCreditCards.contains(userCreditCard)){
-
-            return userCreditCard;
-        }
-
-        return null;
+        User user = session.get(User.class, userId);
+        return user.getUserCreditCards();
     }
 }

@@ -20,7 +20,6 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
         this.crediCardRepository = crediCardRepository;
     }
 
-
     @Override
     public UserCreditCard findById(Long id) {
         return crediCardRepository.findById(id);
@@ -37,16 +36,6 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
     }
 
     @Override
-    public List<UserCreditCard> findAll() {
-        return crediCardRepository.findAll();
-    }
-
-    @Override
-    public int count() {
-        return crediCardRepository.count();
-    }
-
-    @Override
     public void deleteById(Long id) {
         crediCardRepository.deleteById(id);
     }
@@ -57,7 +46,7 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
     }
 
     @Override
-    public UserCreditCard findUsersCreditCard(Long idUser, Long id) {
-        return crediCardRepository.findUsersCreditCard(idUser, id);
+    public List<UserCreditCard> findUserCreditCards(Long id) {
+        return crediCardRepository.findUserCreditCards(id);
     }
 }

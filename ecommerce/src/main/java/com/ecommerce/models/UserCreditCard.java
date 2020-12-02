@@ -35,7 +35,7 @@ public class UserCreditCard implements Serializable {
     private Integer expirationMonth;
 
     @NotNull
-    @Min(2020)
+    @Min(2021)
     @Max(2030)
     @Column(name = "expiration_year")
     private Integer expirationYear;
