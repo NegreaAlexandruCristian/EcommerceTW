@@ -1,6 +1,7 @@
 package com.ecommerce.services.specifications;
 
 import com.ecommerce.models.Product;
+import com.ecommerce.models.ProductFilter;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface ProductService {
     List<Product> findAll();
     Integer count();
     void deleteById(Long id);
+    List<Product> filterProducts(ProductFilter productFilter);
 }

@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.models.Product;
+import com.ecommerce.models.ProductFilter;
 import com.ecommerce.services.specifications.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,11 @@ public class ProductController {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Product>> filterProducts(@RequestBody ProductFilter filter) {
+        return new ResponseEntity<>(productService.filterProducts(filter), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")

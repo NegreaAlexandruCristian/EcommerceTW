@@ -4,7 +4,7 @@ public class ProductFilter {
 
     private Category category;
     private double price;
-    private String priceAscendingOrDescending = "ASC";
+    private String priceAscendingOrDescending = "";
     private double rating;
 
     public ProductFilter() {

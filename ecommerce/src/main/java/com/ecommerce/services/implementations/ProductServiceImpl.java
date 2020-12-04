@@ -1,6 +1,7 @@
 package com.ecommerce.services.implementations;
 
 import com.ecommerce.models.Product;
+import com.ecommerce.models.ProductFilter;
 import com.ecommerce.repositories.specifications.ProductRepository;
 import com.ecommerce.services.specifications.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Product> filterProducts(ProductFilter productFilter) {
+        return productRepository.filter(productFilter);
     }
 }
