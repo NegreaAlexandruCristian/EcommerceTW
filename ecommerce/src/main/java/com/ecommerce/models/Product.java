@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Table(name = "products")
 @JsonIgnoreProperties({"reviewList, userWishlist, histories, cartList"})
-public class Product implements Serializable {
+public class Product implements Serializable, Comparable<Product>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,10 @@ public class Product implements Serializable {
     @Column(name = "description")
     @NotNull
     private String description;
+
+    @Column(name = "stars")
+    @NotNull
+    private double stars;
 
     @NotNull
     @Column(name = "price")
@@ -53,6 +57,14 @@ public class Product implements Serializable {
     private List<Review> reviewList;
 
     public Product() {
+    }
+
+    public double getStars() {
+        return stars;
+    }
+
+    public void setStars(double stars) {
+        this.stars = stars;
     }
 
     public Long getId() {
@@ -144,5 +156,21 @@ public class Product implements Serializable {
     public void addReview(Review review) {
 
         reviewList.add(review);
+    }
+
+    @Override
+    public int compareTo(Product o) {
+
+        if(o.getPrice() < this.getPrice()){
+
+            return 1;
+
+        } else if (o.getPrice() > this.getPrice()){
+
+            return -1;
+        }
+
+        return 0;
+
     }
 }

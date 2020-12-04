@@ -3,6 +3,8 @@ package com.ecommerce.repositories.implementations;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
+import com.ecommerce.models.ProductFilter;
+import com.ecommerce.models.User;
 import com.ecommerce.repositories.specifications.ProductRepository;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -10,9 +12,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Column;
 import javax.persistence.NoResultException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ProductRepositoryImpl implements ProductRepository {
@@ -95,5 +100,23 @@ public class ProductRepositoryImpl implements ProductRepository {
         Session session = sessionFactory.getCurrentSession();
         Product dbProduct = session.get(Product.class, product.getId());
         session.delete(dbProduct);
+    }
+
+    @Override
+    public List<Product> filter(ProductFilter productFilter){
+        List<Product> products = this.findAll();
+        products = products.stream().filter(product ->
+                product.getCategory().equals(productFilter.getCategory())
+                ).filter(product ->
+                product.getStars() >= productFilter.getRating()
+                ).collect(Collectors.toList());
+
+        if (productFilter.getPriceAscendingOrDescending().equals("ASC")){
+            Collections.sort(products);
+        } else if (productFilter.getPriceAscendingOrDescending().equals("DESC")) {
+            products.sort(Collections.reverseOrder());
+        }
+
+        return products;
     }
 }
