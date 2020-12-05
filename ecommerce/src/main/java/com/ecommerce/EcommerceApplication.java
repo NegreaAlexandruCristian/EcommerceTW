@@ -20,7 +20,7 @@ public class EcommerceApplication {
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
         dataSourceInitializer.setDataSource(dataSource);
         ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-        databasePopulator.addScript(new ClassPathResource("script.sql"));
+        databasePopulator.addScript(new ClassPathResource("V1.00__Security_Tables.sql"));
         dataSourceInitializer.setDatabasePopulator(databasePopulator);
         dataSourceInitializer.setEnabled(true);
         return dataSourceInitializer;

@@ -1,23 +1,25 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.models.CartItems;
-import com.ecommerce.models.HistoryItems;
+import com.ecommerce.models.HistoryItemsRepresentation;
 import com.ecommerce.services.specifications.HistoryService;
+import com.ecommerce.services.specifications.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-//TODO We should see the products, not their id's.
 @RestController
 @RequestMapping("/history")
 public class HistoryController {
     private final HistoryService historyService;
+    private final ProductService productService;
 
-
-    public HistoryController(HistoryService historyService) {
+    public HistoryController(HistoryService historyService, ProductService productService) {
         this.historyService = historyService;
+        this.productService = productService;
     }
 
     //ok
@@ -29,14 +31,19 @@ public class HistoryController {
 
     //ok
     @GetMapping("/{userId}")
-    public ResponseEntity<List<HistoryItems>> getAllHistoryItems(@PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(historyService.findHistoryItemsByUserId(userId), HttpStatus.FOUND);
+    public ResponseEntity<List<HistoryItemsRepresentation>> getAllHistoryItems(@PathVariable("userId") Long userId) {
+        List<HistoryItemsRepresentation> representations = historyService.findHistoryItemsByUserId(userId).stream()
+                .map(hi -> new HistoryItemsRepresentation(productService).mapFromDomain(hi))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(representations, HttpStatus.FOUND);
     }
 
     @GetMapping("/{userId}/{productId}")
-    public ResponseEntity<HistoryItems> getProductById(@PathVariable("userId") Long userId,
+    public ResponseEntity<HistoryItemsRepresentation> getProductById(@PathVariable("userId") Long userId,
                                                        @PathVariable("productId") Long productId) {
-        return new ResponseEntity<>(historyService.findById(userId, productId), HttpStatus.FOUND);
+        HistoryItemsRepresentation representation = new HistoryItemsRepresentation(productService)
+                .mapFromDomain(historyService.findById(userId, productId));
+        return new ResponseEntity<>(representation, HttpStatus.FOUND);
     }
 
     //ok

@@ -1,6 +1,6 @@
 package com.ecommerce.services.implementations;
 
-import com.ecommerce.models.UserWishlist;
+import com.ecommerce.models.Product;
 import com.ecommerce.repositories.specifications.UserWishlistRepository;
 import com.ecommerce.services.specifications.UserWishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +21,12 @@ public class UserWishlistServiceImpl implements UserWishlistService {
     }
 
     @Override
-    public List<UserWishlist> findWishlistItemsByUserId(Long userId) {
+    public List<Product> findWishlistItemsByUserId(Long userId) {
         return userWishlistRepository.findWishlistItemsByUserId(userId);
     }
 
     @Override
-    public UserWishlist findProductById(Long userId, Long productId) {
+    public Product findProductById(Long userId, Long productId) {
         return userWishlistRepository.findProductById(userId, productId);
     }
 

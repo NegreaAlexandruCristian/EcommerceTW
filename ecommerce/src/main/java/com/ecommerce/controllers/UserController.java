@@ -109,6 +109,4 @@ public class UserController {
         userService.updateUserInformation(userInformation);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    //TODO History, reviews, cart, creditcard later
 }

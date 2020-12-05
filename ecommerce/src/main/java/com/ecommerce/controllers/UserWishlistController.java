@@ -1,6 +1,6 @@
 package com.ecommerce.controllers;
 
-import com.ecommerce.models.UserWishlist;
+import com.ecommerce.models.Product;
 import com.ecommerce.services.specifications.UserWishlistService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +25,13 @@ public class UserWishlistController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<UserWishlist>> retrieveUserWishlist(@PathVariable("userId") Long userId) {
+    public ResponseEntity<List<Product>> retrieveUserWishlist(@PathVariable("userId") Long userId) {
         return new ResponseEntity<>(userWishlistService.findWishlistItemsByUserId(userId), HttpStatus.FOUND);
     }
 
     @GetMapping("/{userId}/{productId}")
-    public ResponseEntity<UserWishlist> retrieveUserWishlistItem(@PathVariable("userId") Long userId,
-                                                                 @PathVariable("productId") Long productId) {
+    public ResponseEntity<Product> retrieveUserWishlistItem(@PathVariable("userId") Long userId,
+                                                            @PathVariable("productId") Long productId) {
         return new ResponseEntity<>(userWishlistService.findProductById(userId, productId), HttpStatus.FOUND);
     }
 
