@@ -2,6 +2,7 @@ package com.ecommerce.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cart_items")
@@ -41,6 +42,19 @@ public class CartItems implements Serializable {
 
     public void setQuantity(Long quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartItems)) return false;
+        CartItems cartItems = (CartItems) o;
+        return Objects.equals(userId, cartItems.userId) && Objects.equals(productId, cartItems.productId) && Objects.equals(quantity, cartItems.quantity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, productId, quantity);
     }
 
     @Override

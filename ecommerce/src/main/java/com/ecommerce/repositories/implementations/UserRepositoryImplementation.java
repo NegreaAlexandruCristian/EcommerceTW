@@ -15,7 +15,6 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
@@ -112,30 +111,8 @@ public class UserRepositoryImplementation implements UserRepository {
     @Override
     public boolean existsById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        Query<User> query = session.createQuery("FROM User WHERE id=:id");
-        query.setParameter("id",id);
-        try{
-            query.getSingleResult();
-        }catch (NoResultException e){
-            throw new NotFoundException();
-        }
-        return true;
-    }
-
-    //ok
-    @Override
-    public List<User> findAll() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<User> query = session.createQuery("FROM User");
-        return query.list();
-    }
-
-    //ok
-    @Override
-    public int count() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<User> query = session.createQuery("FROM User");
-        return query.list().size();
+        User user = session.get(User.class, id);
+        return user != null;
     }
 
     @Override

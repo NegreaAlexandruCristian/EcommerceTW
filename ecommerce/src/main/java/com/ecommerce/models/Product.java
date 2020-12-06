@@ -7,11 +7,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
 @JsonIgnoreProperties({"reviewList, userWishlist, histories, cartList"})
-public class Product implements Serializable, Comparable<Product>{
+public class Product implements Serializable, Comparable<Product> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -161,16 +162,35 @@ public class Product implements Serializable, Comparable<Product>{
     @Override
     public int compareTo(Product o) {
 
-        if(o.getPrice() < this.getPrice()){
+        if (o.getPrice() < this.getPrice()) {
 
             return 1;
 
-        } else if (o.getPrice() > this.getPrice()){
+        } else if (o.getPrice() > this.getPrice()) {
 
             return -1;
         }
 
         return 0;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Double.compare(product.stars, stars) == 0 &&
+                Double.compare(product.price, price) == 0 &&
+                quantity == product.quantity &&
+                sale == product.sale &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(photo, product.photo) &&
+                Objects.equals(category, product.category);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, stars, price, quantity, sale, photo, category);
     }
 }

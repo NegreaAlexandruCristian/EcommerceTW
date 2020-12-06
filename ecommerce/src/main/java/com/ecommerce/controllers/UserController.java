@@ -71,18 +71,6 @@ public class UserController {
     }
 
     //ok
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> findAllUsers(){
-        return new ResponseEntity<>(userService.findAll(),HttpStatus.OK);
-    }
-
-    //ok
-    @GetMapping("/count")
-    public ResponseEntity<Integer> countUsers(){
-        return new ResponseEntity<>(userService.count(), HttpStatus.OK);
-    }
-
-    //ok
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id")Long id) {
         userService.deleteById(id);
