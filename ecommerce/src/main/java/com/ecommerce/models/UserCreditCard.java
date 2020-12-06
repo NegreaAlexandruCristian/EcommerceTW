@@ -46,6 +46,9 @@ public class UserCreditCard implements Serializable {
     @Column(name = "cvv")
     private Integer cvv;
 
+    @Column(name = "user_id")
+    private Long userId;
+
     public UserCreditCard() {
     }
 
@@ -95,6 +98,14 @@ public class UserCreditCard implements Serializable {
 
     public void setCvv(Integer cvv) {
         this.cvv = cvv;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override

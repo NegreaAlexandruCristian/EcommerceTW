@@ -23,8 +23,8 @@ public class UserCreditCardController {
     //ok
     @PostMapping("/save/{id}")
     public ResponseEntity<HttpStatus> saveCreditCard(@RequestBody UserCreditCard userCreditCard,
-                                                         @PathVariable("id") Long id){
-        userCreditCardService.save(userCreditCard, id);
+                                                         @PathVariable("id") Long userId){
+        userCreditCardService.save(userCreditCard, userId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -41,11 +41,17 @@ public class UserCreditCardController {
     }
 
     //ok
-    @DeleteMapping("/delete/{idUser}/{id}")
-    public ResponseEntity<HttpStatus> deleteCreditCard(@PathVariable("idUser") Long idUser,
-                                                       @PathVariable("id") Long id){
+    @DeleteMapping("/delete/{idUser}")
+    public ResponseEntity<HttpStatus> deleteCreditCards(@PathVariable("idUser") Long idUser){
 
-        userCreditCardService.delete(idUser, id);
+        userCreditCardService.delete(idUser);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletecard/{id}")
+    public ResponseEntity<HttpStatus> deleteCreditCard(@PathVariable("id") Long id){
+
+        userCreditCardService.deleteSpecificCard(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

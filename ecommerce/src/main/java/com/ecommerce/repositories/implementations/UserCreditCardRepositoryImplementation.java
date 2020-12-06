@@ -4,9 +4,9 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserCreditCard;
 import com.ecommerce.repositories.specifications.UserCreditCardRepository;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,13 +23,14 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     }
 
     @Override
-    public void save(UserCreditCard creditCard, Long id) {
-        Session session=sessionFactory.getCurrentSession();
-        User user = session.get(User.class, id);
-        Hibernate.initialize(user.getUserCreditCards());
-        creditCard.setId(null);
-        user.addCreditCard(creditCard);
-        session.saveOrUpdate(user);
+    public void save(UserCreditCard creditCard, Long userId) {
+        Session session = sessionFactory.getCurrentSession();
+        User user = session.get(User.class, userId);
+        if(user == null) {
+            throw new NotFoundException();
+        }
+        creditCard.setUserId(userId);
+        session.saveOrUpdate(creditCard);
     }
 
     @Override
@@ -49,29 +50,26 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
         return creditCard != null;
     }
 
-    private void deleteById(Long id) {
+    @Override
+    public void deleteSpecificCard(Long cardId) {
         Session session = sessionFactory.getCurrentSession();
-        UserCreditCard creditCard = session.get(UserCreditCard.class, id);
+        UserCreditCard creditCard = session.get(UserCreditCard.class, cardId);
         session.delete(creditCard);
     }
 
     @Override
-    public void delete(Long idUser, Long id) {
+    public void delete(Long userId) {
         Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, idUser);
-        Hibernate.initialize(user.getUserCreditCards());
-        UserCreditCard userCreditCard = session.get(UserCreditCard.class, id);
-        List<UserCreditCard> list = user.getUserCreditCards();
-        list.remove(userCreditCard);
-        deleteById(id);
-        session.saveOrUpdate(user);
+        Query<UserCreditCard> query = session.createQuery("DELETE FROM UserCreditCard WHERE userId =: userId");
+        query.setParameter("userId", userId);
+        query.executeUpdate();
     }
 
     @Override
     public List<UserCreditCard> findUserCreditCards(Long userId) {
         Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, userId);
-        Hibernate.initialize(user.getUserCreditCards());
-        return user.getUserCreditCards();
+        Query<UserCreditCard> query = session.createQuery("FROM UserCreditCard WHERE userId =: userId");
+        query.setParameter("userId", userId);
+        return query.list();
     }
 }

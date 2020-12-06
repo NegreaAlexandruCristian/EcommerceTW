@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,10 +30,6 @@ public class User implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_review")
     private List<Review> reviews;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<UserCreditCard> userCreditCards;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -81,14 +76,6 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public List<UserCreditCard> getUserCreditCards() {
-        return userCreditCards;
-    }
-
-    public void setUserCreditCards(List<UserCreditCard> userCreditCards) {
-        this.userCreditCards = userCreditCards;
     }
 
     public List<UserAddress> getUserAddresses() {
@@ -146,16 +133,8 @@ public class User implements Serializable {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", reviews=" + reviews +
-                ", userCreditCards=" + userCreditCards +
                 ", userAddresses=" + userAddresses +
                 '}';
-    }
-
-    public void addCreditCard(UserCreditCard userCreditCard) {
-        if(userCreditCards == null) {
-            userCreditCards = new ArrayList<>();
-        }
-        userCreditCards.add(userCreditCard);
     }
 
     public void addReview(Review review) {
