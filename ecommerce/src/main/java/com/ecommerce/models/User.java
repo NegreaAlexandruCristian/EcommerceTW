@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,6 +88,9 @@ public class User implements Serializable {
     }
 
     public void addUserAddress(UserAddress userAddress) {
+        if(this.userAddresses == null) {
+            this.userAddresses = new ArrayList<>();
+        }
         this.userAddresses.add(userAddress);
     }
 

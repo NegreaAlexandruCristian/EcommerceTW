@@ -27,6 +27,9 @@ public class UserAddressRepositoryImplementation implements UserAddressRepositor
     public List<UserAddress> findUserAddresses(Long idUser) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, idUser);
+        if(user == null) {
+            throw new NotFoundException();
+        }
         Hibernate.initialize(user.getUserAddresses());
         return user.getUserAddresses();
     }
