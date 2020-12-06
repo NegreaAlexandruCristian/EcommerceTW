@@ -36,11 +36,6 @@ public class UserCreditCardServiceImplementation implements UserCreditCardServic
     }
 
     @Override
-    public void deleteById(Long id) {
-        crediCardRepository.deleteById(id);
-    }
-
-    @Override
     public void delete(Long idUser, Long id) {
         crediCardRepository.delete(idUser, id);
     }

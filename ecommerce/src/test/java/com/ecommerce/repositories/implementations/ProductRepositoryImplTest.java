@@ -79,7 +79,7 @@ class ProductRepositoryImplTest {
     @DirtiesContext
     public void testFindProductException() {
         Exception e = assertThrows(NotFoundException.class, () -> productRepository.findById(3L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -111,7 +111,7 @@ class ProductRepositoryImplTest {
     public void testDeleteById() {
         productRepository.deleteById(1L);
         Exception e = assertThrows(NotFoundException.class, () -> productRepository.findById(1L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -128,7 +128,7 @@ class ProductRepositoryImplTest {
         product.setId(1L);
         productRepository.delete(product);
         Exception e = assertThrows(NotFoundException.class, () -> productRepository.findById(1L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 }
 

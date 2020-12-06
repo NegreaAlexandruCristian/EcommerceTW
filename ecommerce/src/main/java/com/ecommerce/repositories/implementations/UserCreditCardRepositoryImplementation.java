@@ -4,6 +4,7 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserCreditCard;
 import com.ecommerce.repositories.specifications.UserCreditCardRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     @Override
     public void save(UserCreditCard creditCard, Long id) {
         Session session=sessionFactory.getCurrentSession();
-        creditCard.setId(null);
         User user = session.get(User.class, id);
+        Hibernate.initialize(user.getUserCreditCards());
+        creditCard.setId(null);
         user.addCreditCard(creditCard);
         session.saveOrUpdate(user);
     }
@@ -47,8 +49,7 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
         return creditCard != null;
     }
 
-    @Override
-    public void deleteById(Long id) {
+    private void deleteById(Long id) {
         Session session = sessionFactory.getCurrentSession();
         UserCreditCard creditCard = session.get(UserCreditCard.class, id);
         session.delete(creditCard);
@@ -58,6 +59,7 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     public void delete(Long idUser, Long id) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, idUser);
+        Hibernate.initialize(user.getUserCreditCards());
         UserCreditCard userCreditCard = session.get(UserCreditCard.class, id);
         List<UserCreditCard> list = user.getUserCreditCards();
         list.remove(userCreditCard);
@@ -69,6 +71,7 @@ public class UserCreditCardRepositoryImplementation implements UserCreditCardRep
     public List<UserCreditCard> findUserCreditCards(Long userId) {
         Session session = sessionFactory.getCurrentSession();
         User user = session.get(User.class, userId);
+        Hibernate.initialize(user.getUserCreditCards());
         return user.getUserCreditCards();
     }
 }

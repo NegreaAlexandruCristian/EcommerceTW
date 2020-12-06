@@ -35,7 +35,7 @@ class HistoryRepositoryImplementationTest {
     @Test
     public void testFindHistoryExceptions() {
         Exception e = assertThrows(NotFoundException.class, () -> historyRepository.findById(1L, 1L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -66,7 +66,7 @@ class HistoryRepositoryImplementationTest {
         historyRepository.deleteHistoryItem(1L, 2L);
 
         Exception e = assertThrows(NotFoundException.class, () -> historyRepository.findById(1L, 2L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test

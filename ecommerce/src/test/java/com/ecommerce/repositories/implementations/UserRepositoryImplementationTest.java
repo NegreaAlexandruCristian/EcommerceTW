@@ -62,7 +62,7 @@ public class UserRepositoryImplementationTest {
     @DirtiesContext
     public void testFindUserException() {
         Exception e = assertThrows(NotFoundException.class, () -> userRepository.findByUsername("Not existent"));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class UserRepositoryImplementationTest {
     public void testDeleteById() {
         userRepository.deleteById(2L);
         Exception e = assertThrows(NotFoundException.class, () -> userRepository.findById(2L));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class UserRepositoryImplementationTest {
 
         userRepository.delete(user);
         Exception e = assertThrows(NotFoundException.class, () -> userRepository.findByUsername("Not existent"));
-        assertThat(e.getMessage()).isEqualTo("Object not found");
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
 }

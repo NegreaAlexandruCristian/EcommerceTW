@@ -30,7 +30,7 @@ class CategoryRepositoryImplementationTest {
     public void testAddCategoryException() {
         categoryRepository.addCategory("Telefoane");
         Exception e = assertThrows(NotAllowedException.class, () -> categoryRepository.addCategory("Telefoane"));
-        assertThat(e.getMessage()).isEqualTo("Operation not permitted.");
+        assertThat(e).isInstanceOf(NotAllowedException.class);
     }
 
 }
