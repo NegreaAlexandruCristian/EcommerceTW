@@ -83,7 +83,8 @@ public class UserRepositoryImplementation implements UserRepository {
         Session session=sessionFactory.getCurrentSession();
         try {
             session.saveOrUpdate(user);
-        } catch (ConstraintViolationException e){
+        } catch (ConstraintViolationException | org.hibernate.exception.ConstraintViolationException e){
+            //both exception could be thrown. We use package name for the last one to avoid confusion.
             throw new ConstraintViolationExceptionCustom();
         }
         return user;
