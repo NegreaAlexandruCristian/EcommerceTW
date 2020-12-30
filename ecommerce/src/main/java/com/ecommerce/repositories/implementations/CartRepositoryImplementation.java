@@ -1,6 +1,6 @@
 package com.ecommerce.repositories.implementations;
 
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.models.CompositePK;
 import com.ecommerce.repositories.specifications.CartRepository;
 import org.hibernate.Session;
@@ -20,23 +20,23 @@ public class CartRepositoryImplementation implements CartRepository {
     }
 
     @Override
-    public List<CartItems> findCartItemsByUserId(Long userId) {
+    public List<CartItem> findCartItemsByUserId(Long userId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<CartItems> query = session.createQuery("FROM CartItems WHERE userId =: id");
+        Query<CartItem> query = session.createQuery("FROM CartItem WHERE userId =: id");
         query.setParameter("id", userId);
         return query.list();
     }
 
     @Override
-    public CartItems addProductToCart(Long userId, Long productId) {
+    public CartItem addProductToCart(Long userId, Long productId) {
         Session session = sessionFactory.getCurrentSession();
-        CartItems cartItem = new CartItems();
+        CartItem cartItem = new CartItem();
 
         cartItem.setUserId(userId);
         cartItem.setProductId(productId);
         cartItem.setQuantity(1L);
 
-        CartItems maybeCartItem = session.get(CartItems.class, new CompositePK(userId, productId));
+        CartItem maybeCartItem = session.get(CartItem.class, new CompositePK(userId, productId));
         if(maybeCartItem == null) {
             session.save(cartItem);
         } else {
@@ -52,7 +52,7 @@ public class CartRepositoryImplementation implements CartRepository {
     @Override
     public void deleteCartItems(Long userId) {
         Session session = sessionFactory.getCurrentSession();
-        Query<CartItems> query = session.createQuery("DELETE FROM CartItems WHERE userId =: id");
+        Query<CartItem> query = session.createQuery("DELETE FROM CartItem WHERE userId =: id");
         query.setParameter("id", userId);
         query.executeUpdate();
     }
@@ -60,7 +60,7 @@ public class CartRepositoryImplementation implements CartRepository {
     @Override
     public void deleteCartItem(Long userId, Long productId) {
         Session session = sessionFactory.getCurrentSession();
-        CartItems cartItem = session.get(CartItems.class, new CompositePK(userId, productId));
+        CartItem cartItem = session.get(CartItem.class, new CompositePK(userId, productId));
         session.delete(cartItem);
     }
 }

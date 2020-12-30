@@ -106,7 +106,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                 .filterCategory(productFilter.getCategory())
                 .filterRating(productFilter.getRating())
                 .filterPrice(productFilter.getPrice())
-                .sortPrice(productFilter.getPriceAscendingOrDescending())
+                .sortPrice(productFilter.getIsAscending())
                 .collect();
     }
 }

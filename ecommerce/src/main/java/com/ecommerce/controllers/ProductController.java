@@ -50,7 +50,7 @@ public class ProductController {
         return new ResponseEntity<>(productService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/filter")
+    @PostMapping("/filter")
     public ResponseEntity<List<Product>> filterProducts(@RequestBody ProductFilter filter) {
         return new ResponseEntity<>(productService.filterProducts(filter), HttpStatus.OK);
     }

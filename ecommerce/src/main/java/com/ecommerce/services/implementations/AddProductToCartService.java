@@ -1,6 +1,6 @@
 package com.ecommerce.services.implementations;
 
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.repositories.implementations.CartRepositoryImplementation;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class AddProductToCartService {
         this.cartRepositoryImplementation = cartRepositoryImplementation;
     }
 
-    public CartItems addProductToCart(Long userId, Long productId) {
+    public CartItem addProductToCart(Long userId, Long productId) {
         return cartRepositoryImplementation.addProductToCart(userId, productId);
     }
 }

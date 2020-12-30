@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
+import com.ecommerce.models.CartProduct;
 import com.ecommerce.services.implementations.AddProductToCartService;
 import com.ecommerce.services.implementations.ConsultCartService;
 import com.ecommerce.services.implementations.DeleteCartItemsService;
@@ -26,12 +27,12 @@ public class CartController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<CartItems>> getUserCartItems(@PathVariable("userId") Long userId) {
+    public ResponseEntity<List<CartProduct>> getUserCartItems(@PathVariable("userId") Long userId) {
         return new ResponseEntity<>(consultCartService.consult(userId), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/{productId}")
-    public ResponseEntity<CartItems> addProductToCart(
+    public ResponseEntity<CartItem> addProductToCart(
             @PathVariable("userId") Long userId,
             @PathVariable("productId") Long productId
     ) {

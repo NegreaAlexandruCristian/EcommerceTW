@@ -7,7 +7,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "cart_items")
 @IdClass(CompositePK.class)
-public class CartItems implements Serializable {
+public class CartItem implements Serializable {
 
     @Id
     @Column(name = "user_id")
@@ -47,9 +47,9 @@ public class CartItems implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof CartItems)) return false;
-        CartItems cartItems = (CartItems) o;
-        return Objects.equals(userId, cartItems.userId) && Objects.equals(productId, cartItems.productId) && Objects.equals(quantity, cartItems.quantity);
+        if (!(o instanceof CartItem)) return false;
+        CartItem cartItem = (CartItem) o;
+        return Objects.equals(userId, cartItem.userId) && Objects.equals(productId, cartItem.productId) && Objects.equals(quantity, cartItem.quantity);
     }
 
     @Override

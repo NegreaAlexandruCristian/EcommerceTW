@@ -2,7 +2,7 @@ package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.EcommerceApplication;
 import com.ecommerce.exceptions.NotFoundException;
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.models.HistoryItems;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +82,7 @@ class HistoryRepositoryImplementationTest {
     }
 
     private void addCartItem(Long userId, Long productId) {
-        CartItems cartItem = CartItemsBuilder.builder()
+        CartItem cartItem = CartItemsBuilder.builder()
                 .userId(userId)
                 .productId(productId)
                 .quantity(1L)

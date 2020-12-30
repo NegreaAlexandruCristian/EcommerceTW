@@ -4,18 +4,18 @@ public class ProductFilter {
 
     private Category category;
     private double price;
-    private String priceAscendingOrDescending = "";
+    private boolean isAscending = false;
     private double rating;
 
     public ProductFilter() {
     }
 
-    public String getPriceAscendingOrDescending() {
-        return priceAscendingOrDescending;
+    public boolean getIsAscending() {
+        return isAscending;
     }
 
-    public void setPriceAscendingOrDescending(String priceAscendingOrDescending) {
-        this.priceAscendingOrDescending = priceAscendingOrDescending;
+    public void setIsAscending(boolean isAscending) {
+        this.isAscending = isAscending;
     }
 
     public Category getCategory() {
@@ -41,6 +41,4 @@ public class ProductFilter {
     public void setRating(double rating) {
         this.rating = rating;
     }
-
-
 }

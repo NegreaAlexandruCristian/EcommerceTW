@@ -1,7 +1,7 @@
 package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.EcommerceApplication;
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.repositories.specifications.CartRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ public class CartRepositoryImplementationTest {
 
     @Test
     public void addProductToCardTest() {
-        CartItems cartItem = cartRepository.addProductToCart(1L, 1L);
-        CartItems copyCart = CartItemsBuilder.builder()
+        CartItem cartItem = cartRepository.addProductToCart(1L, 1L);
+        CartItem copyCart = CartItemsBuilder.builder()
                 .userId(1L)
                 .productId(1L)
                 .quantity(1L)
@@ -35,8 +35,8 @@ public class CartRepositoryImplementationTest {
     @Test
     public void addProductIncreaseQuantity() {
         addCartItem(1L, 1L);
-        CartItems cartItem = cartRepository.addProductToCart(1L, 1L);
-        CartItems copyCart = CartItemsBuilder.builder()
+        CartItem cartItem = cartRepository.addProductToCart(1L, 1L);
+        CartItem copyCart = CartItemsBuilder.builder()
                 .userId(1L)
                 .productId(1L)
                 .quantity(2L)
@@ -52,15 +52,15 @@ public class CartRepositoryImplementationTest {
         addCartItem(1L, 2L);
         addCartItem(2L, 2L);
         //WHEN
-        List<CartItems> cartItems = cartRepository.findCartItemsByUserId(1L);
+        List<CartItem> cartItems = cartRepository.findCartItemsByUserId(1L);
         //THEN
-        CartItems copyCart1 = CartItemsBuilder.builder()
+        CartItem copyCart1 = CartItemsBuilder.builder()
                 .userId(1L)
                 .productId(1L)
                 .quantity(1L)
                 .build();
 
-        CartItems copyCart2 = CartItemsBuilder.builder()
+        CartItem copyCart2 = CartItemsBuilder.builder()
                 .userId(1L)
                 .productId(1L)
                 .quantity(1L)
@@ -74,7 +74,7 @@ public class CartRepositoryImplementationTest {
         addCartItem(1L, 1L);
         cartRepository.deleteCartItem(1L, 1L);
 
-        List<CartItems> cartItems = cartRepository.findCartItemsByUserId(1L);
+        List<CartItem> cartItems = cartRepository.findCartItemsByUserId(1L);
 
         assertThat(cartItems).isEmpty();
     }
@@ -86,7 +86,7 @@ public class CartRepositoryImplementationTest {
         addCartItem(2L, 2L);
         cartRepository.deleteCartItems(1L);
 
-        List<CartItems> cartItems = cartRepository.findCartItemsByUserId(1L);
+        List<CartItem> cartItems = cartRepository.findCartItemsByUserId(1L);
 
         assertThat(cartItems).isEmpty();
     }
@@ -121,11 +121,11 @@ class CartItemsBuilder {
         return this;
     }
 
-    public CartItems build() {
-        CartItems cartItems = new CartItems();
-        cartItems.setUserId(userId);
-        cartItems.setProductId(productId);
-        cartItems.setQuantity(quantity);
-        return cartItems;
+    public CartItem build() {
+        CartItem cartItem = new CartItem();
+        cartItem.setUserId(userId);
+        cartItem.setProductId(productId);
+        cartItem.setQuantity(quantity);
+        return cartItem;
     }
 }

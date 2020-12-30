@@ -26,7 +26,7 @@ public class Filter {
     public Filter filterRating(double rating) {
         Optional<Double> optRating = rating != 0.0 ? Optional.of(rating) : Optional.empty();
         optRating.ifPresent(rat -> this.products = products.stream()
-                .filter(product -> product.getStars() >= rat )
+                .filter(product -> product.getStars() >= rat)
                 .collect(Collectors.toList()));
         return this;
     }
@@ -34,15 +34,15 @@ public class Filter {
     public Filter filterPrice(double price) {
         Optional<Double> optPrice = price != 0.0 ? Optional.of(price) : Optional.empty();
         optPrice.ifPresent(pr -> this.products = products.stream()
-                .filter(product -> product.getPrice() <= pr )
+                .filter(product -> product.getPrice() <= pr)
                 .collect(Collectors.toList()));
         return this;
     }
 
-    public Filter sortPrice(String arg) {
-        if (arg.equals("ASC")) {
+    public Filter sortPrice(boolean arg) {
+        if (arg) {
             products.sort(Product::compareTo);
-        } else if(arg.equals("DESC")) {
+        } else {
             products.sort(Comparator.reverseOrder());
         }
         return this;

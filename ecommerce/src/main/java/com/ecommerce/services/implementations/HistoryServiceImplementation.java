@@ -1,6 +1,6 @@
 package com.ecommerce.services.implementations;
 
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.models.HistoryItems;
 import com.ecommerce.repositories.specifications.HistoryRepository;
 import com.ecommerce.services.specifications.HistoryService;
@@ -27,8 +27,8 @@ public class HistoryServiceImplementation implements HistoryService {
     }
 
     @Override
-    public void addProductToHistory(CartItems cartItems) {
-        historyRepository.addProductToHistory(cartItems);
+    public void addProductToHistory(CartItem cartItem) {
+        historyRepository.addProductToHistory(cartItem);
     }
 
     @Override

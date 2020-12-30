@@ -1,6 +1,6 @@
 package com.ecommerce.controllers;
 
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.models.HistoryItemsRepresentation;
 import com.ecommerce.services.specifications.HistoryService;
 import com.ecommerce.services.specifications.ProductService;
@@ -24,8 +24,8 @@ public class HistoryController {
 
     //ok
     @PostMapping("/save")
-    public ResponseEntity<HttpStatus> saveItemInHistory(@RequestBody CartItems cartItems) {
-        historyService.addProductToHistory(cartItems);
+    public ResponseEntity<HttpStatus> saveItemInHistory(@RequestBody CartItem cartItem) {
+        historyService.addProductToHistory(cartItem);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 

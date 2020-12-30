@@ -1,7 +1,7 @@
 package com.ecommerce.repositories.implementations;
 
 import com.ecommerce.exceptions.NotFoundException;
-import com.ecommerce.models.CartItems;
+import com.ecommerce.models.CartItem;
 import com.ecommerce.models.CompositePK;
 import com.ecommerce.models.HistoryItems;
 import com.ecommerce.repositories.specifications.HistoryRepository;
@@ -33,7 +33,7 @@ public class HistoryRepositoryImplementation implements HistoryRepository {
     }
 
     @Override
-    public void addProductToHistory(CartItems cartItem) {
+    public void addProductToHistory(CartItem cartItem) {
         Session session = sessionFactory.getCurrentSession();
         HistoryItems historyItem = convertFromCartToHistory(cartItem);
         session.saveOrUpdate(historyItem);
@@ -66,7 +66,7 @@ public class HistoryRepositoryImplementation implements HistoryRepository {
         return historyItem;
     }
 
-    private HistoryItems convertFromCartToHistory(CartItems cartItem) {
+    private HistoryItems convertFromCartToHistory(CartItem cartItem) {
         HistoryItems historyItem = new HistoryItems();
         historyItem.setUserId(cartItem.getUserId());
         historyItem.setProductId(cartItem.getProductId());
