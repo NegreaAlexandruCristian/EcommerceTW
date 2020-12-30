@@ -14,6 +14,8 @@ import javax.sql.DataSource;
 @SpringBootApplication(exclude= HibernateJpaAutoConfiguration.class)
 @EnableJpaRepositories
 public class EcommerceApplication {
+    //TODO Verify Address, review repositories.. Maybe it will need some changes
+    //TODO Unit testing for all repo + services + controllers.
 
     @Bean
     public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {

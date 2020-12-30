@@ -22,18 +22,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login").permitAll();
-//                .antMatchers("/register").permitAll()
-//                .antMatchers("/register/").permitAll()
-//                .antMatchers(HttpMethod.GET, "/certifications/custom").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/certifications/custom/**").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.GET, "**").permitAll()
-//                .antMatchers(HttpMethod.POST, "/certifications/**").permitAll()
-//                .antMatchers(HttpMethod.PUT, "/certifications").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/certifications/").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.DELETE, "/certifications/**").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.PUT, "/requests/{\\d+}/{\\d+}").hasAuthority("ADMIN")
-//                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-//                .anyRequest().authenticated();
+                .antMatchers("/login").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/register/").permitAll()
+                .antMatchers(HttpMethod.POST, "/ecommerce/product/insert").authenticated()
+                .antMatchers(HttpMethod.GET, "/ecommerce/users/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/ecommerce/users/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/ecommerce/users/**").authenticated()
+                .antMatchers(HttpMethod.OPTIONS, "**").authenticated()
+                .anyRequest()
+                .permitAll();
     }
 }
