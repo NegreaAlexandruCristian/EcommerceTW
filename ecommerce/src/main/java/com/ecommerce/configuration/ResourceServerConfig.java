@@ -2,6 +2,7 @@ package com.ecommerce.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -21,7 +22,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/login").permitAll();
 //                .antMatchers("/register").permitAll()
 //                .antMatchers("/register/").permitAll()
 //                .antMatchers(HttpMethod.GET, "/certifications/custom").hasAuthority("ADMIN")
@@ -33,6 +34,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 //                .antMatchers(HttpMethod.DELETE, "/certifications/**").hasAuthority("ADMIN")
 //                .antMatchers(HttpMethod.PUT, "/requests/{\\d+}/{\\d+}").hasAuthority("ADMIN")
 //                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                .anyRequest().authenticated();
+//                .anyRequest().authenticated();
     }
 }

@@ -1,6 +1,7 @@
 package com.ecommerce.controllers;
 
 import com.ecommerce.models.Category;
+import com.ecommerce.models.CategoryTypes;
 import com.ecommerce.services.implementations.AddCategoryService;
 import com.ecommerce.services.implementations.ConsultCategoryService;
 import org.springframework.http.HttpStatus;
@@ -19,9 +20,9 @@ public class CategoryController {
         this.addCategoryService = addCategoryService;
 
         // Insert categories just for test
-        addCategoryService.addCategory("Electrocasnice");
-        addCategoryService.addCategory("Fashion");
-        addCategoryService.addCategory("Bacanie");
+        for(CategoryTypes categoryType: CategoryTypes.values()) {
+            addCategoryService.addCategory(categoryType.name());
+        }
     }
 
     @PostMapping("/{categoryName}")
