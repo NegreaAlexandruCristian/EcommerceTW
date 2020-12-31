@@ -14,6 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -32,7 +33,7 @@ class ProductRepositoryImplTest {
     @BeforeEach
     public void saveProduct() {
         Category category = new Category();
-        category.setName("Electrocasnice");
+        category.setName(ELECTROCASNICE.name());
         Product product = ProductBuilder.builder()
                 .name("Iphone 10")
                 .price(4300)
@@ -55,7 +56,7 @@ class ProductRepositoryImplTest {
     @DirtiesContext
     public void testSaveProduct() {
         Category category = new Category();
-        category.setName("Electrocasnice");
+        category.setName(ELECTROCASNICE.name());
         Product product = ProductBuilder.builder()
                             .name("Iphone X")
                             .price(4300)
@@ -118,7 +119,7 @@ class ProductRepositoryImplTest {
     @DirtiesContext
     public void testDeleteProduct() {
         Category category = new Category();
-        category.setName("Electrocasnice");
+        category.setName(ELECTROCASNICE.name());
         Product product = ProductBuilder.builder()
                 .name("Iphone 10")
                 .price(4300)
@@ -172,5 +173,4 @@ class ProductBuilder {
         product.setPhoto("Photo");
         return product;
     }
-
 }
