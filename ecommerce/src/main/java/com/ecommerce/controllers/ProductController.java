@@ -24,19 +24,19 @@ public class ProductController {
     //ok
     @PostMapping("/insert")
     public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        return new ResponseEntity<>(productService.save(product), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
     }
 
     //ok
     @GetMapping("/{id}")
     public ResponseEntity<Product> findProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(productService.findById(id), HttpStatus.OK);
     }
 
     //ok
     @GetMapping("/product/{id}")
     public ResponseEntity<Boolean> checkProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productService.checkIfExists(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(productService.checkIfExists(id), HttpStatus.OK);
     }
 
     //ok
