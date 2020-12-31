@@ -142,6 +142,10 @@ public class User implements Serializable {
     }
 
     public void addReview(Review review) {
+
+        if(reviews == null){
+            reviews = new ArrayList<>();
+        }
         reviews.add(review);
     }
 }

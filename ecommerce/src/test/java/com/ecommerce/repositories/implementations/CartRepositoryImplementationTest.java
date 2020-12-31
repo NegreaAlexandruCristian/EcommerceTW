@@ -3,6 +3,7 @@ package com.ecommerce.repositories.implementations;
 import com.ecommerce.EcommerceApplication;
 import com.ecommerce.models.CartItem;
 import com.ecommerce.repositories.specifications.CartRepository;
+import com.ecommerce.utils.CartItemsBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -97,35 +98,3 @@ public class CartRepositoryImplementationTest {
 
 }
 
-class CartItemsBuilder {
-    private long userId;
-    private long productId;
-    private long quantity;
-
-    public static CartItemsBuilder builder() {
-        return new CartItemsBuilder();
-    }
-
-    public CartItemsBuilder userId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
-
-    public CartItemsBuilder productId(Long productId) {
-        this.productId = productId;
-        return this;
-    }
-
-    public CartItemsBuilder quantity(Long quantity) {
-        this.quantity = quantity;
-        return this;
-    }
-
-    public CartItem build() {
-        CartItem cartItem = new CartItem();
-        cartItem.setUserId(userId);
-        cartItem.setProductId(productId);
-        cartItem.setQuantity(quantity);
-        return cartItem;
-    }
-}

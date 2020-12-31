@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -156,6 +157,9 @@ public class Product implements Serializable, Comparable<Product> {
 
     public void addReview(Review review) {
 
+        if(reviewList == null){
+            reviewList = new ArrayList<>();
+        }
         reviewList.add(review);
     }
 

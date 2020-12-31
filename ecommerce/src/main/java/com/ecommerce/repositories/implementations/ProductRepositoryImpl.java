@@ -61,13 +61,6 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public boolean existsById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Product product = session.get(Product.class, id);
-        return product != null;
-    }
-
-    @Override
     public List<Product> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Product> query = session.createQuery("FROM Product");
@@ -76,13 +69,6 @@ public class ProductRepositoryImpl implements ProductRepository {
             product.setReviewList(new ArrayList<>());
         }));
         return products;
-    }
-
-    @Override
-    public int count() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Product> query = session.createQuery("FROM Product");
-        return query.list().size();
     }
 
     @Override

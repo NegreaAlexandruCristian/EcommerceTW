@@ -6,6 +6,7 @@ import com.ecommerce.models.Product;
 import com.ecommerce.models.Review;
 import com.ecommerce.models.User;
 import com.ecommerce.repositories.specifications.ReviewRepository;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -37,24 +38,10 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
     }
 
     @Override
-    public boolean existsById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Review review = session.get(Review.class, id);
-        return review != null;
-    }
-
-    @Override
     public List<Review> findAll() {
         Session session = sessionFactory.getCurrentSession();
         Query<Review> query = session.createQuery("FROM Review");
         return query.list();
-    }
-
-    @Override
-    public int count() {
-        Session session = sessionFactory.getCurrentSession();
-        Query<Review> query = session.createQuery("FROM Review");
-        return query.list().size();
     }
 
     @Override
@@ -75,12 +62,13 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
         try {
             Product product = session.get(Product.class, idProduct);
             User user = session.get(User.class, idUser);
+            Hibernate.initialize(user.getReviews());
 
+            System.out.println(product);
             product.addReview(review);
             user.addReview(review);
 
-            session.saveOrUpdate(user);
-            session.saveOrUpdate(product);
+            session.saveOrUpdate(review);
 
         } catch (ConstraintViolationException e){
             throw new ConstraintViolationExceptionCustom();

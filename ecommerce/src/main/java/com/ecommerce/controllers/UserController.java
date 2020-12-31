@@ -65,12 +65,6 @@ public class UserController {
     }
 
     //ok
-    @GetMapping("/{id}")
-    public ResponseEntity<Boolean> checkIfExist(@PathVariable("id") Long id) {
-        return new ResponseEntity<Boolean>(userService.existsById(id),HttpStatus.ACCEPTED);
-    }
-
-    //ok
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id")Long id) {
         userService.deleteById(id);

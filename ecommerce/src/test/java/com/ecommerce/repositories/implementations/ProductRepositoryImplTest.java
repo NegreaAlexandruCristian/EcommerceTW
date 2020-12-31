@@ -5,6 +5,7 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
 import com.ecommerce.repositories.specifications.ProductRepository;
+import com.ecommerce.utils.ProductBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,26 +86,9 @@ class ProductRepositoryImplTest {
 
     @Test
     @DirtiesContext
-    public void testExistsProduct() {
-        Boolean exists = productRepository.existsById(2L);
-        Boolean notExistent = productRepository.existsById(3L);
-
-        assertThat(exists).isEqualTo(true);
-        assertThat(notExistent).isEqualTo(false);
-    }
-
-    @Test
-    @DirtiesContext
     public void testFindAllProducts() {
         List<Product> products = productRepository.findAll();
         assertThat(products).size().isEqualTo(2);
-    }
-
-    @Test
-    @DirtiesContext
-    public void testProductCount() {
-        Integer count = productRepository.count();
-        assertThat(count).isEqualTo(2);
     }
 
     @Test
@@ -130,47 +114,5 @@ class ProductRepositoryImplTest {
         productRepository.delete(product);
         Exception e = assertThrows(NotFoundException.class, () -> productRepository.findById(1L));
         assertThat(e).isInstanceOf(NotFoundException.class);
-    }
-}
-
-class ProductBuilder {
-    private String name;
-    private double price;
-    private int sale;
-    private Category category;
-
-    public static ProductBuilder builder() {
-        return new ProductBuilder();
-    }
-
-    public ProductBuilder name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public ProductBuilder price(double price) {
-        this.price = price;
-        return this;
-    }
-
-    public ProductBuilder sale(int sale) {
-        this.sale = sale;
-        return this;
-    }
-
-    public ProductBuilder category(Category category) {
-        this.category = category;
-        return this;
-    }
-
-    public Product build() {
-        Product product = new Product();
-        product.setCategory(category);
-        product.setPrice(price);
-        product.setSale(sale);
-        product.setName(name);
-        product.setDescription("Description");
-        product.setPhoto("Photo");
-        return product;
     }
 }

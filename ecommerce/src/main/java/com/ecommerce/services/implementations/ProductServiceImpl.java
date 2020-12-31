@@ -37,18 +37,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean checkIfExists(Long id) {
-        return productRepository.existsById(id);
-    }
-
-    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
-    }
-
-    @Override
-    public Integer count() {
-        return productRepository.count();
     }
 
     @Override

@@ -107,13 +107,6 @@ public class UserRepositoryImplementation implements UserRepository {
         Hibernate.initialize(user.getUserAddresses());
     }
 
-    //nice
-    @Override
-    public boolean existsById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        User user = session.get(User.class, id);
-        return user != null;
-    }
 
     @Override
     public void deleteById(Long id) {

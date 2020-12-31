@@ -7,7 +7,6 @@ import com.ecommerce.models.UserInformation;
 public interface UserService {
 
     User findById(Long id);
-    Boolean existsById(Long id);
     User save(User user);
     User findByUsername(String username);
     void deleteById(Long id);

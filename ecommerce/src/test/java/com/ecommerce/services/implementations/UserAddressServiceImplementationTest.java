@@ -1,11 +1,11 @@
-package com.ecommerce.repositories.implementations;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.EcommerceApplication;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.User;
 import com.ecommerce.models.UserAddress;
-import com.ecommerce.repositories.specifications.UserAddressRepository;
 import com.ecommerce.repositories.specifications.UserRepository;
+import com.ecommerce.services.specifications.UserAddressService;
 import com.ecommerce.utils.UserAddressBuilder;
 import com.ecommerce.utils.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +17,14 @@ import org.springframework.test.annotation.DirtiesContext;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
-public class UserAddressRepositoryImplementationTest {
+class UserAddressServiceImplementationTest {
+
     @Autowired
-    private UserAddressRepository addressRepository;
+    private UserAddressService userAddressService;
 
     @Autowired
     private UserRepository userRepository;
@@ -42,14 +43,14 @@ public class UserAddressRepositoryImplementationTest {
                 .country("Romania")
                 .address("Strada Ripensiei 16")
                 .build();
-        addressRepository.save(userAddress, 2L);
+        userAddressService.save(userAddress, 2L);
     }
 
     @Test
     @DirtiesContext
     public void testSaveAddress() {
         UserAddress userAddress = getAddress();
-        UserAddress saveAddress = addressRepository.save(userAddress, 2L);
+        UserAddress saveAddress = userAddressService.save(userAddress, 2L);
         assertThat(userAddress).isEqualTo(saveAddress);
     }
 
@@ -57,46 +58,46 @@ public class UserAddressRepositoryImplementationTest {
     @DirtiesContext
     public void testFindAddressById() {
         UserAddress userAddress = getAddress();
-        addressRepository.save(userAddress, 2L);
-        UserAddress foundAddress = addressRepository.findById(2L);
+        userAddressService.save(userAddress, 2L);
+        UserAddress foundAddress = userAddressService.findById(2L);
         assertThat(userAddress).isEqualTo(foundAddress);
     }
 
     @Test
     @DirtiesContext
     public void testFindUserException(){
-       Exception e = assertThrows(NotFoundException.class, () -> addressRepository.findById(10L));
-       assertThat(e).isInstanceOf(NotFoundException.class);
+        Exception e = assertThrows(NotFoundException.class, () -> userAddressService.findById(10L));
+        assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
     @DirtiesContext
     public void testFindUserAddresses(){
-        addressRepository.save(getAddress(), 2L);
-        assertThat(addressRepository.findUserAddresses(2L)).size().isEqualTo(2);
+        userAddressService.save(getAddress(), 2L);
+        assertThat(userAddressService.findUserAddresses(2L)).size().isEqualTo(2);
     }
 
     @Test
     @DirtiesContext
     public void testFindUserAddressesException() {
-        Exception e = assertThrows(NotFoundException.class, () -> addressRepository.findUserAddresses(10L));
+        Exception e = assertThrows(NotFoundException.class, () -> userAddressService.findUserAddresses(10L));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
     @DirtiesContext
     public void testDeleteAddress() {
-        addressRepository.deleteById(2L, 1L);
-        Exception e = assertThrows(NotFoundException.class, () -> addressRepository.findById(1L));
+        userAddressService.deleteById(2L, 1L);
+        Exception e = assertThrows(NotFoundException.class, () -> userAddressService.findById(1L));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
     @DirtiesContext
     public void testDeleteAddresses() {
-        addressRepository.save(getAddress(), 2L);
-        addressRepository.deleteAddressesForUser(2L);
-        assertThat(addressRepository.findUserAddresses(2L)).size().isEqualTo(0);
+        userAddressService.save(getAddress(), 2L);
+        userAddressService.deleteAddressesForUser(2L);
+        assertThat(userAddressService.findUserAddresses(2L)).size().isEqualTo(0);
     }
 
     private UserAddress getAddress() {

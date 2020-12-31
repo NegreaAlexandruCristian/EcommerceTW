@@ -1,10 +1,10 @@
-package com.ecommerce.repositories.implementations;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.EcommerceApplication;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Password;
 import com.ecommerce.models.User;
-import com.ecommerce.repositories.specifications.UserRepository;
+import com.ecommerce.services.specifications.UserService;
 import com.ecommerce.util.CustomPasswordEncoder;
 import com.ecommerce.utils.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
-public class UserRepositoryImplementationTest {
+class UserServiceImplementationTest {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @BeforeEach
     public void addTestUser() {
@@ -33,19 +33,19 @@ public class UserRepositoryImplementationTest {
                 .password("project")
                 .build();
 
-        userRepository.save(user);
+        userService.save(user);
     }
 
     @Test
     @DirtiesContext
     public void testSaveUser() {
         User user = UserBuilder.builder()
-                    .username("TW")
-                    .role("ADMIN")
-                    .password("proiect")
-                    .build();
+                .username("TW")
+                .role("ADMIN")
+                .password("proiect")
+                .build();
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userService.save(user);
 
         assertThat(user).isEqualTo(savedUser);
     }
@@ -53,23 +53,23 @@ public class UserRepositoryImplementationTest {
     @Test
     @DirtiesContext
     public void testFindUsername() {
-        User userFound = userRepository.findByUsername("TEAM");
+        User userFound = userService.findByUsername("TEAM");
         User foundUser = UserBuilder.builder()
-                        .username("TEAM").build();
+                .username("TEAM").build();
         assertThat(userFound).isEqualTo(foundUser);
     }
 
     @Test
     @DirtiesContext
     public void testFindUserException() {
-        Exception e = assertThrows(NotFoundException.class, () -> userRepository.findByUsername("Not existent"));
+        Exception e = assertThrows(NotFoundException.class, () -> userService.findByUsername("Not existent"));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
     @Test
     @DirtiesContext
     public void testFindUserById() {
-        User user = userRepository.findById(2L);
+        User user = userService.findById(2L);
         User foundUser = UserBuilder.builder()
                 .username("TEAM").build();
 
@@ -84,8 +84,8 @@ public class UserRepositoryImplementationTest {
         password.setId(2L);
         CustomPasswordEncoder encoder = new CustomPasswordEncoder();
 
-        userRepository.updateUserPassword(password);
-        User changedUser = userRepository.findByUsername("TEAM");
+        userService.updatePassword(password);
+        User changedUser = userService.findByUsername("TEAM");
 
         assertThat(changedUser.getPassword().getPassword()).isEqualTo(encoder.encode("New pass"));
     }
@@ -93,8 +93,8 @@ public class UserRepositoryImplementationTest {
     @Test
     @DirtiesContext
     public void testDeleteById() {
-        userRepository.deleteById(2L);
-        Exception e = assertThrows(NotFoundException.class, () -> userRepository.findById(2L));
+        userService.deleteById(2L);
+        Exception e = assertThrows(NotFoundException.class, () -> userService.findById(2L));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
@@ -108,8 +108,8 @@ public class UserRepositoryImplementationTest {
                 .id(2L)
                 .build();
 
-        userRepository.delete(user);
-        Exception e = assertThrows(NotFoundException.class, () -> userRepository.findByUsername("Not existent"));
+        userService.delete(user);
+        Exception e = assertThrows(NotFoundException.class, () -> userService.findByUsername("Not existent"));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 

@@ -31,18 +31,8 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public boolean existsById(Long id) {
-        return this.reviewRepository.existsById(id);
-    }
-
-    @Override
     public List<Review> findAll() {
         return this.reviewRepository.findAll();
-    }
-
-    @Override
-    public int count() {
-        return this.reviewRepository.count();
     }
 
     @Override

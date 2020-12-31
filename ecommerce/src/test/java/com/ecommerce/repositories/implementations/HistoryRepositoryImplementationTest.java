@@ -4,6 +4,8 @@ import com.ecommerce.EcommerceApplication;
 import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.CartItem;
 import com.ecommerce.models.HistoryItems;
+import com.ecommerce.utils.CartItemsBuilder;
+import com.ecommerce.utils.HistoryItemsBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -90,39 +92,3 @@ class HistoryRepositoryImplementationTest {
         historyRepository.addProductToHistory(cartItem);
     }
 }
-
-class HistoryItemsBuilder {
-    private Long userId;
-    private Long productId;
-    private final Long quantity = 1L;
-    private LocalDate purchase;
-
-    public static HistoryItemsBuilder builder() {
-        return new HistoryItemsBuilder();
-    }
-
-    public HistoryItemsBuilder userId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
-
-    public HistoryItemsBuilder productId(Long productId) {
-        this.productId = productId;
-        return this;
-    }
-
-    public HistoryItemsBuilder purchase() {
-        purchase = LocalDate.now();
-        return this;
-    }
-
-    public HistoryItems build() {
-        HistoryItems historyItem = new HistoryItems();
-        historyItem.setUserId(userId);
-        historyItem.setProductId(productId);
-        historyItem.setQuantity(quantity);
-        historyItem.setPurchaseDate(purchase);
-        return historyItem;
-    }
-}
-
