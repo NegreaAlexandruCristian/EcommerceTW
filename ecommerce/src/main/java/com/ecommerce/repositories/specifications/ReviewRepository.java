@@ -2,12 +2,12 @@ package com.ecommerce.repositories.specifications;
 
 import com.ecommerce.models.Review;
 
-public interface ReviewRepository extends RepositoryManager<Review, Long>{
+import java.util.List;
+
+public interface ReviewRepository{
 
     void save(Review review, Long idProduct, Long idUser);
-
-    @Override
-    default <S extends Review> S save(S entity) {
-        return null;
-    }
+    Review findById(Long id);
+    List<Review> findAll();
+    void deleteById(Long id, Long userId, Long productId);
 }

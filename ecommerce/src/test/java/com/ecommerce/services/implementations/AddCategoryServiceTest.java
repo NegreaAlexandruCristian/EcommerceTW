@@ -1,8 +1,9 @@
-package com.ecommerce.repositories.implementations;
+package com.ecommerce.services.implementations;
 
 import com.ecommerce.EcommerceApplication;
 import com.ecommerce.exceptions.NotAllowedException;
 import com.ecommerce.models.Category;
+import com.ecommerce.repositories.implementations.CategoryRepositoryImplementation;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,29 +12,30 @@ import org.springframework.test.annotation.DirtiesContext;
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
-class CategoryRepositoryImplementationTest {
+class AddCategoryServiceTest {
 
     @Autowired
-    private CategoryRepositoryImplementation categoryRepository;
+    private AddCategoryService addCategory;
+
+    @Autowired ConsultCategoryService consultCategoryService;
 
     @Test
     @DirtiesContext
     public void testAddAndFindCategory() {
-        categoryRepository.addCategory("Telefoane");
-        Category category = categoryRepository.getCategoryById(4L);
+        addCategory.addCategory("Telefoane");
+        Category category = consultCategoryService.getCategoryById(4L);
         assertThat(category.getName()).isEqualTo("Telefoane");
     }
 
     @Test
     @DirtiesContext
     public void testAddCategoryException() {
-        categoryRepository.addCategory("Telefoane");
-        Exception e = assertThrows(NotAllowedException.class, () -> categoryRepository.addCategory("Telefoane"));
+        addCategory.addCategory("Telefoane");
+        Exception e = assertThrows(NotAllowedException.class, () -> addCategory.addCategory("Telefoane"));
         assertThat(e).isInstanceOf(NotAllowedException.class);
     }
-
 }

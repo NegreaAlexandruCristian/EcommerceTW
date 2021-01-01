@@ -7,6 +7,7 @@ import com.ecommerce.utils.CartItemsBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -22,6 +23,7 @@ public class CartRepositoryImplementationTest {
     private CartRepository cartRepository;
 
     @Test
+    @DirtiesContext
     public void addProductToCardTest() {
         CartItem cartItem = cartRepository.addProductToCart(1L, 1L);
         CartItem copyCart = CartItemsBuilder.builder()
@@ -34,6 +36,7 @@ public class CartRepositoryImplementationTest {
     }
 
     @Test
+    @DirtiesContext
     public void addProductIncreaseQuantity() {
         addCartItem(1L, 1L);
         CartItem cartItem = cartRepository.addProductToCart(1L, 1L);
@@ -47,6 +50,7 @@ public class CartRepositoryImplementationTest {
     }
 
     @Test
+    @DirtiesContext
     public void testFindItem() {
         //GIVEN
         addCartItem(1L, 1L);
@@ -71,6 +75,7 @@ public class CartRepositoryImplementationTest {
     }
 
     @Test
+    @DirtiesContext
     public void testDeleteCartItem() {
         addCartItem(1L, 1L);
         cartRepository.deleteCartItem(1L, 1L);
@@ -81,6 +86,7 @@ public class CartRepositoryImplementationTest {
     }
 
     @Test
+    @DirtiesContext
     public void testDeleteCartItemsForUser() {
         addCartItem(1L, 1L);
         addCartItem(1L, 2L);

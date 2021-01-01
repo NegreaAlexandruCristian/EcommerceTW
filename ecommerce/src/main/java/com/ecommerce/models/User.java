@@ -98,6 +98,10 @@ public class User implements Serializable {
         this.userAddresses.remove(address);
     }
 
+    public void removeReview(Review review){
+        this.reviews.remove(review);
+    }
+
     public void clearAddresses() {
         this.userAddresses.clear();
     }

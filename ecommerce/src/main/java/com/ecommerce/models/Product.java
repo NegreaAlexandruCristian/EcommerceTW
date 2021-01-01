@@ -163,6 +163,10 @@ public class Product implements Serializable, Comparable<Product> {
         reviewList.add(review);
     }
 
+    public void removeReview(Review review){
+        this.reviewList.remove(review);
+    }
+
     @Override
     public int compareTo(Product o) {
 

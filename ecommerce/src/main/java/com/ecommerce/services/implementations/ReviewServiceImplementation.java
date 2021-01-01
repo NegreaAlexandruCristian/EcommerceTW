@@ -36,12 +36,8 @@ public class ReviewServiceImplementation implements ReviewService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        this.reviewRepository.deleteById(id);
+    public void deleteById(Long id, Long userId, Long productId) {
+        this.reviewRepository.deleteById(id,userId,productId);
     }
 
-    @Override
-    public void delete(Review review) {
-        this.reviewRepository.delete(review);
-    }
 }

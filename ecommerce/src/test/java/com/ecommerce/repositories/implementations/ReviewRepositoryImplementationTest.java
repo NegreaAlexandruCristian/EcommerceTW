@@ -20,10 +20,10 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
 
 import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
@@ -93,16 +93,35 @@ class ReviewRepositoryImplementationTest {
         reviewRepository.save(userReview, 1L, 1L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(2);
     }
-//
-//    @Test
-//    void deleteById() {
-//    }
-//
-//    @Test
-//    void delete() {
-//    }
-//
-//    @Test
-//    void save() {
-//    }
+
+    @Test
+    @DirtiesContext
+    void deleteById() {
+        reviewRepository.deleteById(1L,1L, 1L);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(0);
+
+        Review userReview = ReviewBuilder.builder()
+                .review(3.0)
+                .comment("Romania e foarte mare si mandra")
+                .localDate(LocalDate.now())
+                .build();
+        reviewRepository.save(userReview, 1L, 1L);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(1);
+        reviewRepository.deleteById(2L,1L,1L);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(0);
+    }
+
+    @Test
+    @DirtiesContext
+    void save() {
+        Exception e = assertThrows(NotFoundException.class, () -> reviewRepository.findById(2L));
+        assertThat(e).isInstanceOf(NotFoundException.class);
+        Review userReview = ReviewBuilder.builder()
+                .review(3.0)
+                .comment("Romania e foarte mare si mandra")
+                .localDate(LocalDate.now())
+                .build();
+        reviewRepository.save(userReview, 1L, 1L);
+        assertThat(reviewRepository.findById(2L)).isEqualTo(userReview);
+    }
 }

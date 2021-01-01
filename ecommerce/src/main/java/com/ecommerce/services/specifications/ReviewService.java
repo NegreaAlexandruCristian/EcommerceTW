@@ -9,6 +9,5 @@ public interface ReviewService {
     Review findById(Long id);
     void save(Review review, Long idProduct, Long idUser);
     List<Review> findAll();
-    void deleteById(Long id);
-    void delete(Review review);
+    void deleteById(Long id, Long userId, Long productId);
 }

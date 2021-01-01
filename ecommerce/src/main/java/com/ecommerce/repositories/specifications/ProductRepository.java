@@ -5,7 +5,12 @@ import com.ecommerce.models.ProductFilter;
 
 import java.util.List;
 
-public interface ProductRepository extends RepositoryManager<Product, Long> {
+public interface ProductRepository {
 
-    public List<Product> filter(ProductFilter productFilter);
+    List<Product> filter(ProductFilter productFilter);
+    Product save(Product entity);
+    Product findById(Long id);
+    List<Product> findAll();
+    void deleteById(Long id);
+    void delete(Product entity);
 }
