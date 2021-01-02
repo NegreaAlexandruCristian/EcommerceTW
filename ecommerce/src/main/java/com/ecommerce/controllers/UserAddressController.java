@@ -22,17 +22,17 @@ public class UserAddressController {
     @PostMapping("/{userId}")
     public ResponseEntity<UserAddress> saveUserAddress(@RequestBody UserAddress userAddress,
                                                        @PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(userAddressService.save(userAddress, userId), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(userAddressService.save(userAddress, userId), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserAddress> findByAddressId(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(userAddressService.findById(id), HttpStatus.FOUND);
+        return new ResponseEntity<>(userAddressService.findById(id), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<UserAddress>> findAllAddresses(@PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(userAddressService.findUserAddresses(userId), HttpStatus.FOUND);
+        return new ResponseEntity<>(userAddressService.findUserAddresses(userId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")

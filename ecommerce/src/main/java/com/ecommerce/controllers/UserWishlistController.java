@@ -21,18 +21,18 @@ public class UserWishlistController {
     public ResponseEntity<HttpStatus> addProductToWishlist(@PathVariable("userId") Long userId,
                                                            @PathVariable("productId") Long productId) {
         userWishlistService.addProductToWishlist(userId, productId);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<List<Product>> retrieveUserWishlist(@PathVariable("userId") Long userId) {
-        return new ResponseEntity<>(userWishlistService.findWishlistItemsByUserId(userId), HttpStatus.FOUND);
+        return new ResponseEntity<>(userWishlistService.findWishlistItemsByUserId(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/{productId}")
     public ResponseEntity<Product> retrieveUserWishlistItem(@PathVariable("userId") Long userId,
                                                             @PathVariable("productId") Long productId) {
-        return new ResponseEntity<>(userWishlistService.findProductById(userId, productId), HttpStatus.FOUND);
+        return new ResponseEntity<>(userWishlistService.findProductById(userId, productId), HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")

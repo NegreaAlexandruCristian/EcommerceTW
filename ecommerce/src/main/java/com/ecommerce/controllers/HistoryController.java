@@ -26,7 +26,7 @@ public class HistoryController {
     @PostMapping("/save")
     public ResponseEntity<HttpStatus> saveItemInHistory(@RequestBody CartItem cartItem) {
         historyService.addProductToHistory(cartItem);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //ok
@@ -35,7 +35,7 @@ public class HistoryController {
         List<HistoryItemsRepresentation> representations = historyService.findHistoryItemsByUserId(userId).stream()
                 .map(hi -> new HistoryItemsRepresentation(productService).mapFromDomain(hi))
                 .collect(Collectors.toList());
-        return new ResponseEntity<>(representations, HttpStatus.FOUND);
+        return new ResponseEntity<>(representations, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/{productId}")
@@ -43,7 +43,7 @@ public class HistoryController {
                                                        @PathVariable("productId") Long productId) {
         HistoryItemsRepresentation representation = new HistoryItemsRepresentation(productService)
                 .mapFromDomain(historyService.findById(userId, productId));
-        return new ResponseEntity<>(representation, HttpStatus.FOUND);
+        return new ResponseEntity<>(representation, HttpStatus.OK);
     }
 
     //ok
