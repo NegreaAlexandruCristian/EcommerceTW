@@ -24,7 +24,7 @@ class CategoryRepositoryImplementationTest {
     @DirtiesContext
     public void testAddAndFindCategory() {
         categoryRepository.addCategory("Telefoane");
-        Category category = categoryRepository.getCategoryById(4L);
+        Category category = categoryRepository.getCategoryById(5L);
         assertThat(category.getName()).isEqualTo("Telefoane");
     }
 

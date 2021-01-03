@@ -28,7 +28,7 @@ class ConsultCategoryServiceTest {
     @DirtiesContext
     public void testAddAndFindCategory() {
         addCategory.addCategory("Telefoane");
-        Category category = consultCategoryService.getCategoryById(4L);
+        Category category = consultCategoryService.getCategoryById(5L);
         assertThat(category.getName()).isEqualTo("Telefoane");
     }
 }
