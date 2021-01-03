@@ -118,6 +118,59 @@ public class ProductMocker {
                 .build();
         products.add(product);
 
+        product = ProductBuilder.builder()
+                .name("Tastatura gaming Razer Ornata V2, iluminare Chroma RGB, switch Mecha-Membrane, butoane multimedia")
+                .category(accessories)
+                .price(300.00)
+                .sale(3)
+                .quantity(50)
+                .description("Razer Ornata V2 experimentează cel mai bun din ambele lumi - oferind un comutator hibrid" +
+                        " care îmbină avantajele tastelor cu membrană și întrerupătoarele mecanice într-un singur" +
+                        " design.")
+                .url("https://s13emagst.akamaized.net/products/31566/31565622/images/res_a6529c06c76fbbac9a33726aafc9987b.jpg")
+                .build();
+        products.add(product);
+
+        product = ProductBuilder.builder()
+                .name("Tastatura gaming Logitech G213 RGB")
+                .category(accessories)
+                .price(317.99)
+                .sale(1)
+                .quantity(500)
+                .description("Tastatura de gaming G213 Prodigy prezinta cele mai bune performante in ceea ce priveste " +
+                        "simtul tactil prin taste construite in mod special pentru jucatori.")
+                .url("https://s13emagst.akamaized.net/products/4112/4111006/images/res_3f2a1a08765223abece77a35a1d371d0.jpg")
+                .build();
+        products.add(product);
+
+        product = ProductBuilder.builder()
+                .name("Casti Gaming Razer Kraken Tournament Edition, THX Surround, telecomanda pe fir, Verde")
+                .category(accessories)
+                .price(450.00)
+                .sale(6)
+                .quantity(100)
+                .description("Sunetul nu este doar o experienta!\n" +
+                        "\n" +
+                        "Ci iti intareste simturile. Cand stii exact unde inamicul este pozitionat, tu esti cel care pune capcane.\n" +
+                        "Simtul auzului devine arma ta principala, astfel devenind maestru al jocului.")
+                .url("https://s13emagst.akamaized.net/products/18313/18312573/images/res_0aaa509a7b9bcb53e57886a19728dc02.jpg")
+                .build();
+        products.add(product);
+
+        product = ProductBuilder.builder()
+                .name("Sistem Desktop PC Gaming Serioux Powered by ASUS cu procesor Intel® Core™ i5-10400F pana" +
+                        " la 4.30GHz, 16GB DDR4, 500GB SSD, GeForce® RTX 2060 6GB GDDR6, Microsoft Windows 10 Home")
+                .category(accessories)
+                .price(5299.00)
+                .sale(3)
+                .quantity(5)
+                .description("Sistemele Powered by ASUS sunt dedicate celor ce accepta doar perfectiunea. " +
+                        "Echipele noastre de cercetare-dezvoltare de talie mondiala sunt complet devotate motto-ului" +
+                        " companiei noastre – In Cautarea Incredibilului.")
+                .url("https://s13emagst.akamaized.net/products/4112/4111006/images/res_3f2a1a08765223abece77a35a1d371d0.jpg")
+                .build();
+        products.add(product);
+
         Collections.shuffle(products);
         products.forEach(prod -> productService.save(prod));
     }
