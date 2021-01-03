@@ -18,7 +18,7 @@ public class Review implements Serializable {
     @NotNull
     @Value("0.0")
     @Column(name = "review")
-    private double review;
+    private int review;
 
     @Column(name = "comment")
     private String comment;
@@ -39,11 +39,11 @@ public class Review implements Serializable {
         this.id = id;
     }
 
-    public double getReview() {
+    public int getReview() {
         return review;
     }
 
-    public void setReview(double review) {
+    public void setReview(int review) {
         this.review = review;
     }
 

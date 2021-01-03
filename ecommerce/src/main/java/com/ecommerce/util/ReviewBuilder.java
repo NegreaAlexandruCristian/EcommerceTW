@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class ReviewBuilder {
 
-        private double review;
+        private int review;
         private String comment;
         private LocalDate reviewDate;
 
@@ -14,7 +14,7 @@ public class ReviewBuilder {
             return new ReviewBuilder();
         }
 
-        public ReviewBuilder review(double review) {
+        public ReviewBuilder review(int review) {
             this.review = review;
             return this;
         }

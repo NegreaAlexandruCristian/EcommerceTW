@@ -51,30 +51,32 @@ class ReviewRepositoryImplementationTest {
         Category category = new Category();
         category.setName(ELECTROCASNICE.name());
         Product product = ProductBuilder.builder()
-                .name("Iphone 10")
-                .price(4300)
-                .sale(10)
+                .name("Casti")
                 .category(category)
+                .price(450.00)
+                .sale(6)
+                .quantity(100)
+                .description("joc.")
+                .url("jpg")
                 .build();
         productRepository.save(product);
 
         Review userReview = ReviewBuilder.builder()
-                .review(5.0)
+                .review(5)
                 .comment("Romania")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
 
         reviewRepository.save(userReview, 1L, 1L);
-        System.out.println(reviewRepository.findById(1L));
     }
 
     @Test
     @DirtiesContext
     void findById() {
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
         assertThat(reviewRepository.findById(2L)).isEqualTo(userReview);
@@ -86,9 +88,9 @@ class ReviewRepositoryImplementationTest {
     void findAll() {
         assertThat(reviewRepository.findAll()).size().isEqualTo(1);
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(2);
@@ -101,9 +103,9 @@ class ReviewRepositoryImplementationTest {
         assertThat(reviewRepository.findAll()).size().isEqualTo(0);
 
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(1);
@@ -117,11 +119,12 @@ class ReviewRepositoryImplementationTest {
         Exception e = assertThrows(NotFoundException.class, () -> reviewRepository.findById(2L));
         assertThat(e).isInstanceOf(NotFoundException.class);
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
-        reviewRepository.save(userReview, 1L, 1L);
+        reviewRepository.save(userReview, 1L, 2L);
+        System.out.println(userReview);
         assertThat(reviewRepository.findById(2L)).isEqualTo(userReview);
     }
 }

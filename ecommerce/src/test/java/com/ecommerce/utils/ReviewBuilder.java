@@ -1,21 +1,20 @@
 package com.ecommerce.utils;
 
 import com.ecommerce.models.Review;
-import com.ecommerce.models.UserAddress;
 
 import java.time.LocalDate;
 
 public class ReviewBuilder {
 
-    private double review;
+    private int review;
     private String comment;
-    private LocalDate localDate;
+    private LocalDate reviewDate;
 
     public static ReviewBuilder builder() {
         return new ReviewBuilder();
     }
 
-    public ReviewBuilder review(double review) {
+    public ReviewBuilder review(int review) {
         this.review = review;
         return this;
     }
@@ -25,16 +24,17 @@ public class ReviewBuilder {
         return this;
     }
 
-    public ReviewBuilder localDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public ReviewBuilder reviewDate(LocalDate reviewDate) {
+        this.reviewDate = reviewDate;
         return this;
     }
 
     public Review build() {
-        Review userReview = new Review();
-        userReview.setReview(review);
-        userReview.setComment(comment);
-        userReview.setReviewDate(localDate);
-        return userReview;
+        Review review = new Review();
+        review.setReview(this.review);
+        review.setComment(this.comment);
+        review.setReviewDate(this.reviewDate);
+
+        return review;
     }
 }

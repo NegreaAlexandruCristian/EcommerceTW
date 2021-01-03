@@ -39,19 +39,19 @@ public class ProductMocker {
         List<Product> products = new ArrayList<>();
 
         Review review = ReviewBuilder.builder()
-                .review(4.5)
+                .review(4)
                 .comment("Aici e un produs frumos")
                 .reviewDate(LocalDate.now())
                 .build();
 
         Review review2 = ReviewBuilder.builder()
-                .review(4.0)
+                .review(4)
                 .comment("Produs cumsecade")
                 .reviewDate(LocalDate.now())
                 .build();
 
         Review review3 = ReviewBuilder.builder()
-                .review(5.0)
+                .review(5)
                 .comment("Best of the best")
                 .reviewDate(LocalDate.now())
                 .build();
@@ -213,12 +213,11 @@ public class ProductMocker {
                 .url("https://s13emagst.akamaized.net/products/34032/34031395/images/res_2909cc511cc1fad8e4f8d784c2022f4f.jpg")
                 .build();
         products.add(product);
-
-        Collections.shuffle(products);
         products.forEach(prod -> productService.save(prod));
 
         reviewService.save(review,1L,1L);
         reviewService.save(review2,2L,1L);
         reviewService.save(review3,3L,1L);
+
     }
 }

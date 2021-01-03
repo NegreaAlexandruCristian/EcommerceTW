@@ -73,7 +73,7 @@ public class ReviewRepositoryImplementation implements ReviewRepository {
             Product product = session.get(Product.class, idProduct);
             User user = session.get(User.class, idUser);
             Hibernate.initialize(user.getReviews());
-            Hibernate.initialize(product.getReviewList());
+            //Hibernate.initialize(product.getReviewList());
 
             product.addReview(review);
             user.addReview(review);

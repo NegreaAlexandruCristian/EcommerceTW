@@ -55,26 +55,28 @@ class ReviewServiceImplementationTest {
                 .price(4300)
                 .sale(10)
                 .category(category)
+                .description("Ceva ceva")
+                .quantity(3)
+                .url("da")
                 .build();
         productService.save(product);
 
         Review userReview = ReviewBuilder.builder()
-                .review(5.0)
+                .review(5)
                 .comment("Romania")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
 
         reviewService.save(userReview, 1L, 1L);
-        System.out.println(reviewService.findById(1L));
     }
 
     @Test
     @DirtiesContext
     void findById() {
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewService.save(userReview, 1L, 1L);
         assertThat(reviewService.findById(2L)).isEqualTo(userReview);
@@ -86,9 +88,9 @@ class ReviewServiceImplementationTest {
     void findAll() {
         assertThat(reviewService.findAll()).size().isEqualTo(1);
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewService.save(userReview, 1L, 1L);
         assertThat(reviewService.findAll()).size().isEqualTo(2);
@@ -101,9 +103,9 @@ class ReviewServiceImplementationTest {
         assertThat(reviewService.findAll()).size().isEqualTo(0);
 
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewService.save(userReview, 1L, 1L);
         assertThat(reviewService.findAll()).size().isEqualTo(1);
@@ -117,9 +119,9 @@ class ReviewServiceImplementationTest {
         Exception e = assertThrows(NotFoundException.class, () -> reviewService.findById(2L));
         assertThat(e).isInstanceOf(NotFoundException.class);
         Review userReview = ReviewBuilder.builder()
-                .review(3.0)
+                .review(3)
                 .comment("Romania e foarte mare si mandra")
-                .localDate(LocalDate.now())
+                .reviewDate(LocalDate.now())
                 .build();
         reviewService.save(userReview, 1L, 1L);
         assertThat(reviewService.findById(2L)).isEqualTo(userReview);
