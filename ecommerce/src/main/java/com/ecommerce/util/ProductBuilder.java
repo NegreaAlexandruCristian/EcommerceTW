@@ -1,4 +1,4 @@
-package com.ecommerce.utils;
+package com.ecommerce.util;
 
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
@@ -7,7 +7,10 @@ public class ProductBuilder {
     private String name;
     private double price;
     private int sale;
+    private String url;
+    private String description;
     private Category category;
+    private int quantity;
 
     public static ProductBuilder builder() {
         return new ProductBuilder();
@@ -28,8 +31,23 @@ public class ProductBuilder {
         return this;
     }
 
+    public ProductBuilder description(String description) {
+        this.description = description;
+        return this;
+    }
+
     public ProductBuilder category(Category category) {
         this.category = category;
+        return this;
+    }
+
+    public ProductBuilder url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public ProductBuilder quantity(int quantity) {
+        this.quantity = quantity;
         return this;
     }
 
@@ -39,8 +57,9 @@ public class ProductBuilder {
         product.setPrice(price);
         product.setSale(sale);
         product.setName(name);
-        product.setDescription("Description");
-        product.setPhoto("Photo");
+        product.setDescription(description);
+        product.setPhoto(url);
+        product.setQuantity(quantity);
         return product;
     }
 }

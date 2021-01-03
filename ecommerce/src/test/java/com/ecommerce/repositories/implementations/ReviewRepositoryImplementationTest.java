@@ -9,7 +9,7 @@ import com.ecommerce.models.User;
 import com.ecommerce.repositories.specifications.ProductRepository;
 import com.ecommerce.repositories.specifications.ReviewRepository;
 import com.ecommerce.repositories.specifications.UserRepository;
-import com.ecommerce.utils.ProductBuilder;
+import com.ecommerce.util.ProductBuilder;
 import com.ecommerce.utils.ReviewBuilder;
 import com.ecommerce.utils.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;

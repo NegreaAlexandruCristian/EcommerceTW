@@ -3,6 +3,7 @@ package com.ecommerce.controllers;
 import com.ecommerce.models.Product;
 import com.ecommerce.models.ProductFilter;
 import com.ecommerce.services.specifications.ProductService;
+import com.ecommerce.util.ProductMocker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ public class ProductController {
     @Autowired
     public ProductController(ProductService productService) {
         this.productService = productService;
+        new ProductMocker(productService).mockProducts();
     }
 
     //ok

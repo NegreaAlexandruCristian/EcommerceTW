@@ -9,7 +9,7 @@ import com.ecommerce.models.User;
 import com.ecommerce.services.specifications.ProductService;
 import com.ecommerce.services.specifications.ReviewService;
 import com.ecommerce.services.specifications.UserService;
-import com.ecommerce.utils.ProductBuilder;
+import com.ecommerce.util.ProductBuilder;
 import com.ecommerce.utils.ReviewBuilder;
 import com.ecommerce.utils.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import java.time.LocalDate;
 
 import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional

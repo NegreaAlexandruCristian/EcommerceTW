@@ -90,7 +90,9 @@ public class ProductRepositoryImpl implements ProductRepository {
         Session session = sessionFactory.getCurrentSession();
         Query<Product> query = session.createQuery("FROM Product WHERE UPPER(name) LIKE ?1");
         query.setParameter(1, "%"+productName.toUpperCase()+"%");
-        return query.getResultList();
+        List<Product> products = query.getResultList();
+        products.forEach(this::init);
+        return products;
     }
 
     @Override

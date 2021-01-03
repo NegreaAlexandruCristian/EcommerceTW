@@ -5,7 +5,7 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
 import com.ecommerce.services.specifications.ProductService;
-import com.ecommerce.utils.ProductBuilder;
+import com.ecommerce.util.ProductBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
