@@ -1,23 +1,31 @@
 package com.ecommerce.util;
 
-import com.ecommerce.models.Category;
-import com.ecommerce.models.CategoryTypes;
-import com.ecommerce.models.Product;
+import com.ecommerce.models.*;
 import com.ecommerce.services.specifications.ProductService;
+import com.ecommerce.services.specifications.ReviewService;
+import com.ecommerce.services.specifications.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Component
 public class ProductMocker {
+
     private final ProductService productService;
+    private final ReviewService reviewService;
+    private final UserService userService;
+    private final UserUtils userUtils;
 
     @Autowired
-    public ProductMocker(ProductService productService) {
+    public ProductMocker(ProductService productService, ReviewService reviewService, UserService userService, UserUtils userUtils) {
         this.productService = productService;
+        this.reviewService = reviewService;
+        this.userService = userService;
+        this.userUtils = userUtils;
     }
 
     public void mockProducts() {
@@ -29,6 +37,41 @@ public class ProductMocker {
         accessories.setName(CategoryTypes.ACCESSORIES.name());
 
         List<Product> products = new ArrayList<>();
+
+        Review review = ReviewBuilder.builder()
+                .review(4.5)
+                .comment("Aici e un produs frumos")
+                .reviewDate(LocalDate.now())
+                .build();
+
+        Review review2 = ReviewBuilder.builder()
+                .review(4.0)
+                .comment("Produs cumsecade")
+                .reviewDate(LocalDate.now())
+                .build();
+
+        Review review3 = ReviewBuilder.builder()
+                .review(5.0)
+                .comment("Best of the best")
+                .reviewDate(LocalDate.now())
+                .build();
+
+        User admin = new User();
+        admin.setUsername("admin");
+        CustomPasswordEncoder enc = new CustomPasswordEncoder();
+        Password password = new Password();
+        password.setPassword(enc.encode("admin123"));
+        UserInformation userInformation = new UserInformation();
+        userInformation.setPhone("0770122133");
+        userInformation.setEmail("admin@gmail.com");
+        userInformation.setFirstName("admin");
+        userInformation.setLastName("admin");
+        admin.setUserInformation(userInformation);
+        admin.setPassword(password);
+        admin.setRole("ADMIN");
+        //admin.addReview(review);
+        this.userService.save(admin);
+
         Product product = ProductBuilder.builder()
                 .name("Laptop ASUS X509JA")
                 .category(laptop)
@@ -173,5 +216,9 @@ public class ProductMocker {
 
         Collections.shuffle(products);
         products.forEach(prod -> productService.save(prod));
+
+        reviewService.save(review,1L,1L);
+        reviewService.save(review2,2L,1L);
+        reviewService.save(review3,3L,1L);
     }
 }

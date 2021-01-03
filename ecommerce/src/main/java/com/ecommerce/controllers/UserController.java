@@ -26,22 +26,8 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService, UserUtils userUtils) {
-        this.userUtils = userUtils;
         this.userService = userService;
-        User admin = new User();
-        admin.setUsername("admin");
-        CustomPasswordEncoder enc = new CustomPasswordEncoder();
-        Password password = new Password();
-        password.setPassword(enc.encode("admin123"));
-        UserInformation userInformation = new UserInformation();
-        userInformation.setPhone("0770122133");
-        userInformation.setEmail("admin@gmail.com");
-        userInformation.setFirstName("admin");
-        userInformation.setLastName("admin");
-        admin.setUserInformation(userInformation);
-        admin.setPassword(password);
-        admin.setRole("ADMIN");
-        this.userService.save(admin);
+        this.userUtils = userUtils;
     }
 
     private static List<String> getAuthorityList(Authentication authentication) {

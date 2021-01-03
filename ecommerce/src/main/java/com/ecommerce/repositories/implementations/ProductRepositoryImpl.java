@@ -42,6 +42,8 @@ public class ProductRepositoryImpl implements ProductRepository {
         product.setCategory(category);
         session.saveOrUpdate(product);
 
+        session.flush();
+
         return product;
     }
 

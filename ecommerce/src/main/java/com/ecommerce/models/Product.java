@@ -55,7 +55,7 @@ public class Product implements Serializable, Comparable<Product> {
     private Category category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_review")
+    @JoinColumn(name = "product_review")
     private List<Review> reviewList;
 
     public Product() {
@@ -138,6 +138,9 @@ public class Product implements Serializable, Comparable<Product> {
     }
 
     public void setReviewList(List<Review> reviewList) {
+        if(this.reviewList == null){
+            this.reviewList = new ArrayList<>();
+        }
         this.reviewList = reviewList;
     }
 

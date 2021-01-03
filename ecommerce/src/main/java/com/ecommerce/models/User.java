@@ -67,8 +67,11 @@ public class User implements Serializable {
         return reviews;
     }
 
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
+    public void setReviews(List<Review> reviewList) {
+        if(this.reviews == null){
+            this.reviews = new ArrayList<>();
+        }
+        this.reviews = reviewList;
     }
 
     public String getRole() {

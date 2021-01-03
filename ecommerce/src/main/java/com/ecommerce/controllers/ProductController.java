@@ -3,7 +3,10 @@ package com.ecommerce.controllers;
 import com.ecommerce.models.Product;
 import com.ecommerce.models.ProductFilter;
 import com.ecommerce.services.specifications.ProductService;
+import com.ecommerce.services.specifications.ReviewService;
+import com.ecommerce.services.specifications.UserService;
 import com.ecommerce.util.ProductMocker;
+import com.ecommerce.util.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +20,18 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final ReviewService reviewService;
+    private final UserService userService;
+    private final UserUtils userUtils;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ReviewService reviewService, UserService userService, UserUtils userUtils) {
         this.productService = productService;
-        new ProductMocker(productService).mockProducts();
+        this.reviewService = reviewService;
+        this.userService = userService;
+        this.userUtils = userUtils;
+
+        new ProductMocker(productService, reviewService, this.userService, this.userUtils).mockProducts();
     }
 
     //ok
