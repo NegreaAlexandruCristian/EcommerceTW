@@ -48,7 +48,7 @@ public class UserController {
         return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
     }
 
-    public  static boolean hasAuthority(Authentication authentication, String authorityName) {
+    public static boolean hasAuthority(Authentication authentication, String authorityName) {
         return getAuthorityList(authentication).contains(authorityName);
     }
 

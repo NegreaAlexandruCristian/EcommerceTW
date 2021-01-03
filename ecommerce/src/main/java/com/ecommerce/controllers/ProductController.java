@@ -6,6 +6,7 @@ import com.ecommerce.services.specifications.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,11 @@ public class ProductController {
 
     //ok
     @PostMapping("/insert")
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product) {
-        return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product, Authentication auth) {
+        if (UserController.hasAuthority(auth, "ADMIN")) {
+            return new ResponseEntity<>(productService.save(product), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     //ok
@@ -44,14 +48,20 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<HttpStatus> deleteProduct(@RequestBody Product product) {
-        productService.delete(product);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteProduct(@RequestBody Product product, Authentication auth) {
+        if(UserController.hasAuthority(auth, "ADMIN")) {
+            productService.delete(product);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<HttpStatus> deleteProductById(@PathVariable Long id) {
-        productService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteProductById(@PathVariable Long id, Authentication auth) {
+        if(UserController.hasAuthority(auth, "ADMIN")) {
+            productService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

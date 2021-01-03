@@ -6,6 +6,7 @@ import com.ecommerce.services.implementations.AddCategoryService;
 import com.ecommerce.services.implementations.ConsultCategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,9 +27,12 @@ public class CategoryController {
     }
 
     @PostMapping("/{categoryName}")
-    public ResponseEntity<HttpStatus> addCategory(@PathVariable("categoryName") String categoryName) {
-        addCategoryService.addCategory(categoryName);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> addCategory(@PathVariable("categoryName") String categoryName, Authentication auth) {
+        if(UserController.hasAuthority(auth, "ADMIN")) {
+            addCategoryService.addCategory(categoryName);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @GetMapping("/{categoryId}")
