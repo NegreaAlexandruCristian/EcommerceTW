@@ -160,14 +160,14 @@ public class ProductMocker {
         product = ProductBuilder.builder()
                 .name("Sistem Desktop PC Gaming Serioux Powered by ASUS cu procesor Intel® Core™ i5-10400F pana" +
                         " la 4.30GHz, 16GB DDR4, 500GB SSD, GeForce® RTX 2060 6GB GDDR6, Microsoft Windows 10 Home")
-                .category(accessories)
+                .category(pc)
                 .price(5299.00)
                 .sale(3)
                 .quantity(5)
                 .description("Sistemele Powered by ASUS sunt dedicate celor ce accepta doar perfectiunea. " +
                         "Echipele noastre de cercetare-dezvoltare de talie mondiala sunt complet devotate motto-ului" +
                         " companiei noastre – In Cautarea Incredibilului.")
-                .url("https://s13emagst.akamaized.net/products/4112/4111006/images/res_3f2a1a08765223abece77a35a1d371d0.jpg")
+                .url("https://s13emagst.akamaized.net/products/34032/34031395/images/res_2909cc511cc1fad8e4f8d784c2022f4f.jpg")
                 .build();
         products.add(product);
 
