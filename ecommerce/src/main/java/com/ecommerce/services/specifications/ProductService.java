@@ -12,4 +12,5 @@ public interface ProductService {
     List<Product> findAll();
     void deleteById(Long id);
     List<Product> filterProducts(ProductFilter productFilter);
+    List<Product> filterProductsByName(String productName);
 }

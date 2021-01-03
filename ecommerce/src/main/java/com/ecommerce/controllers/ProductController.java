@@ -47,6 +47,11 @@ public class ProductController {
         return new ResponseEntity<>(productService.filterProducts(filter), HttpStatus.OK);
     }
 
+    @GetMapping("/filter/{productName}")
+    public ResponseEntity<List<Product>> filterProductsByName(@PathVariable("productName") String productName){
+        return new ResponseEntity<>(productService.filterProductsByName(productName), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete")
     public ResponseEntity<HttpStatus> deleteProduct(@RequestBody Product product, Authentication auth) {
         if(UserController.hasAuthority(auth, "ADMIN")) {

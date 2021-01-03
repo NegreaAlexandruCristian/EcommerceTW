@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
@@ -88,6 +88,13 @@ class ProductServiceImplTest {
     public void testFindAllProducts() {
         List<Product> products = productService.findAll();
         assertThat(products).size().isEqualTo(2);
+    }
+
+    @Test
+    @DirtiesContext
+    public void testFilterProductsByName() {
+        List<Product> products = productService.filterProductsByName("iph");
+        assertThat(products).size().isEqualTo(1);
     }
 
     @Test

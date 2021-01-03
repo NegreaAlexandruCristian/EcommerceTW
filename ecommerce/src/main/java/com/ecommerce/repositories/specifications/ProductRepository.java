@@ -13,4 +13,5 @@ public interface ProductRepository {
     List<Product> findAll();
     void deleteById(Long id);
     void delete(Product entity);
+    List<Product> filterProductsByName(String productName);
 }

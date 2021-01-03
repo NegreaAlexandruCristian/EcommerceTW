@@ -93,6 +93,13 @@ class ProductRepositoryImplTest {
 
     @Test
     @DirtiesContext
+    public void testFilterProductsByName() {
+        List<Product> products = productRepository.filterProductsByName("iph");
+        assertThat(products).size().isEqualTo(1);
+    }
+
+    @Test
+    @DirtiesContext
     public void testDeleteById() {
         productRepository.deleteById(1L);
         Exception e = assertThrows(NotFoundException.class, () -> productRepository.findById(1L));

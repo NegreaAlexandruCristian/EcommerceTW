@@ -86,6 +86,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public List<Product> filterProductsByName(String productName) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Product> query = session.createQuery("FROM Product WHERE UPPER(name) LIKE ?1");
+        query.setParameter(1, "%"+productName.toUpperCase()+"%");
+        return query.getResultList();
+    }
+
+    @Override
     public List<Product> filter(ProductFilter productFilter){
         List<Product> products = this.findAll();
         return Filter.filterBuilder(products)
