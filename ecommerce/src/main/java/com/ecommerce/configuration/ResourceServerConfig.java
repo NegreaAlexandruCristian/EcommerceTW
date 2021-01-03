@@ -25,7 +25,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/register/").permitAll()
-                .antMatchers(HttpMethod.POST, "/product/insert").authenticated()
+                .antMatchers(HttpMethod.POST, "/product/insert").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/users/**").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/users/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/users/**").authenticated()
