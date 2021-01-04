@@ -38,6 +38,8 @@ class ProductServiceImplTest {
                 .name("Iphone 10")
                 .price(4300)
                 .sale(10)
+                .description("bla")
+                .url("bla")
                 .category(category)
                 .build();
 
@@ -45,6 +47,8 @@ class ProductServiceImplTest {
                 .name("Laptop")
                 .price(4500)
                 .sale(20)
+                .description("bla")
+                .url("jpg")
                 .category(category)
                 .build();
 
@@ -61,6 +65,8 @@ class ProductServiceImplTest {
                 .name("Iphone X")
                 .price(4300)
                 .sale(10)
+                .description("bla")
+                .url("jpg")
                 .category(category)
                 .build();
 
@@ -72,14 +78,14 @@ class ProductServiceImplTest {
     @Test
     @DirtiesContext
     public void testFindProductById() {
-        Product product = productService.findById(1L);
+        Product product = productService.findById(13L);
         assertThat(product.getName()).isEqualTo("Iphone 10");
     }
 
     @Test
     @DirtiesContext
     public void testFindProductException() {
-        Exception e = assertThrows(NotFoundException.class, () -> productService.findById(3L));
+        Exception e = assertThrows(NotFoundException.class, () -> productService.findById(15L));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 
@@ -87,7 +93,7 @@ class ProductServiceImplTest {
     @DirtiesContext
     public void testFindAllProducts() {
         List<Product> products = productService.findAll();
-        assertThat(products).size().isEqualTo(2);
+        assertThat(products).size().isEqualTo(14);
     }
 
     @Test
@@ -114,11 +120,13 @@ class ProductServiceImplTest {
                 .name("Iphone 10")
                 .price(4300)
                 .sale(10)
+                .url("bla")
+                .description("bla")
                 .category(category)
                 .build();
-        product.setId(1L);
+        product.setId(13L);
         productService.delete(product);
-        Exception e = assertThrows(NotFoundException.class, () -> productService.findById(1L));
+        Exception e = assertThrows(NotFoundException.class, () -> productService.findById(13L));
         assertThat(e).isInstanceOf(NotFoundException.class);
     }
 }

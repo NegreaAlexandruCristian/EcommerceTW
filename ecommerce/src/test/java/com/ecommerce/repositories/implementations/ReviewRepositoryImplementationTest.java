@@ -10,7 +10,7 @@ import com.ecommerce.repositories.specifications.ProductRepository;
 import com.ecommerce.repositories.specifications.ReviewRepository;
 import com.ecommerce.repositories.specifications.UserRepository;
 import com.ecommerce.util.ProductBuilder;
-import com.ecommerce.utils.ReviewBuilder;
+import com.ecommerce.util.ReviewBuilder;
 import com.ecommerce.utils.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +25,9 @@ import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * Product mocker adds 3 reviews when the application starts
+ */
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
 class ReviewRepositoryImplementationTest {
@@ -74,33 +77,31 @@ class ReviewRepositoryImplementationTest {
     @DirtiesContext
     void findById() {
         Review userReview = ReviewBuilder.builder()
-                .review(3)
-                .comment("Romania e foarte mare si mandra")
+                .review(5)
+                .comment("Romania")
                 .reviewDate(LocalDate.now())
                 .build();
-        reviewRepository.save(userReview, 1L, 1L);
-        assertThat(reviewRepository.findById(2L)).isEqualTo(userReview);
+        assertThat(reviewRepository.findById(4L)).isEqualTo(userReview);
     }
-
 
     @Test
     @DirtiesContext
     void findAll() {
-        assertThat(reviewRepository.findAll()).size().isEqualTo(1);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(4);
         Review userReview = ReviewBuilder.builder()
                 .review(3)
                 .comment("Romania e foarte mare si mandra")
                 .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
-        assertThat(reviewRepository.findAll()).size().isEqualTo(2);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(5);
     }
 
     @Test
     @DirtiesContext
     void deleteById() {
-        reviewRepository.deleteById(1L,1L, 1L);
-        assertThat(reviewRepository.findAll()).size().isEqualTo(0);
+        reviewRepository.deleteById(4L,1L, 1L);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(3);
 
         Review userReview = ReviewBuilder.builder()
                 .review(3)
@@ -108,15 +109,15 @@ class ReviewRepositoryImplementationTest {
                 .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
-        assertThat(reviewRepository.findAll()).size().isEqualTo(1);
-        reviewRepository.deleteById(2L,1L,1L);
-        assertThat(reviewRepository.findAll()).size().isEqualTo(0);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(4);
+        reviewRepository.deleteById(5L,1L,1L);
+        assertThat(reviewRepository.findAll()).size().isEqualTo(3);
     }
 
     @Test
     @DirtiesContext
     void save() {
-        Exception e = assertThrows(NotFoundException.class, () -> reviewRepository.findById(2L));
+        Exception e = assertThrows(NotFoundException.class, () -> reviewRepository.findById(5L));
         assertThat(e).isInstanceOf(NotFoundException.class);
         Review userReview = ReviewBuilder.builder()
                 .review(3)
@@ -124,7 +125,6 @@ class ReviewRepositoryImplementationTest {
                 .reviewDate(LocalDate.now())
                 .build();
         reviewRepository.save(userReview, 1L, 2L);
-        System.out.println(userReview);
-        assertThat(reviewRepository.findById(2L)).isEqualTo(userReview);
+        assertThat(reviewRepository.findById(5L)).isEqualTo(userReview);
     }
 }

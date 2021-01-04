@@ -37,6 +37,8 @@ class UserWishlistServiceImplTest {
                 .name("Iphone X")
                 .price(5000)
                 .sale(0)
+                .description("bla")
+                .url("jpg")
                 .category(category)
                 .build();
         productRepository.save(product);
@@ -46,15 +48,15 @@ class UserWishlistServiceImplTest {
     @Test
     @DirtiesContext
     void TestFindWishlistItemsByUserId() {
-
         assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(1);
-
         Category category = new Category();
         category.setName(ELECTROCASNICE.name());
         Product product2 = ProductBuilder.builder()
                 .name("Iphone 11")
                 .price(5000)
                 .sale(0)
+                .description("bla")
+                .url("jpg")
                 .category(category)
                 .build();
         productRepository.save(product2);
@@ -65,84 +67,49 @@ class UserWishlistServiceImplTest {
 
     @Test
     @DirtiesContext
-    void TestFindProductById() {
-        assertThat(userWishlistService.findProductById(1L,1L)).isEqualTo(productRepository.findById(1L));
-        Exception e = assertThrows(NotFoundException.class, () -> userWishlistService.findProductById(1L, 2L));
+    public void testFindUserWishListById() {
+        userWishlistService.addProductToWishlist(1L, 13L);
+        Category category = new Category();
+        category.setName(ELECTROCASNICE.name());
+        Product product = ProductBuilder.builder()
+                .name("Iphone X")
+                .price(5000)
+                .sale(0)
+                .description("bla")
+                .url("jpg")
+                .category(category)
+                .build();
+        assertThat(userWishlistService.findProductById(1L, 13L)).isEqualTo(product);
+    }
+
+    @Test
+    @DirtiesContext
+    public void testFindUserWishlist() {
+        userWishlistService.addProductToWishlist(2L,1L);
+        userWishlistService.addProductToWishlist(1L,2L);
+        assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(2);
+    }
+
+    @Test
+    @DirtiesContext
+    public void testDeleteWishlistItem(){
+        userWishlistService.deleteWishlistItem(1L, 1L);
+        Exception e = assertThrows(NotFoundException.class, () -> userWishlistService.findProductById(1L, 1L));
         assertThat(e).isInstanceOf(NotFoundException.class);
-
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
-        userWishlistService.addProductToWishlist(1L, 2L);
-        assertThat(userWishlistService.findProductById(1L,2L)).isEqualTo(productRepository.findById(2L));
-
-
     }
 
     @Test
     @DirtiesContext
-    void TestAddProductToWishlist() {
-
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
-        userWishlistService.addProductToWishlist(1L, 2L);
-        assertThat(userWishlistService.findProductById(1L,2L)).isEqualTo(product);
-    }
-
-    @Test
-    @DirtiesContext
-    void TestDeleteWishlistItems() {
-
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
-        userWishlistService.addProductToWishlist(1L, 2L);
+    public void testDeleteWishlistItems(){
+        userWishlistService.addProductToWishlist(2L,1L);
+        userWishlistService.addProductToWishlist(1L,2L);
         userWishlistService.deleteWishlistItems(1L);
         assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(0);
-
-        userWishlistService.addProductToWishlist(1L, 2L);
+        userWishlistService.addProductToWishlist(1L,2L);
         assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(1);
+        assertThat(userWishlistService.findWishlistItemsByUserId(2L)).size().isEqualTo(1);
+        userWishlistService.deleteWishlistItems(2L);
         assertThat(userWishlistService.findWishlistItemsByUserId(2L)).size().isEqualTo(0);
-    }
-
-    @Test
-    @DirtiesContext
-    void TestDeleteWishlistItem() {
-        assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(1);
-
-        userWishlistService.deleteWishlistItem(1L, 1L);
-        assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(0);
-
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
-        userWishlistService.addProductToWishlist(1L, 2L);
-        assertThat(userWishlistService.findWishlistItemsByUserId(1L)).size().isEqualTo(1);
     }
 
 }

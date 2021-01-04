@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "reviews")
@@ -16,7 +17,7 @@ public class Review implements Serializable {
     private Long id;
 
     @NotNull
-    @Value("0.0")
+    @Value("0")
     @Column(name = "review")
     private int review;
 
@@ -27,7 +28,7 @@ public class Review implements Serializable {
     @Column(name = "review_date")
     private LocalDate reviewDate;
 
-    public Review(){
+    public Review() {
 
     }
 
@@ -76,23 +77,13 @@ public class Review implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (!(o instanceof Review)) return false;
         Review review1 = (Review) o;
-
-        if (Double.compare(review1.review, review) != 0) return false;
-        if (comment != null ? !comment.equals(review1.comment) : review1.comment != null) return false;
-        return reviewDate != null ? reviewDate.equals(review1.reviewDate) : review1.reviewDate == null;
+        return review == review1.review && Objects.equals(comment, review1.comment) && Objects.equals(reviewDate, review1.reviewDate);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        temp = Double.doubleToLongBits(review);
-        result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (comment != null ? comment.hashCode() : 0);
-        result = 31 * result + (reviewDate != null ? reviewDate.hashCode() : 0);
-        return result;
+        return Objects.hash(review, comment, reviewDate);
     }
 }

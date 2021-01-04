@@ -36,6 +36,8 @@ public class UserWishlistImplementationTest {
                 .name("Iphone X")
                 .price(5000)
                 .sale(0)
+                .description("bla")
+                .url("bla")
                 .category(category)
                 .build();
         productRepository.save(product);
@@ -51,16 +53,18 @@ public class UserWishlistImplementationTest {
     @Test
     @DirtiesContext
     public void testFindUserWishListById() {
-        userWishlistRepository.addProductToWishlist(1L, 1L);
+        userWishlistRepository.addProductToWishlist(1L, 13L);
         Category category = new Category();
         category.setName(ELECTROCASNICE.name());
         Product product = ProductBuilder.builder()
                 .name("Iphone X")
                 .price(5000)
                 .sale(0)
+                .description("bla")
+                .url("bla")
                 .category(category)
                 .build();
-        assertThat(userWishlistRepository.findProductById(1L, 1L)).isEqualTo(product);
+        assertThat(userWishlistRepository.findProductById(1L, 13L)).isEqualTo(product);
     }
 
     @Test
@@ -69,15 +73,6 @@ public class UserWishlistImplementationTest {
         userWishlistRepository.addProductToWishlist(1L,1L);
         userWishlistRepository.addProductToWishlist(2L,1L);
         userWishlistRepository.addProductToWishlist(1L,2L);
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
         assertThat(userWishlistRepository.findWishlistItemsByUserId(1L)).size().isEqualTo(2);
     }
 
@@ -94,17 +89,6 @@ public class UserWishlistImplementationTest {
     @Test
     @DirtiesContext
     public void testDeleteWishlistItems(){
-
-        Category category = new Category();
-        category.setName(ELECTROCASNICE.name());
-        Product product = ProductBuilder.builder()
-                .name("Iphone 11")
-                .price(5000)
-                .sale(0)
-                .category(category)
-                .build();
-        productRepository.save(product);
-
         userWishlistRepository.addProductToWishlist(1L,1L);
         userWishlistRepository.addProductToWishlist(2L,1L);
         userWishlistRepository.addProductToWishlist(1L,2L);

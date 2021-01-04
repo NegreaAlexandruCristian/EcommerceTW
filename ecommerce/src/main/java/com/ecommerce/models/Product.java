@@ -138,7 +138,7 @@ public class Product implements Serializable, Comparable<Product> {
     }
 
     public void setReviewList(List<Review> reviewList) {
-        if(this.reviewList == null){
+        if (this.reviewList == null) {
             this.reviewList = new ArrayList<>();
         }
         this.reviewList = reviewList;
@@ -159,14 +159,13 @@ public class Product implements Serializable, Comparable<Product> {
     }
 
     public void addReview(Review review) {
-
-        if(reviewList == null){
+        if (reviewList == null) {
             reviewList = new ArrayList<>();
         }
         reviewList.add(review);
     }
 
-    public void removeReview(Review review){
+    public void removeReview(Review review) {
         this.reviewList.remove(review);
     }
 

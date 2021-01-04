@@ -68,7 +68,7 @@ public class User implements Serializable {
     }
 
     public void setReviews(List<Review> reviewList) {
-        if(this.reviews == null){
+        if (this.reviews == null) {
             this.reviews = new ArrayList<>();
         }
         this.reviews = reviewList;
@@ -91,7 +91,7 @@ public class User implements Serializable {
     }
 
     public void addUserAddress(UserAddress userAddress) {
-        if(this.userAddresses == null) {
+        if (this.userAddresses == null) {
             this.userAddresses = new ArrayList<>();
         }
         this.userAddresses.add(userAddress);
@@ -101,7 +101,7 @@ public class User implements Serializable {
         this.userAddresses.remove(address);
     }
 
-    public void removeReview(Review review){
+    public void removeReview(Review review) {
         this.reviews.remove(review);
     }
 
@@ -149,8 +149,7 @@ public class User implements Serializable {
     }
 
     public void addReview(Review review) {
-
-        if(reviews == null){
+        if (reviews == null) {
             reviews = new ArrayList<>();
         }
         reviews.add(review);

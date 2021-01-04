@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -69,7 +68,6 @@ public class ProductMocker {
         admin.setUserInformation(userInformation);
         admin.setPassword(password);
         admin.setRole("ADMIN");
-        //admin.addReview(review);
         this.userService.save(admin);
 
         Product product = ProductBuilder.builder()
