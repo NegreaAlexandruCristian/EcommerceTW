@@ -24,9 +24,10 @@ import java.time.LocalDate;
 import static com.ecommerce.models.CategoryTypes.ELECTROCASNICE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
 /**
- * Product mocker adds 3 reviews when the application starts
+ * Product Mocker adds by default 3 reviews, that's why we start from 4.
+ * An fix would be to call product mocker from main, in that way the test won't be affected.
+ * However, all test are running as expected.
  */
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional

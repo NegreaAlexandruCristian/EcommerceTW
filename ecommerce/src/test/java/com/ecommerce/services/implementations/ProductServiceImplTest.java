@@ -21,6 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(classes = {EcommerceApplication.class})
 @Transactional
+/**
+ * Product Mocker adds by default 12 products, that's why we start from 13.
+ * An fix would be to call product mocker from main, in that way the test won't be affected.
+ * However, all test are running as expected.
+ */
 class ProductServiceImplTest {
 
     private ProductService productService;
