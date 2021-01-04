@@ -103,7 +103,6 @@ public class UserRepositoryImplementation implements UserRepository {
     }
 
     private void init(User user){
-        Hibernate.initialize(user.getReviews());
         Hibernate.initialize(user.getUserAddresses());
     }
 

@@ -19,7 +19,6 @@ public class ConversionUserPasswordUtility {
     }
 
     private static void init(User user){
-        user.setReviews(new ArrayList<>());
         user.setUserAddresses(new ArrayList<>());
     }
 

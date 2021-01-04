@@ -101,7 +101,7 @@ class ReviewRepositoryImplementationTest {
     @Test
     @DirtiesContext
     void deleteById() {
-        reviewRepository.deleteById(4L,1L, 1L);
+        reviewRepository.deleteById(4L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(3);
 
         Review userReview = ReviewBuilder.builder()
@@ -111,7 +111,7 @@ class ReviewRepositoryImplementationTest {
                 .build();
         reviewRepository.save(userReview, 1L, 1L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(4);
-        reviewRepository.deleteById(5L,1L,1L);
+        reviewRepository.deleteById(5L);
         assertThat(reviewRepository.findAll()).size().isEqualTo(3);
     }
 

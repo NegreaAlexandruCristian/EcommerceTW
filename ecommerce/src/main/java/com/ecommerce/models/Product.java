@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -53,10 +51,6 @@ public class Product implements Serializable, Comparable<Product> {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {})
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_review")
-    private List<Review> reviewList;
 
     public Product() {
     }
@@ -133,17 +127,6 @@ public class Product implements Serializable, Comparable<Product> {
         this.category = category;
     }
 
-    public List<Review> getReviewList() {
-        return reviewList;
-    }
-
-    public void setReviewList(List<Review> reviewList) {
-        if (this.reviewList == null) {
-            this.reviewList = new ArrayList<>();
-        }
-        this.reviewList = reviewList;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -154,19 +137,7 @@ public class Product implements Serializable, Comparable<Product> {
                 ", sale=" + sale +
                 ", photo='" + photo + '\'' +
                 ", category=" + category +
-                ", reviewList=" + reviewList +
                 '}';
-    }
-
-    public void addReview(Review review) {
-        if (reviewList == null) {
-            reviewList = new ArrayList<>();
-        }
-        reviewList.add(review);
-    }
-
-    public void removeReview(Review review) {
-        this.reviewList.remove(review);
     }
 
     @Override

@@ -5,7 +5,6 @@ import com.ecommerce.models.CompositePK;
 import com.ecommerce.models.Product;
 import com.ecommerce.models.UserWishlist;
 import com.ecommerce.repositories.specifications.UserWishlistRepository;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -39,7 +38,6 @@ public class UserWishlistRepositoryImpl implements UserWishlistRepository {
         productIds.forEach(id -> {
             query1.setParameter("productId", id);
             Product product = query1.getSingleResult();
-            Hibernate.initialize(product.getReviewList());
             productList.add(product);
         });
         return productList;
@@ -53,7 +51,6 @@ public class UserWishlistRepositoryImpl implements UserWishlistRepository {
             throw new NotFoundException();
         }
         Product product = session.get(Product.class, userWishlist.getProductId());
-        Hibernate.initialize(product.getReviewList());
         return product;
     }
 

@@ -28,10 +28,6 @@ public class User implements Serializable {
     @Column(name = "role")
     private String role;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_review")
-    private List<Review> reviews;
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<UserAddress> userAddresses;
@@ -63,17 +59,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviewList) {
-        if (this.reviews == null) {
-            this.reviews = new ArrayList<>();
-        }
-        this.reviews = reviewList;
-    }
-
     public String getRole() {
         return role;
     }
@@ -99,10 +84,6 @@ public class User implements Serializable {
 
     public void removeAddress(UserAddress address) {
         this.userAddresses.remove(address);
-    }
-
-    public void removeReview(Review review) {
-        this.reviews.remove(review);
     }
 
     public void clearAddresses() {
@@ -143,15 +124,7 @@ public class User implements Serializable {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", reviews=" + reviews +
                 ", userAddresses=" + userAddresses +
                 '}';
-    }
-
-    public void addReview(Review review) {
-        if (reviews == null) {
-            reviews = new ArrayList<>();
-        }
-        reviews.add(review);
     }
 }

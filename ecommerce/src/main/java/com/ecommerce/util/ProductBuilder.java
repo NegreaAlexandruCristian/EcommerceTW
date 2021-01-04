@@ -2,9 +2,6 @@ package com.ecommerce.util;
 
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
-import com.ecommerce.models.Review;
-
-import java.util.List;
 
 public class ProductBuilder {
     private String name;
@@ -15,7 +12,6 @@ public class ProductBuilder {
     private Category category;
     private int quantity;
     private double stars;
-    private List<Review> reviewList;
 
     public static ProductBuilder builder() {
         return new ProductBuilder();
@@ -56,11 +52,6 @@ public class ProductBuilder {
         return this;
     }
 
-    public ProductBuilder reviewList(List<Review> reviews){
-        this.reviewList = reviews;
-        return this;
-    }
-
     public ProductBuilder stars(double stars) {
         this.stars = stars;
         return this;
@@ -76,7 +67,6 @@ public class ProductBuilder {
         product.setPhoto(url);
         product.setQuantity(quantity);
         product.setStars(stars);
-        product.setReviewList(this.reviewList);
 
         return product;
     }

@@ -97,7 +97,7 @@ class ReviewServiceImplementationTest {
     @Test
     @DirtiesContext
     void deleteById() {
-        reviewService.deleteById(4L,1L, 1L);
+        reviewService.deleteById(4L);
         assertThat(reviewService.findAll()).size().isEqualTo(3);
 
         Review userReview = ReviewBuilder.builder()
@@ -107,7 +107,7 @@ class ReviewServiceImplementationTest {
                 .build();
         reviewService.save(userReview, 1L, 1L);
         assertThat(reviewService.findAll()).size().isEqualTo(4);
-        reviewService.deleteById(5L,1L,1L);
+        reviewService.deleteById(5L);
         assertThat(reviewService.findAll()).size().isEqualTo(3);
     }
 

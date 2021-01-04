@@ -28,6 +28,14 @@ public class Review implements Serializable {
     @Column(name = "review_date")
     private LocalDate reviewDate;
 
+    @NotNull
+    @Column(name = "user_review")
+    private Long userId;
+
+    @NotNull
+    @Column(name = "product_review")
+    private Long productId;
+
     public Review() {
 
     }
@@ -64,6 +72,22 @@ public class Review implements Serializable {
         this.reviewDate = reviewDate;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -71,6 +95,8 @@ public class Review implements Serializable {
                 ", review=" + review +
                 ", comment='" + comment + '\'' +
                 ", reviewDate=" + reviewDate +
+                ", productId=" + productId +
+                ", userId=" + userId +
                 '}';
     }
 

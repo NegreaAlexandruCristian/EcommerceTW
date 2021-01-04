@@ -7,11 +7,16 @@ import com.ecommerce.models.UserInformation;
 public interface UserService {
 
     User findById(Long id);
-    User save(User user);
-    User findByUsername(String username);
-    void deleteById(Long id);
-    void delete(User user);
-    void updatePassword(Password password);
-    void updateUserInformation(UserInformation userInformation);
 
+    User save(User user);
+
+    User findByUsername(String username);
+
+    void deleteById(Long id);
+
+    void delete(User user);
+
+    void updatePassword(Password password);
+
+    void updateUserInformation(UserInformation userInformation);
 }

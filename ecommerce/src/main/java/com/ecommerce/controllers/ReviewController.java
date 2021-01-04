@@ -29,13 +29,13 @@ public class ReviewController {
     @GetMapping("/users/{idUser}")
     public ResponseEntity<List<Review>> getUserReviews(@PathVariable("idUser") Long id){
 
-        return new ResponseEntity<>(userService.findById(id).getReviews(), HttpStatus.OK);
+        return new ResponseEntity<>(reviewService.getUserReviews(id), HttpStatus.OK);
     }
 
     @GetMapping("/products/{idProduct}")
     public ResponseEntity<List<Review>> getProductReviews(@PathVariable("idProduct") Long id){
 
-        return new ResponseEntity<>(productService.findById(id).getReviewList(), HttpStatus.OK);
+        return new ResponseEntity<>(reviewService.getProductReviews(id), HttpStatus.OK);
     }
 
     @PostMapping("/{idProduct}/{idUser}")

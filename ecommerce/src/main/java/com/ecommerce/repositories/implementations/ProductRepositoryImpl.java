@@ -4,16 +4,15 @@ import com.ecommerce.exceptions.NotFoundException;
 import com.ecommerce.models.Category;
 import com.ecommerce.models.Product;
 import com.ecommerce.models.ProductFilter;
+import com.ecommerce.models.Review;
 import com.ecommerce.repositories.specifications.ProductRepository;
 import com.ecommerce.util.Filter;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -47,8 +46,8 @@ public class ProductRepositoryImpl implements ProductRepository {
         return product;
     }
 
-    private void init(Product product){
-        Hibernate.initialize(product.getReviewList());
+    private List<Review> getReviewsForProduct(Long productId, Session session) {
+        return null;
     }
 
     @Override
@@ -58,7 +57,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         if (product == null){
             throw new NotFoundException();
         }
-        init(product);
         return product;
     }
 
@@ -67,9 +65,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         Session session = sessionFactory.getCurrentSession();
         Query<Product> query = session.createQuery("FROM Product");
         List<Product> products = query.list();
-        products.forEach((product -> {
-            product.setReviewList(new ArrayList<>());
-        }));
         return products;
     }
 
@@ -93,7 +88,6 @@ public class ProductRepositoryImpl implements ProductRepository {
         Query<Product> query = session.createQuery("FROM Product WHERE UPPER(name) LIKE ?1");
         query.setParameter(1, "%"+productName.toUpperCase()+"%");
         List<Product> products = query.getResultList();
-        products.forEach(this::init);
         return products;
     }
 
