@@ -14,6 +14,7 @@ public class ProductBuilder {
     private String description;
     private Category category;
     private int quantity;
+    private double stars;
     private List<Review> reviewList;
 
     public static ProductBuilder builder() {
@@ -60,6 +61,11 @@ public class ProductBuilder {
         return this;
     }
 
+    public ProductBuilder stars(double stars) {
+        this.stars = stars;
+        return this;
+    }
+
     public Product build() {
         Product product = new Product();
         product.setCategory(category);
@@ -69,6 +75,7 @@ public class ProductBuilder {
         product.setDescription(description);
         product.setPhoto(url);
         product.setQuantity(quantity);
+        product.setStars(stars);
         product.setReviewList(this.reviewList);
 
         return product;

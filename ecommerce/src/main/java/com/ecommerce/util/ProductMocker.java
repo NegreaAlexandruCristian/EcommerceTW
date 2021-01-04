@@ -76,6 +76,7 @@ public class ProductMocker {
                 .price(3250.64)
                 .sale(0)
                 .quantity(0)
+                .stars(5)
                 .description("Laptop ASUS X509JA cu procesor Intel® Core™ i5-1035G1 pana la 3.60 GHz, 15.6\", Full HD, 8GB, 512GB SSD, Intel® UHD Graphics, Free DOS, Transparent Silver")
                 .url("https://s13emagst.akamaized.net/products/30088/30087492/images/res_47ff68ac2acf00887ea0e07b72460711.jpg?width=450&height=450&hash=302FF064CCD36B97C3D5A576D992734E")
                 .build();
@@ -86,6 +87,7 @@ public class ProductMocker {
                 .category(laptop)
                 .price(4805.33)
                 .sale(10)
+                .stars(3)
                 .quantity(50)
                 .description("Laptop Gaming ASUS ROG Strix G15 G512LV cu procesor Intel® Core™ i7-10870H pana la 5.00 GHz, 15.6\" Full HD, 144Hz, 16GB, 512GB SSD, NVIDIA® GeForce RTX™ 2060 6GB, FreeDOS, Original Black")
                 .url("https://s13emagst.akamaized.net/products/29978/29977714/images/res_c458571a0e0d073a3c09292ac056cf83.jpg?width=450&height=450&hash=5E5440B62B76CFC1278C40392A88403C")
@@ -97,6 +99,7 @@ public class ProductMocker {
                 .category(laptop)
                 .price(4400)
                 .sale(15)
+                .stars(4)
                 .quantity(120)
                 .description("MacBook Air de 11 inchi are o autonomie de pana la 9 ore intre incarcari, iar modelul de 13 inchi are o autonomie incredibila, de pana la 12 ore.")
                 .url("https://s13emagst.akamaized.net/products/7956/7955582/images/res_b26c819ded922348fa27b909d1831cb7.jpg?width=450&height=450&hash=FDEBF030531B77D0702801E2372BCA69")
